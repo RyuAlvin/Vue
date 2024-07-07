@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const person = {
+      name: 'ryu',
+      gender: 'man'
+    };
+
+    /**
+     * 输出结果：['name', 'gender']
+     * 通过defineProperty添加的属性，如果没有显示定义，不可枚举（即遍历）。
+     */
+    // Object.defineProperty(person, 'age', {
+    //   value: 20
+    // });
+    // console.log(Object.keys(person));
+
+    // ====================================================================
+
+    Object.defineProperty(person, 'age', {
+      value: 20,
+      enumerable: true // 控制属性是否可以枚举，默认值是false
+    });
+    // 输出结果：['name', 'gender', 'age']
+    console.log(Object.keys(person));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 需求：number和person.age实现双向绑定
+    let number = 10;
+    const person = {
+      name: 'ryu',
+      gender: 'man'
+    };
+
+    Object.defineProperty(person, 'age', {
+      // 当有人读取person的age属性时，get函数(getter)就会被调用，且返回值是age的值
+      get() {
+        console.log('有人调用get了');
+        return number;
+      },
+      // 当有人修改person的age属性时，set函数(setter)就会被调用，且会收到修改的具体值
+      set(value) {
+        console.log('有人调用set了');
+        number = value;
+      }
+    });
+
+    console.log(person.age); // 返回number的值：10
+    number = 50;
+    console.log(person.age); // 返回number的值：50
+    person.age = 60;
+    console.log(number); // 返回person.age的值：60
+  </script>
+</body>
+
+</html>
