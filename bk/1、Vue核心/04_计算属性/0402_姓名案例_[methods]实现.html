@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0402_姓名案例_[methods]实现</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        姓：<input type="text" v-model="familyName" /><br /><br />
+        名：<input type="text" v-model="firstName" /><br /><br />
+        <!-- 
+            在每一次数据变化的时候，都会重新解析模版，
+                那么，在解析模版的时候就会重新调用showFullName，
+                使用了几次就会调用几次，没有缓存可言，可与[计算属性]实现方式做对比；
+         -->
+        全名：<span>{{showFullName()}}</span>
+        全名：<span>{{showFullName()}}</span>
+        全名：<span>{{showFullName()}}</span>
+        全名：<span>{{showFullName()}}</span>
+        全名：<span>{{showFullName()}}</span>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                familyName: '张',
+                firstName: '三'
+            },
+            methods: {
+                showFullName() {
+                    console.log('数据变更中');
+                    return this.familyName + ' - ' + this.firstName;
+                }
+            }
+        })
+        // vm.$mount('#root')
+    </script>
+</body>
+
+</html>

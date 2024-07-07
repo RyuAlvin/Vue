@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue2的响应式原理</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        /*
+        Vue2.x的响应式：
+            1、实现原理：
+                - 对象类型：通过Object.defineProperty()对属性的读取、修改进行拦截（数据劫持）；
+                - 数组类型：通过重写更新数组的一系列方法来实现拦截（对数组的变更方法进行了包裹：splice、push...）；
+            2、存在问题：
+                - 新增属性、删除属性，界面不会更新；
+                - 直接通过下标修改数组，界面不会自动更新；
+        */
+
+        let person = {
+            name: 'Ryu',
+            age: 20
+        }
+
+        let p = {}
+
+        Object.keys(person).forEach((value, index, array) => {
+            Object.defineProperty(p, value, {
+                configurable: true,
+                get() {
+                    console.log('get方法执行')
+                    return person[value]
+                },
+                set(newVal) {
+                    console.log('set方法执行') // 可看成响应式代码，在此执行渲染逻辑
+                    person[value] = newVal
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

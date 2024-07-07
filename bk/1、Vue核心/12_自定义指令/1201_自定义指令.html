@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1201_自定义指令</title>
+    <script src="../../js/vue.min.js"></script>
+</head>
+
+<body>
+    <!-- 
+        需求1：定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍；
+        需求2：定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点；
+
+        自定义指令总结：
+            一、定义语法：
+                （1）、局部指令：
+                    new Vue({
+                        directives: {
+                            指令名: 配置对象
+                        }
+                    })
+                    或
+                    new Vue({
+                        directives: {
+                            指令名: 回调函数
+                        }
+                    })
+                （2）、全局指令：
+                    Vue.directive(指令名, 配置对象) 或 Vue.directive(指令名, 回调函数)
+            二、配置对象中常用的3个回调：
+                （1）、bind：指令与元素成功绑定时调用；
+                （2）、inserted：指令所在元素被插入页面时调用；
+                （3）、update：指令所在模版结构被重新解析时调用；
+
+            三、备注：
+                （1）、指令定义时不加v-，但使用时要加v-；
+                （2）、指令名如果是多个单词，要使用kebab-case命名方式，不要用camelCase命名；
+     -->
+    <div id="root">
+        <h2>{{info}}</h2>
+        <h2>原数字：<span v-text="number"></span></h2>
+        <h2>放大10倍：<span v-big-number="number"></span></h2>
+        <button @click="number++">number++</button>
+        <input type="text" v-fbind:value="number">
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        /*
+            全局指令，对象写法：
+        */
+        // Vue.directive('fbind', {
+        //     // 指令与元素成功绑定时（一上来）
+        //     bind(element, binding) {
+        //         element.value = binding.value
+        //     },
+        //     // 指令所在元素被插入页面时
+        //     inserted(element, binding) {
+        //         element.focus()
+        //     },
+        //     // 指令所在的模版被重新解析时
+        //     update(element, binding) {
+        //         element.value = binding.value
+        //     },
+        // })
+
+        /*
+            全局指令，函数写法：
+        */
+        // Vue.directive('big-number', function (element, binding) {
+        //     element.innerText = binding.value * 10
+        // })
+
+
+        new Vue({
+            el: '#root',
+            data: {
+                info: '自定义指令',
+                number: 10
+            },
+            directives: {
+                /*
+                    big函数何时会被调用？
+                        1、指令与元素成功绑定时（一上来）；
+                        2、指令所在的模版被重新解析时；
+                            data中的数据被更改时，会触发setter，在更改数据后，会重新解析模版；
+                */
+                'big-number': function (element, binding) {
+                    // console.dir(element) // 这里的element是真实DOM元素
+                    // console.log(element instanceof HTMLElement) // true
+                    // console.log(binding)
+                    element.innerText = binding.value * 10
+                    console.log(this) // window
+                },
+
+                /*
+                fbind(element, binding) {
+                    element.value = binding.value
+                    // 初始化的时候，没有focus，
+                    //  此时，虽然绑定成功，但是元素还未被插入页面，
+                    //  只有在点击按钮，触发data中数据改变时候,会重新解析模版
+                    //      然后fbind指令就会再一次被调用，此时元素已被插入页面，就能focus了
+                    element.focus()
+                }
+                */
+
+                fbind: {
+                    // 指令与元素成功绑定时（一上来）
+                    bind(element, binding) {
+                        /*
+                            注意：此处的this是window
+                        */
+                        console.log(this) // window
+                        element.value = binding.value
+                    },
+                    // 指令所在元素被插入页面时
+                    inserted(element, binding) {
+                        console.log(this) // window
+                        element.focus()
+                    },
+                    // 指令所在的模版被重新解析时
+                    update(element, binding) {
+                        console.log(this) // window
+                        element.value = binding.value
+                    },
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

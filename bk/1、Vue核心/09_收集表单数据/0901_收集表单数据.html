@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0901_收集表单数据</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        收集表单数据：
+            若：<input type="text" />，则v-model收集的是value值，用户输入的就是value值；
+            若：<input type="radio" />，则v-model收集的是value值，且要给标签配置value值；
+            若：<input type="checkbox" />
+                1、没有配置input的value属性，那么收集的就是checked（勾选 or 未勾选，是布尔值）；
+                2、配置input的value属性：
+                    （1）、v-model的初始值是非数组，那么收集的就是checked（勾选 or 未勾选，是布尔值）；
+                    （2）、v-model的初始值是数组，那么收集的就是value组成的数组；
+            备注：v-model的三个修饰符：
+                lazy：失去焦点再收集数据
+                number：输入字符串转为有效的数字
+                trim：输入首尾空格过滤
+     -->
+    <div id="root">
+        <!-- 提交方式一： -->
+        <form @submit.prevent="submit">
+            账号：<input type="text" v-model.trim="userInfo.account"><br /><br />
+            密码：<input type="password" v-model="userInfo.password"><br /><br />
+            年龄：<input type="number" v-model.number="userInfo.age"><br /><br />
+            性别：
+            <input type="radio" v-model="userInfo.sex" value="male">男
+            <input type="radio" v-model="userInfo.sex" value="female">女<br /><br />
+            爱好：
+            <input type="checkbox" v-model="userInfo.hobbies" value="swim">游泳
+            <input type="checkbox" v-model="userInfo.hobbies" value="fit">健身
+            <input type="checkbox" v-model="userInfo.hobbies" value="code">敲代码<br /><br />
+            所属校区：
+            <select v-model="userInfo.city">
+                <option value="">请选择</option>
+                <option value="BJ">北京</option>
+                <option value="SH">上海</option>
+                <option value="GW">广州</option>
+            </select><br /><br />
+            <textarea v-model.lazy="userInfo.comment">
+            </textarea><br /><br />
+            <input type="checkbox" v-model="userInfo.agree">阅读并接受<a href="http://www.google.com">《用户协议》</a><br /><br />
+            <!-- 提交方式二： -->
+            <!-- <button @click.prevent="submit">提交</button> -->
+            <button>提交</button>
+        </form>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                userInfo: {
+                    account: '',
+                    password: '',
+                    age: '',
+                    sex: 'male',
+                    hobbies: [],
+                    city: '',
+                    comment: '',
+                    agree: false
+                }
+            },
+            methods: {
+                submit() {
+                    console.log(JSON.stringify(this.userInfo));
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1105_v-pre_指令</title>
+    <script src="../../js/vue.min.js"></script>
+</head>
+
+<body>
+    <!-- 
+        v-pre指令：
+            1、跳过其所在节点的编译过程；
+            2、可利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译；
+     -->
+    <div id="root">
+        <h2 v-pre>跳过解析，加快编译</h2>
+        <h2 v-once>不变的：{{number}}</h2>
+        <h2>变化的：{{number}}</h2>
+        <button v-pre a="1" @click="number++">点击+1</button>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        new Vue({
+            el: '#root',
+            data: {
+                number: 1
+            }
+        })
+    </script>
+</body>
+
+</html>

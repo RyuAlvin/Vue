@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1405_原型链复习</title>
+    <script type="text/javascript">
+        function Person() {
+            this.name = 'Ryu'
+            this.age = 18
+        }
+
+        // 创建一个Person的实例对象
+        const p1 = new Person()
+        console.log(p1) // Person {name: 'Ryu', age: 18} -> Person的实例对象
+        const p2 = new Person()
+        console.log(p2) // Person {name: 'Ryu', age: 18} -> Person的实例对象
+        console.log(p1 === p2) // false
+
+        console.log('显式原型属性：' + Person.prototype)
+        console.log('隐式原型属性：' + p1.__proto__)
+        console.log(Person.prototype === p1.__proto__) // true
+
+        Person.prototype.info = '新加属性'
+        console.log(p1.__proto__.info) // '新加属性'
+        console.log(p1.info) // '新加属性'
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0304_事件2小技巧</title>
+    <script src="../../js/vue.js"></script>
+    <style>
+        #out {
+            width: 300px;
+            height: 300px;
+            background-color: burlywood;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root">
+        <h1>{{info}}</h1>
+        <hr />
+        <div id="out" @click="showInfo">
+            <!-- 
+                两个事件修饰符放在一起使用：
+                    stop：停止冒泡
+                    prevent：阻止默认
+             -->
+            <a v-bind:href='url' @click.stop.prevent="showInfo">跳转到谷歌</a>
+        </div>
+        <hr />
+        <!-- 
+            只有在按ctrl+y的组合的时候，才会执行回调函数sayHi
+         -->
+        <input type="text" @keyup.ctrl.y="sayHi" />
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                info: '事件小技巧',
+                url: 'http://www.google.com'
+            },
+            methods: {
+                showInfo() {
+                    alert('Hello World!');
+                },
+                sayHi() {
+                    console.log('Hi')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

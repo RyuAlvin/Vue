@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0808_Vue.set的使用</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>{{info}}</h2>
+        <h2>学生信息：</h2>
+        <button @click="addAttr">添加一个性别属性，默认男</button>
+        <ul>
+            <li>
+                {{student.name}}
+            </li>
+            <li v-if="student.sex">
+                {{student.sex}}
+            </li>
+            <li>
+                {{student.age}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                info: 'Hello World',
+                student: {
+                    name: 'Ryu',
+                    age: '18'
+                }
+            },
+            methods: {
+                addAttr() {
+                    // 不能在vm即_data或者data上直接去添加属性
+                    this.$set(this.student, 'sex', '男')
+                    // Vue.set(this.student, 'sex', '男')
+                }
+            },
+        })
+    </script>
+
+</body>
+
+</html>

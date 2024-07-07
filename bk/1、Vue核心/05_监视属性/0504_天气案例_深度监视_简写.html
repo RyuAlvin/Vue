@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0504_天气案例_深度监视_简写</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <span>今天天气很{{info}}</span><br /><br />
+        <button @click="changeWeather">点击改变天气</button><br />
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                isHot: true
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉快';
+                }
+            },
+            methods: {
+                changeWeather() {
+                    this.isHot = !this.isHot;
+                }
+            },
+
+            // /*
+            //     第一种方式
+            // */
+            // watch: {
+            //     /*
+            //         普通写法
+            //     */
+            //     // isHot: {
+            //     //     // immediate: false, // 初始化时让handler调用以下
+            //     //     // deep:true, // 深度监视
+            //     //     handler(newValue, oldValue) {
+            //     //         console.log('isHot被修改了， ' + 'newValue：' + newValue + "， oldValue：" + oldValue);
+            //     //     }
+            //     // }
+
+            //     /*
+            //         简写
+            //     */
+            //     isHot(newValue, oldValue) {
+            //         console.log('isHot被修改了， ' + 'newValue：' + newValue + "， oldValue：" + oldValue);
+            //     }
+            // }
+        })
+
+        /*
+            第二种方式
+                普通写法
+        */
+        // vm.$watch('isHot', {
+        //     immediate: true,
+        //     deep: true,
+        //     handler(newValue, oldValue) {
+        //         console.log('isHot被修改了， ' + 'newValue：' + newValue + "， oldValue：" + oldValue);
+        //     }
+        // })
+
+        /*
+            第二种方式
+                简写
+        */
+        vm.$watch('isHot', function (newValue, oldValue) {
+            console.log('isHot被修改了， ' + 'newValue：' + newValue + "， oldValue：" + oldValue);
+        })
+
+        /*
+            注意：
+                1、以上两种方式简写的代价就是不能配置immediate和deep属性；
+                2、在简写方式中不能使用箭头函数，否则this就是指向window全局对象；
+        */
+    </script>
+</body>
+
+</html>

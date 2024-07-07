@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0202_回顾Object.defineProperty方法02</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        let number = 18;
+        let person = {
+            name: 'Ryu',
+            sex: 'Male',
+            // 如果是以下这种方式：
+            // 在控制台改动 number，接着输出 person.number ，依然是18，并不会改变
+            // age: number,
+        }
+
+        Object.defineProperty(person, 'age', {
+            get() {
+                console.log('调用了getter，获取的值为number：' + number);
+                return number;
+            },
+            set(value) {
+                console.log('调用了setter，设置number为：' + value);
+                number = value;
+            }
+        })
+    </script>
+</body>
+
+</html>

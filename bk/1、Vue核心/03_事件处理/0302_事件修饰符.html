@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0302_事件修饰符</title>
+    <script src="../../js/vue.js"></script>
+    <style>
+        * {
+            margin: 5px;
+        }
+
+        div {
+            padding: 20px;
+        }
+
+        #out1 {
+            float: left;
+            width: 300px;
+            height: 300px;
+            background-color: burlywood;
+        }
+
+        #in1 {
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            background-color: cornflowerblue;
+        }
+
+        #out2 {
+            float: left;
+            width: 300px;
+            height: 300px;
+            background-color: darkcyan;
+        }
+
+        #in2 {
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            background-color: goldenrod;
+        }
+
+        #out3 {
+            float: left;
+            width: 300px;
+            height: 300px;
+            background-color: burlywood;
+        }
+
+        #in3 {
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            background-color: lightseagreen;
+        }
+
+        #list {
+            float: left;
+            width: 300px;
+            height: 300px;
+            background-color: rosybrown;
+        }
+
+        ul {
+            width: 200px;
+            height: 200px;
+            background-color: thistle;
+            overflow: auto;
+        }
+
+        li {
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 
+        Vue中的事件修饰符：
+            1、prevent：阻止默认事件（常用）；
+            2、stop：阻止事件冒泡（常用）；
+            3、once：事件只触发一次（常用）；
+            4、capture：使用事件的捕获模式；
+            5、self：只有event.target是当前操作的元素时才触发事件；
+            6、passive：事件的默认行为立即执行，无需等待事件回调执行完毕；
+     -->
+    <div id="root">
+        <h1>{{title}}</h1><br />
+        <!-- Vue方式：阻止默认事件 -->
+        <a @click.prevent="stopDefault" href="http://wwww.google.com">打开谷歌首页（停止跳转）</a>
+        <br />
+        <button @click.once="showOnceInfo">事件只触发一次</button>
+        <br />
+        <hr />
+        <br />
+        <br />
+        <div id="out1" @click="showPropagation($event,'out')">
+            <!-- Vue方式：阻止事件冒泡 -->
+            <div id="in1" @click.stop="showPropagation($event,'in')">阻止事件冒泡</div>
+        </div>
+        <!-- 
+            点击内层，使用事件的捕获模式：事件响应顺序为事件的捕获顺序，即从外往内触发事件；
+         -->
+        <div id="out2" @click.capture="useCapture($event,'out')">
+            <div id="in2" @click="useCapture($event,'in')">使用事件的捕获模式</div>
+        </div>
+        <!-- 
+            点击内层，只有内层的点击事件才被触发，因为外层使用了Vue的事件修饰符 self
+         -->
+        <div id="out3" @click.self="useSelf($event,'out')">
+            <div id="in3" @click="useSelf($event,'in')">event.target为当前元素才触发</div>
+        </div>
+
+        <div id="list">
+            <!-- 
+                scroll和wheel两个事件的区别：
+                    scroll：页面上的滚轮已经到边界了，数值不会再变了；
+                    wheel：页面上的滚轮虽然到边界了，数值还再变化，一段时间后才停下；
+             -->
+            <!-- <ul @scroll="scroll"> -->
+            <ul @wheel.passive="scroll">
+                <li>NO.1</li>
+                <li>NO.2</li>
+                <li>NO.3</li>
+                <li>NO.4</li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                title: '事件修饰符'
+            },
+            methods: {
+                stopDefault(e) {
+                    // js方式：阻止默认事件
+                    // e.preventDefault();
+                    alert("停止跳转");
+                },
+                showPropagation(e, msg) {
+                    // js方式：阻止事件冒泡
+                    // e.stopPropagation();
+                    alert(msg);
+                },
+                showOnceInfo(e) {
+                    alert(e.target.innerText);
+                },
+                useCapture(e, msg) {
+                    alert(msg);
+                },
+                useSelf(e, msg) {
+                    alert(msg);
+                },
+                scroll() {
+                    for (let i = 0; i < 1000000; i++) {
+                        console.log(i);
+                    }
+                    console.log("@");
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

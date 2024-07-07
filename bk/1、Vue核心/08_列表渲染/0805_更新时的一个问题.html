@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0805_更新时的一个问题</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>列表过滤</h2>
+        <button @click="update">更新数据</button>
+        <ul>
+            <li v-for="(p,index) in persons" ::key="p.id">
+                id:{{p.id}}---name:{{p.name}}---age:{{p.age}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                persons: [
+                    { id: '001', name: '周杰伦', age: 25 },
+                    { id: '002', name: '周杰', age: 34 },
+                    { id: '003', name: '陈奕迅', age: 26 },
+                    { id: '004', name: '周迅', age: 33 },
+                    { id: '005', name: '张三', age: 24 },
+                    { id: '006', name: '李四', age: 32 },
+                    { id: '007', name: '王三', age: 23 },
+                    { id: '008', name: '陈三', age: 35 },
+                ]
+            },
+            methods: {
+                update() {
+                    // 这种方式可以更改数据，并且在Vue开发者工具中也可以反映
+                    // this.persons[0].id = "001";
+                    // this.persons[0].name = "周XX";
+                    // this.persons[0].age = "40";
+
+                    // 这种方式vm.persons[0]里的数据是更改了，但是在页面和开发者工具中没有反映
+                    // this.persons[0] = { id: '001', name: '周XX', age: 40 } // 不奏效
+
+                    // 方式一：
+                    // Vue.set(this.persons, 0, { id: '001', name: '周XX', age: 40 })
+
+                    // 方式二：
+                    this.persons.splice(0, 1, { id: '001', name: '周XX', age: 40 })
+                    /*
+                        Vue将被侦听的数组的变更方法进行了包裹，所以它们也将会触发视图更新。
+                        这些被包裹的方法包括：
+                            push()
+                            pop()
+                            shift()
+                            unshift()
+                            splice()
+                            sort()
+                            reverse()
+                    */
+                    console.log(this.persons.splice === Array.prototype.splice) // false
+                }
+            },
+        })
+        //#endregion
+    </script>
+</body>
+
+</html>

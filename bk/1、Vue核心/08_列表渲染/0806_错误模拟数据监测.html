@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0806_错误模拟数据监测</title>
+    <!-- <script src="../../js/vue.js"></script> -->
+</head>
+
+<body>
+    <!-- <div id="root">
+        <h2>{{info}}</h2>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                info: 'Hello World',
+            }
+        })
+    </script> -->
+
+    <div id="root">
+        <h2></h2>
+    </div>
+    <script type="text/javascript">
+        let data = {
+            info: 'Hello World'
+        }
+        let el = document.getElementById('root').firstElementChild;
+        el.innerText = data.info;
+        Object.defineProperty(data, 'info', {
+            get() {
+                return data.info;
+            },
+            set(val) {
+                data.info = val;
+            }
+        })
+        /*
+            在控制台中，获取data.info或者改变，会报错：
+                Uncaught RangeError: Maximum call stack size exceeded
+        */
+    </script>
+</body>
+
+</html>

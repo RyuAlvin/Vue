@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16020802_sessionStorage</title>
+</head>
+
+<body>
+    <button onclick="writeSessionStorage()">write</button>
+    <button onclick="readSessionStorage()">read</button>
+    <button onclick="removeSessionStorage()">remove</button>
+    <button onclick="clearSessionStorage()">clear</button>
+    <script type="text/javascript">
+        function writeSessionStorage() {
+            let p = {
+                name: 'Ryu',
+                age: 18,
+                sex: '男'
+            }
+            sessionStorage.setItem('msg1', 'Hello World')
+            sessionStorage.setItem('msg2', 1200)
+            // sessionStorage.setItem('person', p) //[object Object]
+            sessionStorage.setItem('person', JSON.stringify(p))
+        }
+
+        function readSessionStorage() {
+            console.log(sessionStorage.getItem('msg1'))
+            console.log(sessionStorage.getItem('msg2'))
+            console.log(sessionStorage.getItem('msg3')) //null
+            console.log(sessionStorage.getItem('person')) //字符串
+            console.log(JSON.parse(sessionStorage.getItem('person'))) //对象
+        }
+
+        function removeSessionStorage() {
+            sessionStorage.removeItem('msg1')
+            sessionStorage.removeItem('msg2')
+            sessionStorage.removeItem('msg3')
+            sessionStorage.removeItem('person')
+        }
+
+        function clearSessionStorage() {
+            sessionStorage.clear()
+        }
+    </script>
+</body>
+
+</html>

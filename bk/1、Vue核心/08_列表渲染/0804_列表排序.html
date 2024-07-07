@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0804_列表排序</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <h2>列表过滤</h2>
+        <input type="text" v-model="keyWord" />
+        <button @click="sortType=1">升序</button>
+        <button @click="sortType=2">降序</button>
+        <button @click="sortType=0">原序</button>
+        <ul>
+            <li v-for="(p,index) in filterPersons" ::key="p.id">
+                id:{{p.id}}---name:{{p.name}}---age:{{p.age}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        //#region 计算属性方法
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                keyWord: '',
+                sortType: 0, // 0 原序，1 升序，2 降序
+                persons: [
+                    { id: '001', name: '周杰伦', age: 25 },
+                    { id: '002', name: '周杰', age: 34 },
+                    { id: '003', name: '陈奕迅', age: 26 },
+                    { id: '004', name: '周迅', age: 33 },
+                    { id: '005', name: '张三', age: 24 },
+                    { id: '006', name: '李四', age: 32 },
+                    { id: '007', name: '王三', age: 23 },
+                    { id: '008', name: '陈三', age: 35 },
+                ]
+            },
+            computed: {
+                filterPersons() {
+                    const arr = this.persons.filter((p) => {
+                        return p.name.indexOf(this.keyWord) !== -1;
+                    })
+                    if (this.sortType) {
+                        // sort会改变原数组
+                        arr.sort((p1, p2) => {
+                            return this.sortType === 1 ? p1.age - p2.age : p2.age - p1.age;
+                        })
+                    }
+                    return arr;
+                }
+            }
+        })
+        //#endregion
+    </script>
+</body>
+
+</html>

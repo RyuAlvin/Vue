@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0102_模版语法</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- Vue模版语法有2大类：
+            1、插值语法：
+                功能：用于解析标签体内容；
+                写法：{{xxx}}，xxx是js表达式，且可以直接读取到data中的所有属性；
+            2、指令语法：
+                功能：用于解析标签（包括：标签属性、标签体内容、绑定时间...）；
+                举例：v-bind：href=“xxx” 或 简写为 :href="xxx"，xxx同样要写js表达式，
+                        且可以直接读取到data中的所有属性；
+                备注：Vue中有很多的指令，且形式都是：v-???，此处我们只是拿v-bind举个例子；
+             -->
+
+    <div id="root">
+        <h1>总公司：{{company}}</h1>
+        <!-- "HTTP://WWW.TAOBAO.COM" -->
+        <a v-bind:href="url.toUpperCase()">公司主页</a> // 
+        <h2>分公司：{{sub.name}}</h2>
+        <!-- HANGZHOU -->
+        <h2>分公司地址：{{sub.address.toUpperCase()}}</h2>
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+
+        const x = new Vue({
+            el: "#root",
+            data: {
+                company: "阿里巴巴",
+                sub: {
+                    name: "蚂蚁金服",
+                    address: "hangzhou"
+                },
+                url: "http://www.taobao.com"
+            }
+        })
+    </script>
+</body>
+
+</html>
