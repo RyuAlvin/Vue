@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+      事件的基本使用：
+        1、使用v-on:xxx 或 @xxx 绑定事件，其中xxx是事件名；
+        2、事件的回调需要配置在methods对象中，最终会在vm上；
+        3、methods中配置的函数，不要用箭头函数！否则this就不是vm了；
+        4、methods中配置的函数，都是被Vue所管理的函数，this的指向是vm 或 组件实例对象；
+        5、@click="demo" 和 @click="demo($event)" 效果是一致，但后者可以传参；
+  -->
+  <div id="root">
+    <h1>{{name}}</h1>
+    <!-- 写法一： -->
+    <button v-on:click="showInfo">点击1</button><br />
+    <!-- 写法二： -->
+    <button @click="showInfo">点击2</button><br />
+    <button @click="showInfo1">点击3，不传参，第一个参数是什么【PointerEvent】</button><br />
+    <button @click="showInfo2('ryualvin')">点击4，传参，方法中只用一个参数接收，则是点击时传入的参数内容</button><br />
+    <button @click="showInfo3($event, 'ryualvin')">点击5，传参，第一个参数内容指定为$event，第二个参数为点击时传入的参数内容</button><br />
+    <button @click="showInfo4('ryualvin',$event)">点击6，传参，第一个参数为点击时传入的参数内容，第二个参数内容指定为$event</button><br />
+  </div>
+  <script>
+    const vm = new Vue({
+      data() {
+        return {
+          name: 'ryualvin'
+        }
+      },
+      methods: {
+        showInfo() {
+          console.log('你好');
+        },
+        showInfo1($event) {
+          console.log($event);
+        },
+        showInfo2($event) {
+          console.log($event);
+        },
+        showInfo3($event, name) {
+          console.log($event);
+          console.log(name);
+        },
+        showInfo4(name, $event) {
+          console.log(name);
+          console.log($event);
+        }
+      }
+    });
+    vm.$mount('#root');
+    console.log(vm);
+  </script>
+</body>
+
+</html>
