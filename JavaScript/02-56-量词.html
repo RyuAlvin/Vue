@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const reg1 = /^A*$/;
+    console.log(reg1.test('BB')); // false
+    console.log(reg1.test('')); // true
+    console.log(reg1.test('A')); // true
+    console.log(reg1.test('AA')); // true
+
+    const reg2 = /^A+$/;
+    console.log(reg2.test('BB')); // false
+    console.log(reg2.test('A')); // true
+    console.log(reg2.test('AA')); // true
+    console.log(reg2.test('AB')); // false
+
+    const reg3 = /^A?$/;
+    console.log(reg3.test('')); // true
+    console.log(reg3.test('A')); // true
+    console.log(reg3.test('AA')); // false
+    console.log(reg3.test('BA')); // false
+
+    const reg4 = /^A{2}$/;
+    console.log(reg4.test('')); // false
+    console.log(reg4.test('A')); // false
+    console.log(reg4.test('AA')); // true
+    console.log(reg4.test('AAA')); // false
+
+    const reg5 = /^A{2,}$/;
+    console.log(reg5.test('A')); // false
+    console.log(reg5.test('AA')); // true
+    console.log(reg5.test('AAA')); // false
+
+    const reg6 = /^A{2,4}$/;
+    console.log(reg6.test('A')); // false
+    console.log(reg6.test('AA')); // true
+    console.log(reg6.test('AAA')); // true
+    console.log(reg6.test('AAAA')); // true
+    console.log(reg6.test('AAAAA')); // false
+  </script>
+</body>
+
+</html>

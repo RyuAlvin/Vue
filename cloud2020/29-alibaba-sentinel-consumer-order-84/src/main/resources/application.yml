@@ -1,0 +1,32 @@
+server:
+  port: 84
+
+spring:
+  application:
+    name: sentinel-order-consumer
+  cloud:
+    nacos:
+      discovery:
+        #Nacos服务注册中心地址
+        server-addr: ryualvin100:1111
+    sentinel:
+      transport:
+        #配置Sentinel dashboard地址
+        dashboard: localhost:8080
+        #默认8719端口，假如被占用会自动从8719开始依次+1扫描,直至找到未被占用的端口
+        #这个端口配置会在应用对应的机器上启动一个Http Server，该Server会与Sentinel控制台做交互。比如Sentinel控制台添加了一个限流规则，会把规则数据push给这个HttpServer接收，HttpServer再将规则注册到Sentinel中
+        port: 8719
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+provider-service:
+  url: http://sentinel-payment-provider
+
+feign:
+  sentinel:
+    enabled: true
+

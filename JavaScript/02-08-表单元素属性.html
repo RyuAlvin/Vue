@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" value="xxx"/>
+  <input id="ck" type="checkbox"/>
+  <!-- H5标准：属性和值一致的情况可以省略 -->
+  <input id="ck1" type="checkbox" checked/>
+  <input type="button" value="登录" disabled/>
+  <script>
+    const ipt = document.querySelector('input');
+    // 获取文本内容
+    console.log(ipt.value);
+    // 改变文本内容
+    ipt.value = 'yyy';
+    // 变成密码框
+    ipt.type ='password';
+    
+    const ck = document.querySelector('#ck');
+    // 设置勾选
+    ck.checked = true;
+    // 空字符串为false,此时存在隐式转换,尽量避免
+    ck.checked = '';
+  </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ryualvin</artifactId>
+        <groupId>org.yeahicode</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ryualvin-domain</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>ryualvin-common-mybatisplus</module>
+        <module>ryualvin-domain-product</module>
+        <module>ryualvin-domain-members</module>
+        <module>ryualvin-domain-coupon</module>
+        <module>ryualvin-domain-file</module>
+        <module>ryualvin-domain-menu</module>
+        <module>ryualvin-domain-secondkill</module>
+        <module>ryualvin-domain-order</module>
+        <module>ryualvin-domain-rbac</module>
+        <module>ryualvin-domain-work</module>
+        <module>ryualvin-domain-parameter</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+</project>

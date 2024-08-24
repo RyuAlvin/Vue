@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button id="btn1">登录1</button>
+  <button id="btn2">登录2</button>
+  <script>
+    const btn1 = document.querySelector('#btn1');
+    // 因为onclick是赋值操作，所以重复定义的话，后面的会覆盖前面的
+    btn1.onclick = function () {
+      alert(11);
+    }
+    btn1.onclick = function () {
+      alert(22);
+    }
+
+    // 两次绑定内容共存
+    const btn2 = document.querySelector('#btn2');
+    btn2.addEventListener('click', function () {
+      alert(33);
+    })
+    btn2.addEventListener('click', function () {
+      alert(44);
+    })
+  </script>
+</body>
+
+</html>

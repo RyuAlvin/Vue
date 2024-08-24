@@ -1,0 +1,31 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: cloud-gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: paymentInfo_route       #路由ID，没有固定规则但要求唯一，建议配合服务名
+          uri: lb://cloud-payment-service  #匹配后提供服务的路由地址
+          predicates:
+            - Path=/payment/get/**,/payment/getServiceInfo   #断言，请求路径和这个相匹配的话则进行路由
+            - After=2023-02-19T17:05:58.068+08:00[Asia/Shanghai]
+#          filters:
+#            - AddRequestParameter=x-request-name,ryualvin
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由的功能，利用微服务名进行路由
+
+eureka:
+  instance:
+    #配置之前：LAPTOP-1FN99F9S:cloud-gateway:9527，配置之后：gateway9527
+    instance-id: gateway9527
+    #访问路径可以显示IP地址
+    prefer-ip-address: true
+  client: #服务提供者provider注册进eureka服务列表内
+    service-url:
+      register-with-eureka: true
+      fetch-registry: true
+      defaultZone: http://eureka7001.com:7001/eureka

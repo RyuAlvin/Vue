@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:rabbit="http://www.springframework.org/schema/rabbit"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/rabbit
+       http://www.springframework.org/schema/rabbit/spring-rabbit.xsd">
+
+    <context:property-placeholder location="classpath*:rabbitmq.properties"/>
+    <rabbit:connection-factory id="connectionFactory" host="${rabbitmq.host}"
+                               port="${rabbitmq.port}"
+                               username="${rabbitmq.username}"
+                               password="${rabbitmq.password}"
+                               virtual-host="${rabbitmq.virtual-host}"
+                               publisher-confirms="true"
+                               publisher-returns="true"
+    />
+    <rabbit:admin connection-factory="connectionFactory"/>
+
+    <!--声明队列-->
+    <!--    <rabbit:queue id="producer2broker_queue1" name="producer2broker_queue1" auto-declare="true"/>-->
+    <!--    &lt;!&ndash;声明交换机&ndash;&gt;-->
+    <!--    <rabbit:topic-exchange id="producer2broker_exchange" name="producer2broker_exchange" auto-declare="true">-->
+    <!--        &lt;!&ndash;绑定队列&ndash;&gt;-->
+    <!--        <rabbit:bindings>-->
+    <!--            <rabbit:binding pattern="info.#" queue="producer2broker_queue1"/>-->
+    <!--        </rabbit:bindings>-->
+    <!--    </rabbit:topic-exchange>-->
+
+    <!--    <rabbit:queue id="test_ttl_queue" name="test_ttl_queue" auto-declare="true">-->
+    <!--        <rabbit:queue-arguments>-->
+    <!--            <entry key="x-message-ttl" value="100000" value-type="java.lang.Integer"></entry>-->
+    <!--        </rabbit:queue-arguments>-->
+    <!--    </rabbit:queue>-->
+    <!--    <rabbit:topic-exchange id="test_ttl_exchange" name="test_ttl_exchange" auto-declare="true">-->
+    <!--        <rabbit:bindings>-->
+    <!--            <rabbit:binding pattern="ttl.#" queue="test_ttl_queue"></rabbit:binding>-->
+    <!--        </rabbit:bindings>-->
+    <!--    </rabbit:topic-exchange>-->
+
+    <!--1、声明普通交换机`test_dlx_exchange`以及普通队列`test_dlx_queue`，将普通交换机与普通队列绑定，并指明路由规则；-->
+    <rabbit:fanout-exchange name="test_dlx_exchange" id="test_dlx_exchange" auto-declare="true">
+        <rabbit:bindings>
+            <rabbit:binding queue="test_dlx_queue">
+            </rabbit:binding>
+        </rabbit:bindings>
+    </rabbit:fanout-exchange>
+    <!--2、为普通队列`test_dlx_queue`指明消息过期时间以及队列最大容量限制；-->
+    <rabbit:queue id="test_dlx_queue" name="test_dlx_queue" auto-declare="true">
+        <rabbit:queue-arguments>
+            <entry key="x-message-ttl" value="10000" value-type="java.lang.Integer"/>
+            <entry key="x-max-length" value="10" value-type="java.lang.Integer"/>
+            <!--4、将普通队列`test_dlx_queue`绑定至死信交换机`dlx_exchange`，并指明路由规则（精准匹配）；-->
+            <entry key="x-dead-letter-exchange" value="dlx_exchange"/>
+            <entry key="x-dead-letter-routing-key" value="dlx.hehe"/>
+        </rabbit:queue-arguments>
+    </rabbit:queue>
+
+    <!--3、声明死信交换机`dlx_exchange`以及死信队列`dlx_queue`，将死信交换机与死信队列绑定，并指明路由规则；-->
+    <rabbit:topic-exchange name="dlx_exchange" id="dlx_exchange" auto-declare="true">
+        <rabbit:bindings>
+            <rabbit:binding pattern="dlx.#" queue="dlx_queue"/>
+        </rabbit:bindings>
+    </rabbit:topic-exchange>
+    <rabbit:queue id="dlx_queue" name="dlx_queue" auto-declare="true"></rabbit:queue>
+
+
+    <!--定义rabbitTemplate对象操作可以在代码中方便发送消息-->
+    <rabbit:template id="rabbitTemplate" connection-factory="connectionFactory"/>
+</beans>

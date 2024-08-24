@@ -1,0 +1,13 @@
+server:
+  port: 83
+
+spring:
+  application:
+    name: nacos-order-consumer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ryualvin100:8848 #配置Nacos地址
+
+service-url:
+  nacos-payment-service: http://nacos-payment-provider

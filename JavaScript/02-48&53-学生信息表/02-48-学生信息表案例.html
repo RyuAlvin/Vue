@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>学生信息管理</title>
+  <link rel="stylesheet" href="css/index.css" />
+</head>
+
+<body>
+  <h1>新增学员</h1>
+  <form class="info" autocomplete="off">
+    姓名：<input type="text" class="uname" name="uname" />
+    年龄：<input type="text" class="age" name="age" />
+    性别:
+    <select name="gender" class="gender">
+      <option value="男">男</option>
+      <option value="女">女</option>
+    </select>
+    薪资：<input type="text" class="salary" name="salary" />
+    就业城市：<select name="city" class="city">
+      <option value="北京">北京</option>
+      <option value="上海">上海</option>
+      <option value="广州">广州</option>
+      <option value="深圳">深圳</option>
+      <option value="曹县">曹县</option>
+    </select>
+    <button class="add">录入</button>
+  </form>
+
+  <h1>就业榜</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>学号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>性别</th>
+        <th>薪资</th>
+        <th>就业城市</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 
+        <tr>
+          <td>1001</td>
+          <td>欧阳霸天</td>
+          <td>19</td>
+          <td>男</td>
+          <td>15000</td>
+          <td>上海</td>
+          <td>
+            <a href="javascript:">删除</a>
+          </td>
+        </tr> 
+        -->
+    </tbody>
+  </table>
+  <script>
+    const arr = [];
+    const infoFm = document.querySelector('.info'); // 表单
+    const nameIn = document.querySelectorAll('.info [name]'); // 所有输入框
+    const uname = document.querySelector('[name=uname]'); // 姓名
+    const age = document.querySelector('[name=age]'); // 年龄
+    const gender = document.querySelector('[name=gender]'); // 性别
+    const salary = document.querySelector('[name=salary]'); // 薪资
+    const city = document.querySelector('[name=city]'); // 城市
+    const tbody = document.querySelector('tbody'); // 表格内容
+    let uno = 0;
+    // 1、录入
+    // 点击录入按钮，给表单注册submit事件，
+    infoFm.addEventListener('submit', function (e) {
+      // 意在阻止表单submit的默认提交行为
+      e.preventDefault();
+      // 检查录入内容，若有一个为空则提示错误消息
+      for (let i = 0; i < nameIn.length; i++) {
+        if (!nameIn[i].value) {
+          return alert('内容填写不完整，请检查！');
+        }
+      }
+      // 将输入内容装配成对象添加在学生信息数组中
+      const student = {
+        uno: ++uno,
+        uname: uname.value,
+        age: age.value,
+        gender: gender.value,
+        salary: salary.value,
+        city: city.value
+      }
+      arr.push(student);
+      // 清空输入框
+      infoFm.reset();
+      // 渲染表格
+      render();
+    })
+    // 2、渲染
+    // 渲染前先清空tbody
+    function render() {
+      tbody.innerHTML = '';
+      for (let i = 0; i < arr.length; i++) {
+        // 遍历数组，依次创建tr元素节点，然后添加到tbody中
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+                        <td>${arr[i].uno}</td>
+                        <td>${arr[i].uname}</td>
+                        <td>${arr[i].age}</td>
+                        <td>${arr[i].gender}</td>
+                        <td>${arr[i].salary}</td>
+                        <td>${arr[i].city}</td>
+                        <td>
+                          <a href="javascript:" data-id="${i}">删除</a>
+                        </td>
+                      `;
+        tbody.appendChild(tr);
+      }
+    }
+    // 3、删除
+    // 为每个a标签附上自定义属性
+    // 通过事件委托为tbody添加点击事件
+    tbody.addEventListener('click', function (e) {
+      // 若事件对象是a标签，则获取对象自定义属性id，通过id对数组做splice操作
+      if (e.target.nodeName === 'A') {
+        const id = e.target.dataset.id;
+        arr.splice(id, 1);
+        // 调用渲染操作
+        render();
+      }
+    })
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+package org.yeahicode;
+
+import com.rabbitmq.client.BuiltinExchangeType;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+
+import java.io.IOException;
+import java.util.concurrent.TimeoutException;
+
+/**
+ * Hello world!
+ */
+public class Producer_PubSub_Topic {
+    public static void main(String[] args) throws IOException, TimeoutException {
+        // 1、创建连接工厂
+        ConnectionFactory factory = new ConnectionFactory();
+        // 2、配置连接参数
+        factory.setHost("192.168.182.100");//主机
+        factory.setPort(5672);//端口
+        factory.setUsername("ryualvin");//用户名
+        factory.setPassword("sBen410109");//密码
+        factory.setVirtualHost("/ryu");//虚拟分区（可理解为MySQL中库的概念）
+        // 3、创建连接
+        Connection connection = factory.newConnection();
+        // 4、创建频道
+        Channel channel = connection.createChannel();
+        // 5、创建交换机
+        /**
+         * (String exchange, BuiltinExchangeType type, boolean durable, boolean autoDelete, boolean internal, Map<String, Object> arguments)
+         * exchange：交换机名称
+         * type：交换机分发消息规则
+         * durable：是否持久化
+         * autoDelete：是否自动删除
+         * internal：是否内部，一般false
+         * arguments：参数
+         */
+        channel.exchangeDeclare("test_exchange_routing", BuiltinExchangeType.TOPIC, true, false, false, null);
+        // 6、创建队列
+        /**
+         * (String queue, boolean durable, boolean exclusive, boolean autoDelete, Map<String, Object> arguments)
+         * queue：队列名称
+         * durable：是否持久化
+         * exclusive：是否独占
+         * autoDelete：是否自动删除
+         * arguments：参数
+         */
+        channel.queueDeclare("test_exchange_queue1", true, false, false, null);
+        channel.queueDeclare("test_exchange_queue2", true, false, false, null);
+        // 7、绑定交换机和队列
+        /**
+         * (String queue, String exchange, String routingKey)
+         * queue：绑定队列名称
+         * exchange：绑定交换机名称
+         * routingKey：按照什么规则绑定
+         */
+        // * 代表一个单词，# 代表0个或者多个
+        // "*"：只能匹配一个，*.orange只能匹配a.orange，无法匹配a.b.orange
+        channel.queueBind("test_exchange_queue1", "test_exchange_routing", "#.error");
+        channel.queueBind("test_exchange_queue1", "test_exchange_routing", "order.*");
+        // "#"：匹配一个或者多个，lazy.#可以匹配lazy.a或者lazy.a.b
+        channel.queueBind("test_exchange_queue2", "test_exchange_routing", "*.*");
+        // 8、发送消息
+        /**
+         * (String exchange, String routingKey, AMQP.BasicProperties props, byte[] body)
+         * exchange：交换机名称
+         * routingKey：分发消息规则
+         * props：配置信息
+         * body：消息内容
+         */
+        String msg = "订单日志。。。";
+        // 只将消息分发给队列2
+        channel.basicPublish("test_exchange_routing", "order.info", null, msg.getBytes());
+        // 9、关闭资源
+        channel.close();
+        connection.close();
+    }
+}

@@ -1,0 +1,17 @@
+server:
+  port: 3377
+
+spring:
+  application:
+    name: nacos-config-client
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ryualvin100:1111
+      config:
+        server-addr: ryualvin100:1111
+        file-extension: yaml
+#        group: TEST_GROUP
+#        namespace: caa18974-a399-4edc-97f5-6fa01a2ce8f8
+
+#{spring.application.name}-{spring.profiles.dev}.{spring.cloud.nacos.config.file-extension}

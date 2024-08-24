@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../js/vue.js"></script>
+  <style>
+    #root div {
+      margin: 30px;
+    }
+
+    .div1 {
+      width: 500px;
+      height: 300px;
+      background-color: darkgoldenrod;
+    }
+
+    .div2 {
+      width: 300px;
+      height: 100px;
+      background-color: cadetblue;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root">
+    <h1>{{name}}</h1>
+    <div class="div1" @click="showInfo('div1')">
+      div1
+      <div class="div2">
+        <!-- 
+            阻止冒泡行为 + 阻止默认行为 = stop + prevent 修饰符连用（前后写法替换，作用仍一样）
+        -->
+        <a href="http://www.google.com" @click.stop.prevent="showInfo('a标签')">跳转至谷歌</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    const vm = new Vue({
+      data() {
+        return {
+          name: 'ryualvin'
+        }
+      },
+      methods: {
+        showInfo(msg) {
+          alert('hello：' + msg);
+        }
+      }
+    });
+    vm.$mount('#root');
+  </script>
+</body>
+
+</html>

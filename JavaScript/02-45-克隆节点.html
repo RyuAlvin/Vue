@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <ul>
+    <li>
+      <p>pppp</p>
+      111
+    </li>
+    <li>222</li>
+    <li>333</li>
+  </ul>
+  <script>
+    const ul = document.querySelector('ul');
+    const li = document.querySelector('ul li:first-child');
+    // 克隆时会不包含后代节点，默认为false
+    ul.appendChild(li.cloneNode(false));
+    // 克隆时会包含后代节点一起克隆
+    ul.appendChild(li.cloneNode(true));
+  </script>
+</body>
+
+</html>

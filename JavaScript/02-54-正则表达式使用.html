@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 1、定制规则
+    const reg = /哈/; // 规则是字符中含有一个‘哈’
+    // 2、验证
+    console.log(reg.test('哈')); // true
+    console.log(reg.test('哈哈')); // true
+    console.log(reg.test('A')); // false
+    // 3、查找匹配
+    // 成功返回一个数组：['哈', index: 8, input: 'aabbdadf哈哈sdfadfaA哈哈', groups: undefined]
+    // 失败返回null
+    console.log(reg.exec('aabbdadf哈哈sdfadfaA哈哈'));
+  </script>
+</body>
+
+</html>

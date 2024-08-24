@@ -1,0 +1,16 @@
+package org.yeahicode.springcloud;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Import;
+
+@SpringBootApplication
+@EnableEurekaServer
+public class EurekaMain7001 {
+
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaMain7001.class);
+    }
+}

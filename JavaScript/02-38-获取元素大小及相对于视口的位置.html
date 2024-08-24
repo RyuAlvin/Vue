@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body {
+      height: 2000px;
+    }
+
+    div {
+      margin: auto;
+      width: 300px;
+      height: 300px;
+      background-color: aquamarine;
+    }
+  </style>
+</head>
+
+<body>
+  <div></div>
+  <script>
+    const div = document.querySelector('div');
+    const n = div.getBoundingClientRect();
+    console.log(n);
+    console.log(div.scrollTop);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script>
+    const img = document.querySelector('img');
+    img.addEventListener('load', function () {
+      console.log('morning');
+    })
+    window.addEventListener('load', function () {
+      console.log('afternoon');
+    })
+    document.addEventListener('DOMContentLoaded', function () {
+      console.log('evening');
+    })
+  </script>
+</head>
+
+<body>
+  <img sr="" />
+</body>
+
+</html>

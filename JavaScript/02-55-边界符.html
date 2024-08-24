@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const reg1 = /^A/;
+    console.log(reg1.test('A')); // true
+    console.log(reg1.test('AB')); // true
+    console.log(reg1.test('CA')); // false
+
+    const reg2 = /A$/;
+    console.log(reg2.test('A')); // true
+    console.log(reg2.test('AB')); // false
+    console.log(reg2.test('CA')); // true
+
+    const reg3 = /^A$/;
+    console.log(reg3.test('A')); // true
+    console.log(reg3.test('AB')); // false
+    console.log(reg3.test('CA')); // false
+
+    const reg4 = /^AB$/;
+    console.log(reg4.test('A')); // false
+    console.log(reg4.test('AB')); // true
+    console.log(reg4.test('CA')); // false
+  </script>
+</body>
+
+</html>

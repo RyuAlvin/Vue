@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #d3 {
+      height: 500px;
+      width: 500px;
+      background-color: cadetblue;
+    }
+
+    #d2 {
+      height: 300px;
+      width: 300px;
+      background-color: orange;
+    }
+
+    #d1 {
+      height: 100px;
+      width: 100px;
+      background-color: darkseagreen;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="d3">
+    <div id="d2">
+      <div id="d1"></div>
+    </div>
+  </div>
+  <script>
+    const d3 = document.querySelector('#d3');
+    const d2 = document.querySelector('#d2');
+    const d1 = document.querySelector('#d1');
+    d3.addEventListener('click', function () {
+      alert('d3');
+    });
+    d2.addEventListener('click', function () {
+      alert('d2');
+    });
+    d1.addEventListener('click', function (e) {
+      alert('d1');
+      e.stopPropagation();
+    });
+  </script>
+</body>
+
+</html>
