@@ -1,4 +1,4 @@
-package org.yeahicode.repository;
+package org.yeahicode.common.configuration;
 
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-//@MapperScan({"org.yeahicode.mapper"})
+@MapperScan({"org.yeahicode.*.mapper"})
 public class MybatisPlusConfiguration {
     /**
      * mybatisplus分页插件

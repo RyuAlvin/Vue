@@ -23,6 +23,7 @@
         <module>ryualvin-domain-rbac</module>
         <module>ryualvin-domain-work</module>
         <module>ryualvin-domain-parameter</module>
+        <module>ryualvin-domain-common</module>
     </modules>
 
     <properties>

@@ -1,4 +1,4 @@
-package org.yeahicode.repository;
+package org.yeahicode.common.configuration;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
