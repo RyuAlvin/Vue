@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function getSum() {
+      console.log('arguments => ', arguments);
+      console.log('arguments.length => ', arguments.length);
+      let sum = 0;
+      for (let i = 0; i < arguments.length; i++) {
+        sum += arguments[i];
+      }
+      console.log('sum => ', sum);
+    }
+
+    getSum();//打印args不报错，0，0
+    getSum(1, 2);//打印args，2，3
+    getSum(1, 2, 3);//打印args，3，6
+  </script>
+</body>
+
+</html>

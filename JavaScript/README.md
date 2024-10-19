@@ -152,7 +152,7 @@ document.getElementsByClassName('w')
 const lis = document.querySelectorAll("ul li");
 ```
 
-有长度有索引号的数组，但是没有pop()，push()等数组方法。
+有长度有索引号的数组，没有pop()，push()等数组方法，但是有自己的一些特定方法。
 
 想要得到里面的每一个对象，则需要便利（for）的方式来获得。
 
@@ -2763,3 +2763,116 @@ fn();
 而在闭包当中，从根部出发由于函数的引用，一层一层往回找，是可以触及到外层函数的变量对象的，所以就不会进行垃圾回收，因此存在内存泄漏的问题。
 
 ![image-20241017083134122](./assets/image-20241017083134122.png)
+
+## 3.3、变量提升
+
+变量提升流程：
+
+1. 先把var变量提升到当前作用域最前面；
+2. 只提升变量声明，不提升变量赋值；
+3. 然后依次执行代码。
+
+因此，不建议使用var声明变量。ES6引入了块级作用域，用let或者const声明变量。
+
+![image-20241017221130953](./assets/image-20241017221130953.png)
+
+## 3.4、函数进阶
+
+### 3.4.1、函数提升
+
+函数提升与变量提升比较类似，是指函数在声明之前即可被调用。
+
+总结：
+
+1. 函数提升能够使函数的声明调用更灵活；
+2. 函数表达式不存在提升的现象；
+3. 函数提升出现在相同作用域当中。
+
+![image-20241017222834232](./assets/image-20241017222834232.png)
+
+![image-20241017223029759](./assets/image-20241017223029759.png)
+
+### 3.4.2、动态参数
+
+arguments是函数内部内置的伪数组变量，它包含了调用函数时传入的所有实参。
+
+```js
+    function getSum() {
+      console.log('arguments => ', arguments);
+      console.log('arguments.length => ', arguments.length);
+      let sum = 0;
+      for (let i = 0; i < arguments.length; i++) {
+        sum += arguments[i];
+      }
+      console.log('sum => ', sum);
+    }
+
+    getSum();//打印args不报错，0，0
+    getSum(1, 2);//打印args，2，3
+    getSum(1, 2, 3);//打印args，3，6
+```
+
+总结：
+
+1. arguments是一个伪数组，只存在于函数中；
+2. arguments的作用是动态获取函数的实参；
+3. 可以通过for循环依次得到传递过来的实参。
+
+### 3.4.3、剩余参数
+
+...是语法符号，置于最末函数之前，用于获取多余的实参。
+
+```js
+    function getSum(...arr) {
+      console.log('...arr => ', arr);
+      console.log('...arr.length => ', arr.length);
+      let sum = 0;
+      for (let i = 0; i < arr.length; i++) {
+        sum += arr[i];
+      }
+      console.log('sum => ', sum);
+    }
+
+    getSum();//打印空数组不报错，0，0
+    getSum(1, 2);//打印arr，2，3
+    getSum(1, 2, 3);//打印arr，3，6
+```
+
+借助...获取的剩余实参，是个真数组。
+
+```js
+    function getSum(first, ...arr) {
+      console.log('first => ', first);
+      console.log('...arr.length => ', arr);
+    }
+
+    getSum(1, 2, 3);//1，[2, 3]
+```
+
+总结：
+
+1. 剩余参数主要的使用场景：用于获取多余的实参；
+2. 剩余参数和动态参数区别是什么？开发中提倡使用哪一个？
+   - 动态参数是伪数组；
+   - 剩余参数是真数组；
+   - 开发中使用剩余参数想必也是极好的。
+
+### 3.4.4、展开运算符
+
+展开数组，不会修改原数组：
+
+```js
+const arr = [1, 2, 3];
+    console.log(Math.max(...arr));
+    console.log(Math.min(...arr));
+```
+
+合并数组，不会修改原数组：
+
+```js
+    const arr1 = [1, 2, 3];
+    const arr2 = [4, 5, 6];
+    const arr = [...arr1, ...arr2];
+    console.log(arr);
+```
+
