@@ -2876,3 +2876,71 @@ const arr = [1, 2, 3];
     console.log(arr);
 ```
 
+### 3.4.5、箭头函数
+
+1. 箭头函数属于表达式函数，因此不存在函数提升；
+
+2. 箭头函数只有一个参数时可以省略圆括号()：
+
+   ```js
+   const func = x => console.log(x);
+   ```
+
+3. 箭头函数函数体只有一行代码时可以省略花括号{}，并自动作为返回值被返回：
+
+   ```js
+   const func = x => x + 1;
+   ```
+
+4. 加括号的函数体返回对象字面量表达式：
+
+   ```js
+   const func = name => ({ uname : name });
+   ```
+
+5. 箭头函数里面不能使用动态参数，只能使用剩余参数；
+
+6. 箭头函数不会自己创建自己的this，它只会从自己的作用域的上一层沿用this：
+
+   ```js
+       const fn1 = {
+         name: 'xx',
+         sayHi: function () {
+           console.log(this);// fn1
+           const fn2 = () => {
+             console.log(this);// fn1
+           }
+           fn2();
+         }
+       }
+       fn1.sayHi();
+   
+       const fn3 = {
+         name: 'xx',
+         sayHi: () => {
+           console.log(this);// window
+           const fn4 = () => {
+             console.log(this);// window
+           }
+           fn4();
+           const fn5 = function () {
+             console.log(this);// windows
+           }
+           fn5();
+         }
+       }
+       fn3.sayHi();
+   ```
+
+7. 事件回调函数使用箭头函数时，this为全局的window，因此DOM事件回调函数不推荐使用箭头函数：
+
+   ```js
+       btn.addEventListener('click', function () {
+         console.log(this);// window
+       })
+       btn.addEventListener('click', () => {
+         console.log(this);// btn
+       })
+   ```
+
+   

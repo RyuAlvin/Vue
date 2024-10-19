@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button class="btn">register</button>
+  <script>
+    const fn1 = {
+      name: 'xx',
+      sayHi: function () {
+        console.log(this);// fn1
+        const fn2 = () => {
+          console.log(this);// fn1
+        }
+        fn2();
+      }
+    }
+    fn1.sayHi();
+
+    const fn3 = {
+      name: 'xx',
+      sayHi: () => {
+        console.log(this);// window
+        const fn4 = () => {
+          console.log(this);// window
+        }
+        fn4();
+        const fn5 = function () {
+          console.log(this);// windows
+        }
+        fn5();
+      }
+    }
+    fn3.sayHi();
+
+    const btn = document.querySelector('.btn');
+    btn.addEventListener('click', function () {
+      console.log(this);// window
+    })
+    btn.addEventListener('click', () => {
+      console.log(this);// btn
+    })
+  </script>
+</body>
+
+</html>
