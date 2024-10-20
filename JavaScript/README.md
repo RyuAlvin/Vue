@@ -2820,7 +2820,7 @@ arguments是函数内部内置的伪数组变量，它包含了调用函数时�
 
 ### 3.4.3、剩余参数
 
-...是语法符号，置于最末函数之前，用于获取多余的实参。
+...是语法符号，置于最末参数之前，用于获取多余的实参。
 
 ```js
     function getSum(...arr) {
@@ -2943,4 +2943,44 @@ const arr = [1, 2, 3];
        })
    ```
 
-   
+## 3.5、数组解构
+
+批量将数组中的元素赋值给变量：
+
+```js
+    // const [first, last] = [1, 2];
+    // console.log(first); // 1
+    // console.log(last); // 2
+
+    // 1、值多，变量少
+    // const [first, mid, ...others] = [1, 2, 3, 4, 5];
+    // console.log(first); // 1
+    // console.log(mid); // 2
+    // console.log(others); // [3, 4, 5]
+
+    // 2、变量多，值少
+    // const [first, mid, last] = [1, 2];
+    // console.log(first); // 1ss
+    // console.log(mid); // 2
+    // console.log(last); // undefined
+
+    // 3、默认值
+    // const [first, mid, last = 0] = [1, 2];
+    // console.log(first); // 1
+    // console.log(mid); // 2
+    // console.log(last); // 0
+
+    // 4、按需导入
+    // const [first, , third, , last] = [1, 2, 3, 4, 5];
+    // console.log(first); // 1
+    // console.log(third); // 3
+    // console.log(last); // 5
+
+    // 5、多维数组
+    const [a, b, [c, d]] = [1, 2, [3, 4]];
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    console.log(d);
+```
+

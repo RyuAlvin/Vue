@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // const [first, last] = [1, 2];
+    // console.log(first); // 1
+    // console.log(last); // 2
+
+    // 1、值多，变量少
+    // const [first, mid, ...others] = [1, 2, 3, 4, 5];
+    // console.log(first); // 1
+    // console.log(mid); // 2
+    // console.log(others); // [3, 4, 5]
+
+    // 2、变量多，值少
+    // const [first, mid, last] = [1, 2];
+    // console.log(first); // 1
+    // console.log(mid); // 2
+    // console.log(last); // undefined
+
+    // 3、默认值
+    // const [first, mid, last = 0] = [1, 2];
+    // console.log(first); // 1
+    // console.log(mid); // 2
+    // console.log(last); // 0
+
+    // 4、按需导入
+    // const [first, , third, , last] = [1, 2, 3, 4, 5];
+    // console.log(first); // 1
+    // console.log(third); // 3
+    // console.log(last); // 5
+
+    // 5、多维数组
+    const [a, b, [c, d]] = [1, 2, [3, 4]];
+    console.log(a);
+    console.log(b);
+    console.log(c);
+    console.log(d);
+  </script>
+</body>
+
+</html>
