@@ -80,6 +80,21 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.5.0.Final</version>
+<!--            用于指定依赖在编译和测试阶段可用，但在运行时由容器或环境提供。
+这通常在开发与应用服务器或某些框架（如Servlet API、JSP）等协作时使用。
+scopre=provided用于那些在开发和测试中需要，但在生产环境中由外部容器或平台提供的依赖，避免了在打包时重复包含这些依赖。-->
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.5.0.Final</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
