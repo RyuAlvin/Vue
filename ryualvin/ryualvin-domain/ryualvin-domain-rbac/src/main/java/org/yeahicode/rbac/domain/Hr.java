@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.yeahicode.common.domain.BaseEntity;
 
 import java.io.Serializable;
 
@@ -12,10 +13,8 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @TableName("hr")
-public class Hr implements Serializable {
+public class Hr extends BaseEntity<Long> {
 
-    @TableId
-    private Long id;
     private String name;
     private String phone;
     private String telephone;
