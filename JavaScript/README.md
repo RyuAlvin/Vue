@@ -2984,3 +2984,38 @@ const arr = [1, 2, 3];
     console.log(d);
 ```
 
+##  3.6、对象解构
+
+```js
+    const msg = {
+      'code': 200,
+      'msg': '获取成功',
+      'data': [{
+        'id': 1,
+        'title': 'AAA',
+        'count': 10
+      }, {
+        'id': 2,
+        'title': 'BBB',
+        'count': 20
+      }, {
+        'id': 3,
+        'title': 'CCC',
+        'count': 30
+      }]
+    }
+
+    // 需求1：只选出data
+    const { data } = msg;
+    console.log(data);// [{}, {}, {}]
+
+    const { data: myData1 } = msg;
+    console.log(myData1);// [{}, {}, {}]
+
+    function render({ data: myData2 }) {
+      console.log(myData2);// [{}, {}, {}]
+    }
+
+    render(msg);
+```
+
