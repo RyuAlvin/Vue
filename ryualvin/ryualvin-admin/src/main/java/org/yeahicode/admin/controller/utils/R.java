@@ -12,6 +12,11 @@ public class R {
     private R() {
     }
 
+    private R(Integer code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
+
     private R(Integer code, String msg, Object data) {
         this.code = code;
         this.msg = msg;
@@ -22,7 +27,12 @@ public class R {
         return new R(Const.SUCCESS_CODE,Const.SUCCESS_MSG,data);
     }
 
+    @Deprecated
     public static R fail(Integer code, String msg, Object data) {
         return new R(code, msg, data);
+    }
+
+    public static R fail(ResultEnum resultEnum){
+        return new R(resultEnum.getCode(), resultEnum.getMsg());
     }
 }
