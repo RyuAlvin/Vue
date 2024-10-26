@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.yeahicode.admin.controller.commons.BaseController;
+import org.yeahicode.admin.controller.utils.Const;
+import org.yeahicode.admin.controller.utils.R;
 import org.yeahicode.application.dto.HrDto;
 import org.yeahicode.application.service.HrService;
 
@@ -36,12 +38,12 @@ public class HrController extends BaseController {
     }
 
     @GetMapping("/test/r/{name}")
-    public ResponseEntity testR(@PathVariable("name") String name) {
+    public R testR(@PathVariable("name") String name) {
         if(StringUtils.equals(name, "admin")) {
-            return new ResponseEntity(null, HttpStatus.NOT_FOUND);
+            return R.fail(Const.NO_ADMIN_CODE, Const.NO_ADMIN_MSG, null);
         }
         HrDto hrDto = new HrDto();
         hrDto.setName(name);
-        return new ResponseEntity(new HrDto(), HttpStatus.OK);
+        return R.success(hrDto);
     }
 }
