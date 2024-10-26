@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 显示转换
+    console.log(parseInt('str'));// NaN
+    console.log(parseInt('2str'));// 2
+    console.log(parseInt('20.22'));// 20
+    console.log(parseFloat('str'));// NaN
+    console.log(parseFloat('20str'));// 20
+    console.log(parseFloat('20.31str'));// 20.31
+    // 隐式转换
+    const a1 = '2' + 1;
+    console.log(typeof a1, a1);// string, '21'
+    const a2 = '2' - 1
+    console.log(typeof a2, a2);// number, 1
+    const a3 = 3 - '2'
+    console.log(typeof a3, a3);// number, 1
+    const a4 = +'5';
+    console.log(typeof a4, a4);// number, 5
+  </script>
+</body>
+
+</html>

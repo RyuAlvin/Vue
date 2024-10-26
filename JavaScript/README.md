@@ -31,17 +31,51 @@
    console.log(x); // 2
    ```
 
-## 基本和引用数据类型
+## 数据类型
 
-- 值类型：简单数据类型/基本数据类型，在存储时变量中存储的是值本身，因此叫做值类型；
-  - string，number，boolean，undefined，null；
-- 引用类型：复杂数据类型，在存储时变量中存储的仅仅是地址（引用），因此叫做引用数据类型；
-  - 通过new关键字创建的对象（系统对象、自定义对象），如Object、Array、Date等。
+1. 基本数据类型：number、string、boolean、undefined、null；
+2. 引用数据类型：object；
 
-## 隐式转换
+什么时候出现未定义数据类型？以后开发场景是？
+
+- 定义变量为给值就是undefined；
+- 如果监测变量是undefined就说明没有值传递过来；
+
+null是什么类型？开发场景是？
+
+- 空类型；
+- 如果一个变量里面确定存放的是对象，如果还没准备好对象，可以放个null；
+
+null和undefined的区别：Nan代表一个计算错误。它是一个不正确的或者一个未定义的数学操作所得到的结果。
 
 ```js
-const id = +e.target.dataset.id;//隐式转换，字符串->数值
+    console.log(undefined + 1);// NaN
+    console.log(null + 1);// 1
+
+    const temp = undefined + 1;
+    console.log(typeof temp); // number
+```
+
+## 显示转换和隐式转换
+
+```js
+    // 显示转换
+    console.log(parseInt('str'));// NaN
+    console.log(parseInt('2str'));// 2
+    console.log(parseInt('20.22'));// 20
+    console.log(parseFloat('str'));// NaN
+    console.log(parseFloat('20str'));// 20
+    console.log(parseFloat('20.31str'));// 20.31
+
+    // 隐式转换
+    const a1 = '2' + 1;
+    console.log(typeof a1, a1);// string, '21'
+    const a2 = '2' - 1
+    console.log(typeof a2, a2);// number, 1
+    const a3 = 3 - '2'
+    console.log(typeof a3, a3);// number, 1
+    const a4 = +'5';
+    console.log(typeof a4, a4);// number, 5
 ```
 
 ## 显示对象所有的属性和方法
