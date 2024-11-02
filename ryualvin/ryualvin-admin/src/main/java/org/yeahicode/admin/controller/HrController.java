@@ -2,16 +2,12 @@ package org.yeahicode.admin.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.yeahicode.admin.controller.commons.BaseController;
-import org.yeahicode.admin.controller.utils.Const;
 import org.yeahicode.admin.controller.utils.R;
-import org.yeahicode.admin.controller.utils.ResultEnum;
+import org.yeahicode.rbac.result.UserResultEnum;
 import org.yeahicode.application.dto.HrDto;
 import org.yeahicode.application.service.HrService;
 
@@ -42,7 +38,7 @@ public class HrController extends BaseController {
     public R testR(@PathVariable("name") String name) {
         if(StringUtils.equals(name, "admin")) {
 //            return R.fail(Const.NO_ADMIN_CODE, Const.NO_ADMIN_MSG, null);
-            return R.fail(ResultEnum.DOWNLOAD_ERROR);
+            return R.fail(UserResultEnum.DOWNLOAD_ERROR);
         }
         HrDto hrDto = new HrDto();
         hrDto.setName(name);
