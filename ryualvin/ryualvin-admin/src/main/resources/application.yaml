@@ -1,3 +1,4 @@
 spring:
   profiles:
-    include: controller,repository
+#    include: controller-dev,repository-dev
+    active: controller-prod,repository-prod
