@@ -1,4 +1,4 @@
-package org.yeahicode.admin.controller.commons;
+package org.yeahicode.admin.controller.commons.handler;
 
 import lombok.Data;
 

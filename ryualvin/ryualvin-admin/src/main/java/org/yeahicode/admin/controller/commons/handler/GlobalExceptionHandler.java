@@ -1,4 +1,4 @@
-package org.yeahicode.admin.controller.commons;
+package org.yeahicode.admin.controller.commons.handler;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

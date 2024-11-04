@@ -1,6 +1,5 @@
-package org.yeahicode.admin.controller.commons;
+package org.yeahicode.admin.controller.commons.handler;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
