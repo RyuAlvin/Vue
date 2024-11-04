@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.yeahicode.admin.controller.commons.BaseController;
 import org.yeahicode.admin.controller.commons.ErrorHandler;
 import org.yeahicode.admin.controller.utils.R;
+import org.yeahicode.rbac.exeception.UserBusinessException;
 import org.yeahicode.rbac.result.UserResultEnum;
 import org.yeahicode.application.dto.HrDto;
 import org.yeahicode.application.service.HrService;
@@ -49,7 +50,15 @@ public class HrController extends BaseController {
 
     @GetMapping("/test/exe")
     public R testExe(@RequestParam Long id) {
-        System.out.println(10/id);
+        System.out.println(10 / id);
+        return R.success(id);
+    }
+
+    @GetMapping("/test/custmzExe")
+    public R testCustmzExe(@RequestParam Long id) {
+        if (id == 0) {
+            throw new UserBusinessException(UserResultEnum.NO_ADMIN_ERROR);
+        }
         return R.success(id);
     }
 }
