@@ -10,14 +10,14 @@ public class ErrorHandler {
     // 异常的状态码，从枚举中获得
     private Integer code;
     // 异常的消息，写用户看得懂的异常，从枚举中得到
-    private String message;
+    private String msg;
     // 异常的名字
     private String exception;
 
 
-    public static ErrorHandler fail(Integer code,String message, Throwable throwable) {
+    public static ErrorHandler fail(Integer code,String msg, Throwable throwable) {
         ErrorHandler errorHandler = new ErrorHandler();
-        errorHandler.setMessage(message);
+        errorHandler.setMsg(msg);
         errorHandler.setCode(code);
         errorHandler.setException(throwable.getClass().getName());
         return errorHandler;
