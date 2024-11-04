@@ -7,7 +7,9 @@ import org.yeahicode.utility.result.IResultCode;
 public enum UserResultEnum implements IResultCode {
 
     NO_ADMIN_ERROR(40000, "NO ADMIN !!!"),
-    DOWNLOAD_ERROR(50000,"DOWNLOAD ERROR !!!");
+    DOWNLOAD_ERROR(50000,"DOWNLOAD ERROR !!!"),
+
+    ACCESS_EXE_ERROR(60000, "ACCESS EXECEPTION !!!");
 
     private Integer code;
     private String msg;

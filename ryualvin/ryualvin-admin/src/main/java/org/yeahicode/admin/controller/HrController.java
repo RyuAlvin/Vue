@@ -4,8 +4,10 @@ import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.yeahicode.admin.controller.commons.BaseController;
+import org.yeahicode.admin.controller.commons.ErrorHandler;
 import org.yeahicode.admin.controller.utils.R;
 import org.yeahicode.rbac.result.UserResultEnum;
 import org.yeahicode.application.dto.HrDto;
@@ -36,12 +38,18 @@ public class HrController extends BaseController {
 
     @GetMapping("/test/r/{name}")
     public R testR(@PathVariable("name") String name) {
-        if(StringUtils.equals(name, "admin")) {
+        if (StringUtils.equals(name, "admin")) {
 //            return R.fail(Const.NO_ADMIN_CODE, Const.NO_ADMIN_MSG, null);
             return R.fail(UserResultEnum.DOWNLOAD_ERROR);
         }
         HrDto hrDto = new HrDto();
         hrDto.setName(name);
         return R.success(hrDto);
+    }
+
+    @GetMapping("/test/exe")
+    public R testExe(@RequestParam Long id) {
+        System.out.println(10/id);
+        return R.success(id);
     }
 }
