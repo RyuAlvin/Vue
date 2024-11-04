@@ -3,5 +3,8 @@ spring:
     include: controller-dev,repository-dev
 #    active: controller-prod,repository-prod
 
-ryualvin:
-  address: tokyo
+admin:
+  ryualvin:
+    address: tokyo
+    name: sben
+    
