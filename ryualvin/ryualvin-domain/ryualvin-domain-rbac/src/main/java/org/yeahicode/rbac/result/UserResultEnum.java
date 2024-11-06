@@ -8,8 +8,8 @@ public enum UserResultEnum implements IResultCode {
 
     NO_ADMIN_ERROR(40000, "NO ADMIN !!!"),
     DOWNLOAD_ERROR(50000,"DOWNLOAD ERROR !!!"),
-
-    ACCESS_EXE_ERROR(60000, "ACCESS EXECEPTION !!!");
+    ACCESS_EXE_ERROR(60000, "ACCESS EXECEPTION !!!"),
+    NO_TOKEN_ERROR(70000, "NO TOKEN !!!");
 
     private Integer code;
     private String msg;

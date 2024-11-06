@@ -5,13 +5,15 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.yeahicode.admin.controller.commons.BaseController;
 import org.yeahicode.admin.controller.properties.AdminRyualvinProperties;
+import org.yeahicode.utility.threadlocal.UserThreadLocal;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class ParamController {
+public class ParamController extends BaseController {
 
     @Autowired
     private Environment env;
@@ -48,6 +50,7 @@ public class ParamController {
         Map<String, Object> map = new HashMap<>();
         map.put("addr", adminRyualvinProperties.getAddress());
         map.put("name", adminRyualvinProperties.getName());
+        map.put("id", UserThreadLocal.get());
         return map;
     }
 }
