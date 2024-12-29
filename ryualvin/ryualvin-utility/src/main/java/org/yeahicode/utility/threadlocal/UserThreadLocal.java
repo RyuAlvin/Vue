@@ -9,7 +9,7 @@ public class UserThreadLocal {
     public static Integer get(){
         return threadLocal.get();
     }
-    public static void remove(){
+    public static void remove(){ 
         threadLocal.remove();
     }
 }
