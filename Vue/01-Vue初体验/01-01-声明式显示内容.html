@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    {{message}}
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    // 以下式声明式，只需声明目标对象，和需要绑定的数据，具体怎么做，Vue会帮我们实现
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello World!'
+      }
+    });
+
+    // 以下为命令式，每一步实现操作都具体通过命令告诉浏览器怎么做
+    // 1、获取id='app'的div元素
+    // 2、设置div元素的内容为'Hello World!'
+  </script>
+</body>
+
+</html>

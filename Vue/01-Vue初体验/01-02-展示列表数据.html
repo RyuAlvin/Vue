@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <li v-for="item in movies">{{item}}</li>
+    </ul>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        movies: ['星际穿越', '大话西游', '盗梦空间']
+      }
+    });
+
+    // 在浏览器的控制台中，通过app.movies可获取绑定数据
+    // 通过app.movies.push('无间道')，会立即反映并展示在页面上，这就是一种简单的响应式
+  </script>
+</body>
+
+</html>
