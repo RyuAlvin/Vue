@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 
+  cloak：斗篷，披风的意思
+  用于保持元素及其子元素的为编译状态，直到Vue完成模板的编译过程。
+  它通常用于在Vue.js应用的页面初次加载时，确保模板内的Vue指令（如{{ message }}）不会在浏览器中被直接渲染为原始文本
+   -->
+  <div id="app" v-cloak>
+    <h2>{{message}}</h2>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    /**
+     * 现象：在延迟一秒后才实例化Vue做数据绑定的操作，因此会展示给用户"{{message}}"原始文本
+     * 解决方法：通过v-cloak指令 + 样式设置
+     *  在vue解析之前，div中有一个属性v-cloak，样式 { display: none}
+     *  在vue解析之后，div中没有一个属性v-cloak
+     */
+    setTimeout(() => {
+      const app = new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello World!'
+        }
+      })
+    }, 1000);
+  </script>
+</body>
+
+</html>

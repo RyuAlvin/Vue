@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>{{message}}，ryualvin</h2>
+    <!-- 
+    作用和Mustach比较相似，都是用于将数据显示在界面中，
+    v-text通常情况下，接受一个string类型，但不灵活，无法和其他字符串组合，会将其覆盖-->
+    <h2 v-text="message">，ryualvin</h2>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello World!'
+      }
+    })
+  </script>
+</body>
+
+</html>

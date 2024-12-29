@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>{{message}}</h2>
+    <!-- 
+    不会被渲染，原样输出
+    作用：
+      1、跳过编译：用于标记某部分模板为静态内容，vue会直接渲染其原始html，而不进行编译；
+      2、性能优化：如果你有大量的静态内容，不需要vue的数据绑定和模板解析，可以使用v-pre来避免不必要的处理
+     -->
+    <h2 v-pre>{{message}}</h2>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello World!'
+      }
+    })
+  </script>
+</body>
+
+</html>
