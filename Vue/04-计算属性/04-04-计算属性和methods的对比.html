@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>计算属性：{{fullname}}</h2>
+    <h2>计算属性：{{fullname}}</h2>
+    <h2>计算属性：{{fullname}}</h2>
+    <h2>计算属性：{{fullname}}</h2>
+    <h2>方法：{{getFullname()}}</h2>
+    <h2>方法：{{getFullname()}}</h2>
+    <h2>方法：{{getFullname()}}</h2>
+    <h2>方法：{{getFullname()}}</h2>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        firstname: 'alvin',
+        lastname: 'ryu'
+      },
+      methods: {
+        getFullname: function () {
+          // 初始化，执行4次
+          // firstname和lastname只要有一个更改，都会被执行4次
+          console.log('---方法执行了---');
+          return this.firstname + ' ' + this.lastname;
+        }
+      },
+      computed: {
+        fullname: function () {
+          // 因为计算属性有缓存，虽然被调用4次，但是
+          // 初始化，只执行一次
+          // firstname和lastname只要有一个更改，都会为了响应计算属性执行，但是只执行一次
+          console.log('---计算属性执行了---');
+          return this.firstname + ' ' + this.lastname;
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

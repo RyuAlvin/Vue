@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h2>{{firstname}} {{lastname}}</h2>
+    <h2>方法：{{getFullname()}}</h2>
+    <h2>计算属性：{{fullname}}</h2>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        firstname: 'alvin',
+        lastname: 'ryu'
+      },
+      methods: {
+        getFullname: function () {
+          return this.firstname + ' ' + this.lastname;
+        }
+      },
+      computed: {
+        // 计算属性的结果会被缓存，除非其依赖的数据发生变化，否则多次访问计算属性时不会重新计算，提高性能
+        fullname: function () {
+          return this.firstname + ' ' + this.lastname;
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
