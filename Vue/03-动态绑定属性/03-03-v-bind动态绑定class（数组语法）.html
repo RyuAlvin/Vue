@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .title {
+      color: red;
+    }
+
+    .bkColor {
+      background-color: yellow;
+    }
+
+    .titleBorder {
+      border: 1px solid blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h2 class="title" :class="['bkColor', 'titleBorder']">{{message}}</h2>
+    <h2 class="title" :class="getStyle()">{{message}}</h2>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello World!',
+        isBkColor: true,
+        isTitleBorder: true
+      },
+      methods: {
+        getStyle: function () {
+          return ['bkColor', 'titleBorder']
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>
