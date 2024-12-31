@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button>按钮1</button>
+  <button>按钮2</button>
+  <button>按钮3</button>
+  <button>按钮4</button>
+  <button>按钮5</button>
+  <script>
+    // ES5中的var是没有块级作用域的（if/for）
+    // Es6中的let是有块级作用域的（if/for）
+
+    // ES5之前因为if和for都没有块级作用域的概念，所以在很多时候，我们都必须借助于function的作用域来解决应用外面变量的问题
+    // ES6中，加入了let，let它是if和for的块级作用域
+
+    // 1、变量作用域，变量在什么范围内是可用
+    {
+      var name = 'ryualvin'
+      console.log('---', name); // --- ryualvin
+    }
+    console.log('+++', name); // +++ ryualvin
+
+    // 2、没有块级作用域引起的问题：if的块级
+    var func;
+    if (true) {
+      var name = 'aaa';
+      func = function () {
+        console.log('---', name);
+      }
+      func(); // --- aaa
+    }
+    name = 'bbb';
+    func(); // --- bbb
+
+    // 3、没有块级作用域引起的问题：for的块级
+    var btns = document.getElementsByTagName('button');
+    /**
+    for (var i = 0; i < btns.length; i++) {
+      // 点任何一个按钮都是'第5个按钮被点击了'
+      console.log(i); // 0,1,2,3,4
+      btns[i].addEventListener('click', function () {
+        // 这里的函数内容是通过点击事件回调执行的，和循环注册点击事件不是同一个时机，在回调执行的那个时间点i=5
+        console.log('第' + i + '按钮被点击了');
+      })
+    }
+      */
+
+    // 上面的代码相当于：
+    /**
+    var num = 5;
+    {
+      btns[0].addEventListener('click', function () {
+        console.log('第' + num + '按钮被点击了');
+      })
+    }
+    {
+      btns[1].addEventListener('click', function () {
+        console.log('第' + num + '按钮被点击了');
+      })
+    }
+    {
+      btns[2].addEventListener('click', function () {
+        console.log('第' + num + '按钮被点击了');
+      })
+    }
+    {
+      btns[3].addEventListener('click', function () {
+        console.log('第' + num + '按钮被点击了');
+      })
+    }
+    {
+      btns[4].addEventListener('click', function () {
+        console.log('第' + num + '按钮被点击了');
+      })
+    }
+     */
+
+    // 可通过闭包解决，因为函数自己的作用域，入参通过形参接收，形参作用范围只针对函数内容
+    for (var i = 0; i < btns.length; i++) {
+      // 点任何一个按钮都是'第5个按钮被点击了'
+      console.log(i); // 0,1,2,3,4
+      (function (input) {
+        btns[input].addEventListener('click', function () {
+          // i=5
+          console.log('第' + (input + 1) + '按钮被点击了');
+        })
+      })(i)
+    }
+  </script>
+</body>
+
+</html>

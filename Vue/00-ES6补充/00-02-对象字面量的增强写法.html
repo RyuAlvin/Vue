@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // const obj = new Object();
+    // 1、以下这种写法{}就叫做对象的字面量
+    const obj1 = {};
+
+    // 2、属性的增强写法
+    const name = 'ryualvin';
+    const age = 20;
+    const sex = 'male';
+    // 以下这种是es5的写法
+    const obj2 = {
+      name: name,
+      age: age,
+      sex: sex
+    };
+    // 以下这种是es6属性的增强写法
+    const obj3 = { name, age, sex };
+
+    // 3、函数的增强写法
+    // 以下这种是es5的写法
+    const obj4 = {
+      run: function () {
+
+      },
+      speak: function () {
+
+      }
+    }
+    // 以下这种是es6函数的增强写法
+    const obj5 = {
+      run() {
+
+      },
+      speak() {
+
+      }
+    }
+  </script>
+</body>
+
+</html>
