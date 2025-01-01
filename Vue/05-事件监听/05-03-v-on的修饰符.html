@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 1、.stop，阻止事件冒泡 -->
+    <div @click="divClick" style="background-color: yellow;">aaaaaaa
+      <button @click.stop="btnClick">按钮1</button>
+    </div>
+
+    <!-- 2、.prevent，阻止默认行为发生 -->
+    <form action="baidu">
+      <input type="submit" value="提交" @click.prevent="submit" /><br />
+
+      <!-- 3、限定特定按钮触发 -->
+      <input type="text" @keyup.enter="keyup" />
+    </form>
+
+    <!-- 4、.native，监听组件根元素的原生事件 -->
+
+    <!-- 5、.once，只触发一次 -->
+    <button @click.once="once">按钮2</button>
+
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+        divClick() {
+          console.log('div...');
+        },
+        btnClick() {
+          console.log('btn...');
+        },
+        submit() {
+          console.log('submit...');
+        },
+        keyup(event) {
+          console.log(event.target.value);
+        },
+        once() {
+          console.log('once...');
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 调用时有括号，不传参，方法接收时为undefined -->
+    <button @click="btn1Click()">按钮1</button>
+    <!-- 调用时没括号，但是方法本身是需要一个参数，这个时候，vue会默认将浏览器生产的event事件对象作为参数传入到方法 -->
+    <button @click="btn1Click">按钮1</button>
+    <!-- 调用时有括号，传入一个参数 -->
+    <button @click="btn1Click(123)">按钮1</button>
+    <!-- 调用时，需要event对象，同时又需要其他参数 -->
+    <button @click="btn2Click(123, $event)">按钮2</button>
+    <button>按钮3</button>
+    <button>按钮4</button>
+    <button>按钮5</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+        btn1Click(abc) {
+          console.log(abc);
+        },
+        btn2Click(par, event) {
+          console.log(par, event);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
