@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <ul>
+      <!-- 只有一个变量的时候，输出的是属性值 -->
+      <li v-for="value in user">{{value}}</li>
+    </ul>
+    <hr />
+    <ul>
+      <!-- 属性值+属性名，
+       第一个变量：属性值
+       第二个变量：属性名 -->
+      <li v-for="(v, k) in user">{{k}}：{{v}}</li>
+    </ul>
+    <hr />
+    <ul>
+      <!-- 属性值+属性名，
+       第一个变量：属性值
+       第二个变量：属性名
+       第三个变量：索引 -->
+      <li v-for="(v, k, idx) in user">{{idx+1}}、{{k}}：{{v}}</li>
+    </ul>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        user: {
+          name: 'ryualvin',
+          age: '20',
+          sex: 'male'
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
