@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <input type="text" v-model="message" /> -->
+
+    <!-- 
+    1、用v-bind动态绑定数据，model -> view
+    2、用input事件动态改变数据，view -> model
+    -->
+    <!-- <input type="text" :value="message" v-on:input="valueChange" /> -->
+    <input type="text" :value="message" v-on:input="message = $event.target.value" />
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello World!'
+      },
+      methods: {
+        valueChange(event) {
+          this.message = event.target.value;
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 要让两个radio互斥必须得加name属性，且值得一致，但是如果有v-model的话就不用加name属性，也可以保持互斥 -->
+    <!-- <label for="male">
+      <input type="radio" value="男" id="male" name="sex" />男
+    </label>
+    <label for="female">
+      <input type="radio" value="女" id="female" name="sex" />女
+    </label> -->
+    <label for="male">
+      <input type="radio" value="男" id="male" v-model="sex" />男
+    </label>
+    <label for="female">
+      <input type="radio" value="女" id="female" v-model="sex" />女
+    </label>
+    <h2>性别：{{sex}}</h2>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        sex: '男'
+      }
+    })
+  </script>
+</body>
+
+</html>

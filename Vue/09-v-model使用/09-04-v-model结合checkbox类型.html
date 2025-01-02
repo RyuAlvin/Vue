@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 单选 -->
+    <label for="agree">
+      <input type="checkbox" id="agree" v-model="isAgree" />同意协议
+    </label><br />
+    <button :disabled="!isAgree">下一步</button>
+    <hr />
+
+    <!-- 多选 -->
+    <label for="bb">
+      <input type="checkbox" v-model="hobbies" value="篮球" id="bb" />篮球
+    </label>
+    <label for="fb">
+      <input type="checkbox" v-model="hobbies" value="足球" id="fb" />足球
+    </label>
+    <label for="vb">
+      <input type="checkbox" v-model="hobbies" value="排球" id="vb" />排球
+    </label>
+    <label for="sm">
+      <input type="checkbox" v-model="hobbies" value="游泳" id="sm" />游泳
+    </label>
+    <h2>兴趣爱好：{{hobbies | showHobbies}}</h2>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        isAgree: false,
+        hobbies: []
+      },
+      filters: {
+        showHobbies(value) {
+          return value.reduce((pre, item) => pre + ', ' + item, '').slice(1);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

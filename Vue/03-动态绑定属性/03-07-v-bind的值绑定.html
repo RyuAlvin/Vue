@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <label v-for="(item, index) in hobbies" :for="index">
+      <input type="checkbox" :id="index" :value="item" v-model="selectedHobbies" />{{item}}
+    </label>
+    <hr />
+    <h2>您选择的爱好是：{{selectedHobbies | showHobbies}}</h2>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        hobbies: ['篮球', '足球', '排球', '游泳', '跑步'],
+        selectedHobbies: []
+      },
+      filters: {
+        showHobbies(value) {
+          return value.reduce((pre, item) => pre + ', ' + item, '').slice(1);
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>
