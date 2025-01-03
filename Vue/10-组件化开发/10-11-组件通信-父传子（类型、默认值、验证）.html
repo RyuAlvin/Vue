@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <cpn prop-c="I am father!"></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2>{{propC}}</h2>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    function Person(firstName, lastName) {
+      this.firstName = firstName;
+      this.lastName = lastName;
+    }
+
+    const cpn = {
+      template: '#cpn',
+      data() {
+        return {
+          message: 'Hello Component'
+        }
+      },
+      props: {
+        // 基础的类型检查
+        propA: Number,
+        // 多个可能的类型
+        propB: [String, Number],
+        // 必须传递的字符串
+        propC: {
+          type: String,
+          required: true
+        },
+        // 不传递则默认值为100的数值属性
+        propD: {
+          type: Number,
+          default: 100
+        },
+        // 带有默认值的对象
+        propE: {
+          type: Object,
+          // 对象或数组默认值必须从一个工厂函数获取
+          default() {
+            return { message: 'hello' }
+          }
+        },
+        // 自定义验证函数
+        propF: {
+          validator(value) {
+            return ['success', 'warning', 'info'].indexOf(value) !== -1;
+          }
+        },
+        // 自定义类型
+        propG: Person
+      }
+    }
+
+    const app = new Vue({
+      el: '#app',
+      components: {
+        cpn
+      }
+    });
+  </script>
+</body>
+
+</html>

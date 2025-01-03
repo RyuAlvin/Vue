@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <cpn1></cpn1>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+
+    // 创建组件2（子组件）构造函数
+    const cpnC2 = Vue.extend({
+      template: `
+        <div style="margin-left: 30px;background-color: aquamarine;">
+          <h2>这是标题2</h2>
+          <p>内容2222222222222222</p>
+        </div>
+      `
+    })
+
+    // 创建组件1（父组件）构造函数
+    const cpnC1 = Vue.extend({
+      template: `
+        <div style="padding-bottom: 30px;background-color: yellow;">
+          <h1>这是标题1</h1>
+          <p>内容111111111111</p>
+          <cpn2></cpn2>
+        </div>
+      `,
+      components: {
+        cpn2: cpnC2
+      }
+    })
+
+    // 根组件
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello World!'
+      },
+      // 如果非要在根组件中使用组件2（子组件）的话，必须得将其注册成全局组件
+      components: {
+        cpn1: cpnC1
+      }
+    });
+  </script>
+</body>
+
+</html>

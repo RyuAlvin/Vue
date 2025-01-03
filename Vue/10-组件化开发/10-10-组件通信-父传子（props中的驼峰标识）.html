@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 
+    当子组件的props名以驼峰命名方式（xxxYyy）定义的时候，
+    在父组件调用子组件，必须以xxx-yyy的方式使用
+    -->
+    <cpn c-message="I am father!"></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2>{{cMessage}}</h2>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    // 子组件
+    const cpn = {
+      template: '#cpn',
+      data() {
+        return {
+          message: 'Hello Component'
+        }
+      },
+      props: {
+        cMessage: String,
+        required: true
+      }
+    }
+    // 父组件
+    const app = new Vue({
+      el: '#app',
+      components: {
+        cpn
+      }
+    });
+  </script>
+</body>
+
+</html>

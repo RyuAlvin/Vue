@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <ryualvin></ryualvin>
+  </div>
+
+  <!-- 组件模板分离写法 -->
+  <template id="myCpn">
+    <div>
+      <h2>这是标题</h2>
+      <p>这是内容11111111111111111111</p>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    Vue.component('ryualvin', {
+      template: '#myCpn'
+    })
+
+    const app = new Vue({
+      el: '#app'
+    });
+  </script>
+</body>
+
+</html>

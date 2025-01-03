@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <my-cpn></my-cpn>
+    <hr />
+    <my-cpn></my-cpn>
+    <hr />
+    <my-cpn></my-cpn>
+  </div>
+
+  <template id="myCpn">
+    <div>
+      <button @click="decrement">-</button>
+      <span>{{counter}}</span>
+      <button @click="increment">+</button>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const obj = { counter: 0 };
+    Vue.component('my-cpn', {
+      template: '#myCpn',
+      // data() {
+      //   return obj;
+      // },
+
+      /**
+       * 采用函数返回对象是为了数据隔离。
+       * 组件的复用性：当多个实例使用同一个组件时，如果data是一个对象，那么这些实例会共享同一个数据对象
+       * 问题：共享数据对象可能会导致意外的副作用。例如，一个组件实例修改了共享数据，其他实例会受到影响。
+       * 解决方案：使用函数返回对象，每个组件实例都会独立创建一个新的data对象。
+       */
+      data() {
+        return {
+          counter: 0
+        }
+      },
+      methods: {
+        decrement() {
+          this.counter--;
+        },
+        increment() {
+          this.counter++;
+        }
+      }
+    })
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello World!'
+      }
+    });
+  </script>
+</body>
+
+</html>

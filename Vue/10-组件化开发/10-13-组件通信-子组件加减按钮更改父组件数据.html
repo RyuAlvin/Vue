@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    父组件：{{counter}}
+    <hr />
+    子组件：<my-cpn @decre-click="decrement" @incre-click="increment"></my-cpn>
+  </div>
+
+  <template id="myCpn">
+    <div>
+      <button @click="cDecrement">-</button>
+      <button @click="cIncrement">+</button>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    // 子组件
+    const myCpn = {
+      template: '#myCpn',
+      methods: {
+        cDecrement() {
+          this.$emit('decre-click');
+        },
+        cIncrement() {
+          this.$emit('incre-click');
+        }
+      }
+    }
+    // 父组件
+    const app = new Vue({
+      el: '#app',
+      data: {
+        counter: 0
+      },
+      methods: {
+        decrement() {
+          this.counter--;
+        },
+        increment() {
+          this.counter++;
+        }
+      },
+      components: {
+        myCpn
+      }
+    });
+  </script>
+</body>
+
+</html>

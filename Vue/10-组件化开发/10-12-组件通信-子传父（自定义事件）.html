@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    {{title}}
+    <hr />
+    <!-- 'item-click'事件调用父组件cpnItemClick方法 -->
+    <cpn-items :c-list="items" v-on:item-click="cpnItemClick"></cpn-items>
+  </div>
+
+  <template id="cpnItems">
+    <div>
+      <button v-for="menu in cList" @click="menuClick(menu)">{{menu.name}}</button>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    // 菜单组件item
+    const cpnItems = {
+      template: '#cpnItems',
+      props: {
+        cList: Array
+      },
+      methods: {
+        menuClick(menu) {
+          // 子组件触发'item-click'事件
+          console.log(`子组件'item-click'事件被触发！！！`);
+
+          this.$emit('item-click', menu);
+        }
+      },
+    }
+
+    // 父组件
+    const app = new Vue({
+      el: '#app',
+      components: {
+        cpnItems
+      },
+      data: {
+        title: 'Home page',
+        items: [{
+          id: 1,
+          name: '运动户外'
+        },
+        {
+          id: 2,
+          name: '馋嘴零食'
+        },
+        {
+          id: 3,
+          name: '潮电数码'
+        },
+        {
+          id: 4,
+          name: '家居日用'
+        }]
+      },
+      methods: {
+        cpnItemClick(item) {
+          console.log('父组件收到数据--->', item);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
