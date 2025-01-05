@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    {{message}}
+    <!-- 组件与组件之间的作用域是互相隔离的，根组件的isShow只在根组件内可用，不会影响子组件内的同名属性 -->
+    <cpn v-show="isShow" ref="cpn"></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2>{{cpnMessage}}</h2>
+      <h3 v-show="isShow">内容11111111111111111</h3>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '这是根组件',
+        isShow: true
+      },
+      components: {
+        cpn: {
+          template: '#cpn',
+          data() {
+            return {
+              cpnMessage: '这是cpn组件',
+              isShow: false
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

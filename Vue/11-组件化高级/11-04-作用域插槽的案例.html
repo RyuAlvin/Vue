@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <my-cpn></my-cpn>
+    <hr />
+
+    <my-cpn>
+      <!-- 方式一：Vue2低版本必须通过tempalte获取slot -->
+      <!-- <template slot-scope="slot">
+        <span>{{slot.input.join(' -- ')}}</span>
+      </template> -->
+
+      <!-- 方式二：Vue2某个版本后则可以通过任意标签获取slot -->
+      <span slot-scope="slot">{{slot.input.join(' -- ')}}</span>
+    </my-cpn>
+
+    <hr />
+
+    <my-cpn>
+      <template slot-scope="slot">
+        <span>{{slot.input.join(' ** ')}}</span>
+      </template>
+    </my-cpn>
+
+  </div>
+
+  <template id="myCpn">
+    <div>
+      <!-- input是为了开放给父组件用的属性 -->
+      <slot :input="cLanguages">
+        <ul>
+          <li v-for="cLan in cLanguages">{{cLan}}</li>
+        </ul>
+      </slot>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    // 全局注册组件
+    Vue.component('my-cpn', {
+      template: '#myCpn',
+      data() {
+        return {
+          cLanguages: ['Javascript', 'Java', 'Python', 'C#']
+        }
+      }
+    })
+    // 根组件
+    const app = new Vue({
+      el: '#app'
+    });
+  </script>
+</body>
+
+</html>

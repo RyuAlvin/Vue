@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>这是root组件</h1>
+    <navi-bar>
+      <h3 slot="left">这是替换标题</h3>
+      <button slot="right">这是导航按钮</button>
+    </navi-bar>
+  </div>
+
+  <template id="naviBar">
+    <div>
+      <h2>这是导航栏</h2>
+      <hr />
+      <slot name="left"><button>这是默认按钮</button></slot>
+      <slot name="center"><span>这是搜索栏</span></slot>
+      <slot name="right"></slot>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      components: {
+        'navi-bar': {
+          template: '#naviBar'
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

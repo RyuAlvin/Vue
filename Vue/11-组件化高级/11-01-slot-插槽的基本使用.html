@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <cpn></cpn>
+    <hr />
+    <cpn><span>插入span哈哈哈</span></cpn>
+    <hr />
+    <cpn><i>插入i呵呵呵</i></cpn>
+    <hr />
+    <my-cpn></my-cpn>
+    <hr />
+    <my-cpn><span>mycpn嘿嘿嘿</span></my-cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2>这是cpn</h2>
+      <slot><button>默认按钮</button></slot>
+    </div>
+  </template>
+
+  <template id="myCpn">
+    <div>
+      <h2>这是mycpn</h2>
+      <slot><button>mycpn的默认按钮</button></slot>
+      <slot><button>mycpn的默认按钮</button></slot>
+      <slot><button>mycpn的默认按钮</button></slot>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      components: {
+        cpn: {
+          template: '#cpn'
+        },
+        'my-cpn': {
+          template: '#myCpn'
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
