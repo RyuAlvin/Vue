@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <cpn name="alvin" ref="alvin"></cpn>
+    <cpn name="ruby" ref="ruby"></cpn>
+    <cpn name="miyu" ref="miyu"></cpn>
+    <hr />
+    <button @click="btnClick">按钮</button>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2>{{name}}</h2>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const cpn = {
+      template: '#cpn',
+      data() {
+        return {
+          message: 'Hello World!'
+        }
+      },
+      props: {
+        name: String
+      },
+      methods: {
+        showMessage() {
+          console.log(this.name, '--->', this.message);
+        }
+      }
+    }
+
+    const app = new Vue({
+      el: '#app',
+      methods: {
+        btnClick() {
+          // $refs是一个对象：{ alvin: VueComponent, ruby: VueComponet, miyu: VueComponent }
+          console.log(this.$refs);
+          this.$refs.alvin.showMessage();
+        }
+      },
+      components: {
+        cpn
+      }
+    });
+  </script>
+</body>
+
+</html>

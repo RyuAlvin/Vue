@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 
+    1、父组件传递数据num1，num2给子组件
+    2、子组件通过props接收后赋值给data.cdnum1，data.cdnum2
+    3、子组件将cdnum1和cdnum2通过v-bind绑定至文本框
+    4、文本框通过input事件更改cdnum1和cdnum2，并且通过事件回调更改父组件num1和num2
+    -->
+    <cpn :pnum1="num1" :pnum2="num2" @num1-change="num1Change" @num2-change="num2Change"></cpn>
+  </div>
+
+  <template id="myCpn">
+    <div>
+      <h1>子组件：</h1>
+      <h2>props.pnum1：{{pnum1}}</h2>
+      <h2>data.dnum1：{{dnum1}}</h2>
+      <input type="text" :value="dnum1" @input="dnum1Change" />
+      <hr />
+      <h2>props.pnum2：{{pnum2}}</h2>
+      <h2>data.dnum2：{{dnum2}}</h2>
+      <input type="text" :value="dnum2" @input="dnum2Change" />
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    // 子组件
+    const cpn = {
+      template: '#myCpn',
+      props: {
+        pnum1: Number,
+        pnum2: Number
+      },
+      data() {
+        return {
+          dnum1: this.pnum1,
+          dnum2: this.pnum2
+        }
+      },
+      methods: {
+        dnum1Change(event) {
+          let num1 = 0;
+          let num2 = 0;
+
+          if (event.target.value) {
+            num1 = Number(event.target.value || 0);
+            num2 = num1 * 10;
+            this.dnum1 = num1
+            this.dnum2 = num2;
+          } else {
+            this.dnum1 = '';
+            this.dnum2 = '';
+          }
+
+          this.$emit('num1-change', num1);
+          this.$emit('num2-change', num2);
+        },
+        dnum2Change(event) {
+          const value = Number(event.target.value || 0);
+          this.dnum2 = value;
+          this.$emit('num2-change', this.dnum2);
+
+          this.dnum1 = this.dnum2 / 10;
+          this.$emit('num1-change', this.dnum1);
+        }
+      }
+    }
+
+    const app = new Vue({
+      el: '#app',
+      data: {
+        num1: 1,
+        num2: 10
+      },
+      components: {
+        cpn
+      },
+      methods: {
+        num1Change(value) {
+          this.num1 = parseFloat(value);
+        },
+        num2Change(value) {
+          this.num2 = parseFloat(value);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

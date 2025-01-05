@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <h1>这是root组件</h1>
+    <cpn></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2>这是cpn组件</h2>
+      <ccpn></ccpn>
+    </div>
+  </template>
+
+  <template id="ccpn">
+    <div>
+      <h3>这是ccpn组件</h3>
+      <button @click="btnClick">按钮1</button>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const app = new Vue({
+      el: '#app',
+      data: {
+        rootMessage: '这是root的message'
+      },
+      components: {
+        cpn: {
+          template: '#cpn',
+          data() {
+            return {
+              cpnMessage: '这是cpn的message'
+            }
+          },
+          components: {
+            ccpn: {
+              template: '#ccpn',
+              methods: {
+                btnClick() {
+                  // 开发中不建议使用$parent去获取父组件的数据，因为一个子组件可能在多个场景下复用，但是其父组件是可变的，所以不同父组件的属性是不确定，去获取固定的属性值容易造成空指针
+                  console.log('父组件的message：', this.$parent.cpnMessage);
+                  console.log('根组件的message：', this.$parent.$parent.rootMessage);
+                  console.log('根组件的message：', this.$root.rootMessage);
+                }
+              }
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <cpn name="alvin"></cpn>
+    <cpn name="ruby"></cpn>
+    <cpn name="miyu"></cpn>
+    <hr />
+    <button @click="btnClick">按钮</button>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <h2>{{name}}</h2>
+    </div>
+  </template>
+
+  <script src="../js/vue.js"></script>
+  <script>
+    const cpn = {
+      template: '#cpn',
+      data() {
+        return {
+          message: 'Hello World!'
+        }
+      },
+      props: {
+        name: String
+      },
+      methods: {
+        showMessage() {
+          console.log(this.name, '--->', this.message);
+        }
+      }
+    }
+
+    const app = new Vue({
+      el: '#app',
+      methods: {
+        btnClick() {
+          for (let i of this.$children) {
+            console.log(i.name);
+          }
+          // 当父组件下有多个不同类型的组件的时候，不建议通过$children[idx]的方式去获取指定的组件
+          this.$children[1].showMessage();
+        }
+      },
+      components: {
+        cpn
+      }
+    });
+  </script>
+</body>
+
+</html>
