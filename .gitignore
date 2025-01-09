@@ -27,3 +27,5 @@ buildNumber.properties
 bk/
 
 **/log/
+
+node_modules/
