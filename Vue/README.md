@@ -29,8 +29,32 @@
 
 # 前端模块化
 
-![image-20250106234455548](./assets/image-20250106234455548.png)
+![image-20250106234455548](./assets/image-20250106234455548.png)      
 
 # Webpack安装
 
 ![image-20250107001318708](./assets/image-20250107001318708.png)
+
+![image-20250109212730525](./assets/image-20250109212730525.png)
+
+# Node.js相关
+
+![image-20250109003719660](./assets/image-20250109003719660.png)
+
+![image-20250109003940202](./assets/image-20250109003940202.png)
+
+```json
+{
+  "name": "meetwebpack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC" // 项目开源才需要写这个
+}
+```
+
+![image-20250109214243743](./assets/image-20250109214243743.png)
