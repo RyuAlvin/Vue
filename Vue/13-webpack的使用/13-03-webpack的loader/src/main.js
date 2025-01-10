@@ -13,7 +13,7 @@ console.log('info.js ---> name: ', name);
 console.log('info.js ---> age: ', age);
 
 /**
- * 依赖css文件
+ * 打包css文件，首先需要依赖css文件
  * 执行 npm run build 命令打包，报错：
  * ERROR in ./src/css/normal.css
  * Module parse failed: D:\develop\project\rensyu\Vue\13-webpack的使用\13-03-webpack的loader\src\css\normal.css Unexpected token (1:5)
@@ -30,3 +30,17 @@ console.log('info.js ---> age: ', age);
  *  3、执行 npm run build
  */
 require('./css/normal.css')
+
+/**
+ * 打包less文件，首先需要依赖less文件
+ * 1、先安装打包less文件时，需要的Node.js的包
+ *    npm install --save-dev less-loader@4.1.0
+ *      less-loader和css-loader加载css资源一样，是用来加载less文件
+ *    npm install --save-dev less@3.9.0
+ *      less和style-loader解析css资源一样，是用来解析less文件
+ * 2、在webpack.config.js出口中配置关于less模块的解析规则
+ * 3、执行 npm run build
+ */
+require('./css/special.less')
+
+document.writeln('<p>Hello World!</p>')

@@ -44,7 +44,17 @@ module.exports = {
         // style-loader负责将样式添加到DOM中
         // 使用多个loader时，是从右向左
         use: ['style-loader', 'css-loader']
-      }
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          // less资源最终都会css资源，所以需要css-loader
+          'css-loader',
+          // 加载less资源用
+          'less-loader'
+        ],
+      },
     ]
   }
 }

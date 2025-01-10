@@ -60,146 +60,11 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_info_js__ = __webpack_require__(2);
-// 通过CommonJS规范导入
-
-// const math = require('./mathUtil.js')
-// console.log(math.add(1, 2));
-// console.log(math.multiply(1, 2));
-
-const { add, multiply } = __webpack_require__(1);
-console.log('mathUtil.js ---> add: ', add(1, 2));
-console.log('mathUtil.js ---> multiply: ', multiply(1, 2));
-
-
-console.log('info.js ---> name: ', __WEBPACK_IMPORTED_MODULE_0__js_info_js__["b" /* name */]);
-console.log('info.js ---> age: ', __WEBPACK_IMPORTED_MODULE_0__js_info_js__["a" /* age */]);
-
-/**
- * 依赖css文件
- * 执行 npm run build 命令打包，报错：
- * ERROR in ./src/css/normal.css
- * Module parse failed: D:\develop\project\rensyu\Vue\13-webpack的使用\13-03-webpack的loader\src\css\normal.css Unexpected token (1:5)
- * You may need an appropriate loader to handle this file type.
- * | body {
- * |   background-color:aqua;
- * | }
- * 
- * 解决：
- *  1、安装css-loader，style-laoder
- *      npm install --save-dev css-loader@0.28.11 style-loader@0.23.1
- *  2、
- */
-__webpack_require__(3)
-
-/***/ }),
-/* 1 */
-/***/ (function(module, exports) {
-
-// 通过CommonJS规范导出
-
-// module.exports = {
-//   add(num1, num2) {
-//     return num1 + num2;
-//   }
-// }
-
-exports.add = function (num1, num2) {
-  return num1 + num2;
-}
-
-exports.multiply = function (num1, num2) {
-  return num1 * num2;
-}
-
-/***/ }),
-/* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// 通过ES6规范导出
-const name = 'ryualvin';
-/* harmony export (immutable) */ __webpack_exports__["b"] = name;
-
-const age = 20;
-/* harmony export (immutable) */ __webpack_exports__["a"] = age;
-
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var content = __webpack_require__(4);
-
-if(typeof content === 'string') content = [[module.i, content, '']];
-
-var transform;
-var insertInto;
-
-
-
-var options = {"hmr":true}
-
-options.transform = transform
-options.insertInto = undefined;
-
-var update = __webpack_require__(6)(content, options);
-
-if(content.locals) module.exports = content.locals;
-
-if(false) {
-	module.hot.accept("!!../../node_modules/css-loader/index.js!./normal.css", function() {
-		var newContent = require("!!../../node_modules/css-loader/index.js!./normal.css");
-
-		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-
-		var locals = (function(a, b) {
-			var key, idx = 0;
-
-			for(key in a) {
-				if(!b || a[key] !== b[key]) return false;
-				idx++;
-			}
-
-			for(key in b) idx--;
-
-			return idx === 0;
-		}(content.locals, newContent.locals));
-
-		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
-
-		update(newContent);
-	});
-
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(5)(false);
-// imports
-
-
-// module
-exports.push([module.i, "body {\r\n  background-color:aqua;\r\n}", ""]);
-
-// exports
-
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports) {
 
 /*
@@ -281,7 +146,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 6 */
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -687,6 +552,157 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
+/* 2 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_info_js__ = __webpack_require__(4);
+// 通过CommonJS规范导入
+
+// const math = require('./mathUtil.js')
+// console.log(math.add(1, 2));
+// console.log(math.multiply(1, 2));
+
+const { add, multiply } = __webpack_require__(3);
+console.log('mathUtil.js ---> add: ', add(1, 2));
+console.log('mathUtil.js ---> multiply: ', multiply(1, 2));
+
+
+console.log('info.js ---> name: ', __WEBPACK_IMPORTED_MODULE_0__js_info_js__["b" /* name */]);
+console.log('info.js ---> age: ', __WEBPACK_IMPORTED_MODULE_0__js_info_js__["a" /* age */]);
+
+/**
+ * 打包css文件，首先需要依赖css文件
+ * 执行 npm run build 命令打包，报错：
+ * ERROR in ./src/css/normal.css
+ * Module parse failed: D:\develop\project\rensyu\Vue\13-webpack的使用\13-03-webpack的loader\src\css\normal.css Unexpected token (1:5)
+ * You may need an appropriate loader to handle this file type.
+ * | body {
+ * |   background-color:aqua;
+ * | }
+ * 
+ * 解决：
+ *  1、安装css-loader，style-laoder
+ *      npm install --save-dev css-loader@0.28.11 style-loader@0.23.1
+ *      因为webpack@3.6.0只能适配以上版本
+ *  2、在webpack.config.js中配置loader
+ *  3、执行 npm run build
+ */
+__webpack_require__(5)
+
+/**
+ * 打包less文件，首先需要依赖less文件
+ * 1、先安装打包less文件时，需要的Node.js的包
+ *    npm install --save-dev less-loader@4.1.0
+ *      less-loader和css-loader加载css资源一样，是用来加载less文件
+ *    npm install --save-dev less@3.9.0
+ *      less和style-loader解析css资源一样，是用来解析less文件
+ * 2、在webpack.config.js出口中配置关于less模块的解析规则
+ * 3、执行 npm run build
+ */
+__webpack_require__(8)
+
+document.writeln('<p>Hello World!</p>')
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+// 通过CommonJS规范导出
+
+// module.exports = {
+//   add(num1, num2) {
+//     return num1 + num2;
+//   }
+// }
+
+exports.add = function (num1, num2) {
+  return num1 + num2;
+}
+
+exports.multiply = function (num1, num2) {
+  return num1 * num2;
+}
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+// 通过ES6规范导出
+const name = 'ryualvin';
+/* harmony export (immutable) */ __webpack_exports__["b"] = name;
+
+const age = 20;
+/* harmony export (immutable) */ __webpack_exports__["a"] = age;
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(6);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(1)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {
+	module.hot.accept("!!../../node_modules/css-loader/index.js!./normal.css", function() {
+		var newContent = require("!!../../node_modules/css-loader/index.js!./normal.css");
+
+		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "body {\r\n  background-color:aqua;\r\n}", ""]);
+
+// exports
+
+
+/***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
@@ -779,6 +795,70 @@ module.exports = function (css) {
 	// send back the fixed css
 	return fixedCss;
 };
+
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(9);
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(1)(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {
+	module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/less-loader/dist/cjs.js!./special.less", function() {
+		var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/less-loader/dist/cjs.js!./special.less");
+
+		if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+
+		var locals = (function(a, b) {
+			var key, idx = 0;
+
+			for(key in a) {
+				if(!b || a[key] !== b[key]) return false;
+				idx++;
+			}
+
+			for(key in b) idx--;
+
+			return idx === 0;
+		}(content.locals, newContent.locals));
+
+		if(!locals) throw new Error('Aborting CSS HMR due to changed css-modules locals.');
+
+		update(newContent);
+	});
+
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(0)(false);
+// imports
+
+
+// module
+exports.push([module.i, "body {\n  font-size: 100px;\n  color: black;\n}\n", ""]);
+
+// exports
 
 
 /***/ })
