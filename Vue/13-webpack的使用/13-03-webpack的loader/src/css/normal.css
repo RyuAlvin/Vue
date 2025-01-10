@@ -9,5 +9,25 @@ body {
 
     vuelog5kb.jpg 为limit: 8192以下的文件，可以通过url-loader转为Base64内联到bundle中
   */
-  background: url('../img/vuelog5kb.jpg');
+  /* background: url('../img/vuelog5kb.jpg'); */
+
+  /* 
+  当图片文件大小大于limit，再执行 npm run build ，则会报以下错误：
+    ERROR in ./node_modules/css-loader!./src/css/normal.css
+    Module not found: Error: Can't resolve '../img/vuelog43kb.jpg' in 'D:\develop\project\rensyu\Vue\13-webpack的使用\13-03-webpack的loader\src\css'
+    @ ./node_modules/css-loader!./src/css/normal.css 7:521-553
+    @ ./src/css/normal.css
+    @ ./src/main.js
+
+    此时，超过指定size后，已经无法通过url-loader转化为Base64内联到Bundle中，而是需要file-loader将图片文件发送到输出目录。
+      npm install --save-dev file-loader@1.1.11
+      再执行 npm run build 则可以正常打包。
+    但是当打开index.html的时候，却发现背景图片并没有反映上去，这是为什么呢？
+      vuelog43kb.jpeg已经通过webpack打包输出到dist目录下了，
+      当我们没有指定图片资源目录的时候，浏览器会默认到index.html同级目录下找图片资源，因为图片资源被打包至dist目录下，所以画面不会展示背景图片。
+      可以尝试将被打包的图片文件拷贝一份至index.html目录下，再查看页面。果然，页面上可以成功显示背景图片。
+    解决：
+      我们需要在webpack.config.js中指定输出资源（如图片，字体，css文件等）在浏览器中的URL路径
+  */
+  background: url('../img/vuelog43kb.jpeg');
 }
