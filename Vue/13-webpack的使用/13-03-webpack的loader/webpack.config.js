@@ -70,6 +70,15 @@ module.exports = {
                * limit以上的文件，webpack则会自动选择file-loader打包
                */
               limit: 8192,
+              /**
+               * 又有了一个新的问题：通过file-loader打包的图片文件，会自动按照生成的hash值作为文件名输出到dist目录下
+               * 但是我们想要有自己的规则的话，就可以按照以下的配置：
+               *  img/      ：指定目录，即dist/img/
+               *  [name]    ：源文件名
+               *  [hash:8]  ：截取8位hash值
+               *  [ext]     ：源文件后缀名
+               */
+              name: 'img/[name].[hash:8].[ext]'
             },
           },
         ],

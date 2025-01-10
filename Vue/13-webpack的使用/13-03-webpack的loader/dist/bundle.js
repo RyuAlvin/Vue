@@ -729,7 +729,7 @@ module.exports = function escape(url) {
 /* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "2f61f98b839306b512dc84483cb94125.jpeg";
+module.exports = __webpack_require__.p + "img/vuelog43kb.2f61f98b.jpeg";
 
 /***/ }),
 /* 9 */
