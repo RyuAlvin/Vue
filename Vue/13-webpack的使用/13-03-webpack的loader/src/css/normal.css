@@ -1,3 +1,13 @@
 body {
-  background-color:aqua;
+  /* background-color:aqua; */
+  /* 
+  当webpack进行打包的时候，遇到url引入其他文件的时候，就需要下载url-loader模块了，
+  url-loader：将文件作为data URI内联到bundle中
+    1、npm install --save-dev url-loader@0.5.9
+    2、在webpack.config.js的出口中添加配置
+    3、npm run build
+
+    vuelog5kb.jpg 为limit: 8192以下的文件，可以通过url-loader转为Base64内联到bundle中
+  */
+  background: url('../img/vuelog5kb.jpg');
 }

@@ -55,6 +55,22 @@ module.exports = {
           'less-loader'
         ],
       },
+      {
+        // 早期DOS系统支持的后缀名最大只有3位，所以早期只有jpg，后来Windows，Linux系统出来后可以扩展更多位数的后缀名，所以就有有了jpeg格式的
+        test: /\.(png|jpg|gif|svg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              /**
+               * 图片文件大小不能超过8192B，即8KB
+               * vuelog5kb.jpg 为limit以下的文件，可以通过url-loader转为Base64内联到bundle中
+               */
+              limit: 8192,
+            },
+          },
+        ],
+      },
     ]
   }
 }

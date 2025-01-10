@@ -10,9 +10,11 @@
   "author": "",
   "devDependencies": {
     "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
     "style-loader": "^0.23.1",
+    "url-loader": "^0.5.9",
     "webpack": "^3.6.0"
   }
 }
