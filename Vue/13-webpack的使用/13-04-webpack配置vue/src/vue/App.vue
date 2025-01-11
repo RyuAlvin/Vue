@@ -17,7 +17,7 @@ App.js中html和js代码混杂在一起，可读性差，用vue文件代替
 </template>
 
 <script>
-import Cpn from "./Cpn.vue";
+import Cpn from "./Cpn";
 
 export default {
   data() {

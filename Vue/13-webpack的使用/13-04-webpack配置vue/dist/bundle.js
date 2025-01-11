@@ -704,7 +704,7 @@ module.exports = function normalizeComponent (
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Cpn_vue__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Cpn__ = __webpack_require__(15);
 //
 //
 //
@@ -738,7 +738,7 @@ module.exports = function normalizeComponent (
     },
   },
   components: {
-    Cpn: __WEBPACK_IMPORTED_MODULE_0__Cpn_vue__["a" /* default */],
+    Cpn: __WEBPACK_IMPORTED_MODULE_0__Cpn__["a" /* default */],
   },
 });
 
@@ -772,7 +772,7 @@ module.exports = function normalizeComponent (
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vue_App_vue__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vue_App__ = __webpack_require__(11);
 
 
 // import App from './js/App.js'
@@ -782,7 +782,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
   el: '#app',
   components: {
-    App: __WEBPACK_IMPORTED_MODULE_1__vue_App_vue__["a" /* default */]
+    App: __WEBPACK_IMPORTED_MODULE_1__vue_App__["a" /* default */]
   }
 })
 

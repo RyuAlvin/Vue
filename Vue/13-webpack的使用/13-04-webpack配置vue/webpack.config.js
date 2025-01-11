@@ -23,6 +23,8 @@ module.exports = {
   },
   // resolve配置是用来告诉webpack如何解析模块的导入路径。
   resolve: {
+    // extensions用来指定当导入模块时，自动解析哪些文件扩展名的。它可以帮助我们在导入模块时省略文件的扩展名。
+    extensions: ['.vue', '.js'],
     /**
      * alias是resolve的一个选项，用于定义模块的路径别名。
      * 可以帮助你在导入模块时使用更简短的路径，或者明确指定特定版本的模块。
