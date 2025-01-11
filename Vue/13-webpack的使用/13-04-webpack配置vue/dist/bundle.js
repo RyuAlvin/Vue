@@ -287,34 +287,15 @@ process.umask = function() { return 0; };
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__js_App_js__ = __webpack_require__(6);
 
 
-// 提取App作为组件导入
-const App = {
-  // 用该template去替换<div id='app'></div>
-  template: `
-    <div>
-      <h1>我是App</h1>
-      <p>{{message}}</p>
-      <button @click="btnClick">按钮1</button>
-    </div>
-      `,
-  data() {
-    return {
-      message: '我是APP的内容'
-    }
-  },
-  methods: {
-    btnClick() {
-      console.log('Hello App');
-    }
-  }
-}
+
 
 new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
   el: '#app',
   components: {
-    App
+    App: __WEBPACK_IMPORTED_MODULE_1__js_App_js__["a" /* default */]
   }
 })
 
@@ -11677,6 +11658,36 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0), __webpack_require__(1)))
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/**
+ * 提取App作为组件导入
+ * 默认导出
+ */
+/* harmony default export */ __webpack_exports__["a"] = ({
+  // 用该template去替换<div id='app'></div>
+  template: `
+    <div>
+      <h1>我是App</h1>
+      <p>{{message}}</p>
+      <button @click="btnClick">按钮1</button>
+    </div>
+      `,
+  data() {
+    return {
+      message: '我是APP的内容'
+    }
+  },
+  methods: {
+    btnClick() {
+      console.log('Hello App');
+    }
+  }
+});
 
 /***/ })
 /******/ ]);
