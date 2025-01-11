@@ -291,8 +291,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 const app = new __WEBPACK_IMPORTED_MODULE_0_vue__["a" /* default */]({
   el: '#app',
+  template: `
+<div>
+  <h1>我是APP</h1>
+  <p>{{message}}</p>
+</div>
+  `,
   data: {
-    message: 'Hello World!'
+    message: '我是APP的内容'
   }
 })
 
