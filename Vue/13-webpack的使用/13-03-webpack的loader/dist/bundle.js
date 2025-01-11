@@ -553,24 +553,28 @@ function updateLink (link, options, obj) {
 
 /***/ }),
 /* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__js_info_js__ = __webpack_require__(4);
+
+
+var _info = __webpack_require__(3);
+
 // 通过CommonJS规范导入
 
 // const math = require('./mathUtil.js')
 // console.log(math.add(1, 2));
 // console.log(math.multiply(1, 2));
 
-const { add, multiply } = __webpack_require__(3);
+var _require = __webpack_require__(4),
+    add = _require.add,
+    multiply = _require.multiply;
+
 console.log('mathUtil.js ---> add: ', add(1, 2));
 console.log('mathUtil.js ---> multiply: ', multiply(1, 2));
 
-
-console.log('info.js ---> name: ', __WEBPACK_IMPORTED_MODULE_0__js_info_js__["b" /* name */]);
-console.log('info.js ---> age: ', __WEBPACK_IMPORTED_MODULE_0__js_info_js__["a" /* age */]);
+console.log('info.js ---> name: ', _info.name);
+console.log('info.js ---> age: ', _info.age);
 
 /**
  * 打包css文件，首先需要依赖css文件
@@ -589,7 +593,7 @@ console.log('info.js ---> age: ', __WEBPACK_IMPORTED_MODULE_0__js_info_js__["a" 
  *  2、在webpack.config.js中配置loader
  *  3、执行 npm run build
  */
-__webpack_require__(5)
+__webpack_require__(5);
 
 /**
  * 打包less文件，首先需要依赖less文件
@@ -601,13 +605,30 @@ __webpack_require__(5)
  * 2、在webpack.config.js出口中配置关于less模块的解析规则
  * 3、执行 npm run build
  */
-__webpack_require__(10)
+__webpack_require__(10);
 
-document.writeln('<p>Hello World!</p>')
+document.writeln('<p>Hello World!</p>');
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// 通过ES6规范导出
+var name = exports.name = 'ryualvin';
+var age = exports.age = 20;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 // 通过CommonJS规范导出
 
@@ -619,24 +640,11 @@ document.writeln('<p>Hello World!</p>')
 
 exports.add = function (num1, num2) {
   return num1 + num2;
-}
+};
 
 exports.multiply = function (num1, num2) {
   return num1 * num2;
-}
-
-/***/ }),
-/* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// 通过ES6规范导出
-const name = 'ryualvin';
-/* harmony export (immutable) */ __webpack_exports__["b"] = name;
-
-const age = 20;
-/* harmony export (immutable) */ __webpack_exports__["a"] = age;
-
+};
 
 /***/ }),
 /* 5 */

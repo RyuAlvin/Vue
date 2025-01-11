@@ -83,6 +83,37 @@ module.exports = {
           },
         ],
       },
+      {
+        // webpack打包的bundle.js文件中（任意搜索const），发现写的ES6语法并没有转成ES5，那么就意味着可能一些对ES6还不支持的浏览器没有办法很好的运行我们的代码。
+        test: /\.js$/,
+        /**
+         * 排除以下目录，不对其进行ES5的转化
+         * 第三方库通常已经是编译过的代码，不需要再次通过babel转译，排除这些文件可以提高打包效率
+         */
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            /**
+             * 表示使用 Babel 的 ES2015 预设，它会将 ES2015 的新特性（如箭头函数、模板字符串、解构赋值等）转译为兼容旧浏览器的 ES5 代码。
+             * 例如下转译：
+             * const greet = () => {
+             *   console.log('Hello, World!');
+             * };
+             * greet();
+             * 
+             * ->
+             * 
+             * 'use strict';
+             * var greet = function greet() {
+             *   console.log('Hello, World!');
+             * };
+             * greet();
+             */
+            presets: ['es2015'],
+          },
+        },
+      },
     ]
   }
 }
