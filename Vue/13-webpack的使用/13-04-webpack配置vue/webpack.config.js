@@ -1,0 +1,30 @@
+const path = require('path');
+
+module.exports = {
+  entry: './src/main.js',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js'
+  },
+  // resolve配置是用来告诉webpack如何解析模块的导入路径。
+  resolve: {
+    /**
+     * alias是resolve的一个选项，用于定义模块的路径别名。
+     * 可以帮助你在导入模块时使用更简短的路径，或者明确指定特定版本的模块。
+     */
+    alias: {
+      /**
+       * 'vue$'表示将vue的模块名限定为匹配完整的vue名称，
+       * 当在main.js中导入import Vue from 'vue'时，webpack会将它解析为vue/dist/vue.esm.js
+       * vue.esm.js是vue.js提供的一个模块版本，包含了完整功能的 模块编译器 和 运行时
+       * 
+       * 当我们不指定vue.esm.js的时候，import Vue from 'vue'可能会引用vue的运行时构建版本，即vue.runtime.esm.js，
+       *  它不包含 模板编译器 ，所以运行后，在控制台会出现以下错误：
+       *  bundle.js:904 [Vue warn]: 
+       *    You are using the runtime-only build of Vue where the template compiler is not available. 
+       *    Either pre-compile the templates into render functions, or use the compiler-included build.
+       */
+      'vue$': 'vue/dist/vue.esm.js'
+    }
+  }
+};
