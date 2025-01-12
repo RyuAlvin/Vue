@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 const webpack = require('webpack');
@@ -14,7 +15,16 @@ module.exports = {
      * 为打包的文件添加版权声明，属于webpack自带的插件，所以在用的时候需要导入webpack
      * 打包后，bundle.js的头部带有版权信息
      */
-    new webpack.BannerPlugin('最终版权归ryualvin所有')
+    new webpack.BannerPlugin('最终版权归ryualvin所有'),
+    /**
+     * 我们的index.html是存放在项目的根目录下，但在真实发布项目时，发布的是dist文件夹中的内容，但是dist文件夹中如果没有index.html文件，那么打包的js等文件也就没有意义了
+     * 所以，我们需要将index.html文件打包到dist文件夹中，这个时候就可以使用HtmlWebpackPlugin插件：
+     *    npm install --save-dev html-webpack-plugin@3.2.0
+     * HtmlWebpackPlugin插件可以为我们做这些事情：
+     *    自动生成一个index.html文件（可以指定模板来生成）
+     *    将打包的js文件，自动通过script标签插入到body中
+     */
+    new HtmlWebpackPlugin()
   ],
   module: {
     rules: [
