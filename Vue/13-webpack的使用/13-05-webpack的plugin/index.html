@@ -12,7 +12,13 @@
     <App></App>
   </div>
 
-  <script src="./dist/bundle.js"></script>
+  <!-- 
+  现在通过HtmlWebpackPlugin打包输出的时候，直接将index.html输出到dist/目录下，那么就不需要再额外引入bundle.js文件了
+  直接将现在的index.html作为一个模板输出到dist/目录下
+  -->
+  <!-- <script src="./dist/bundle.js"></script> -->
+
+  <!-- 打包输出的时候会自动帮我们加上 bundle.js 的引用 -->
 </body>
 
 </html>

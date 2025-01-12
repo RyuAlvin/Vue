@@ -1,18 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <title>Webpack App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 
 <body>
+  <div id="app">
+    <App></App>
+  </div>
+
   <!-- 
-  虽然添加插件后，webpack帮我们将index.html文件打包输出到dist中，但是有2个问题：
-  1、指定的bundle.js文件不需要dist/路径，需要删除webpack.config.js中的 publicPath: 'dist/' 配置
-  2、没有引入vue的根组件，在使用插件打包输出index.html的时候，需要指定模板
+  现在通过HtmlWebpackPlugin打包输出的时候，直接将index.html输出到dist/目录下，那么就不需要再额外引入bundle.js文件了
+  直接将现在的index.html作为一个模板输出到dist/目录下
   -->
-  <script type="text/javascript" src="dist/bundle.js"></script>
-</body>
+  <!-- <script src="./dist/bundle.js"></script> -->
+
+  <!-- 打包输出的时候会自动帮我们加上 bundle.js 的引用 -->
+<script type="text/javascript" src="bundle.js"></script></body>
 
 </html>

@@ -8,7 +8,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: 'dist/'
+    // 打包输出的时候会自动帮我们加上 bundle.js 的引用，但是会自动加上 webpack.config.js 中的 publicPath: 'dist/' 路径， dist/bundle.js路径不对，所以需要删掉 publicPath: 'dist/' 配置
+    // publicPath: 'dist/'
   },
   plugins: [
     /**
@@ -24,7 +25,9 @@ module.exports = {
      *    自动生成一个index.html文件（可以指定模板来生成）
      *    将打包的js文件，自动通过script标签插入到body中
      */
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin({
+      template: 'index.html'
+    })
   ],
   module: {
     rules: [
