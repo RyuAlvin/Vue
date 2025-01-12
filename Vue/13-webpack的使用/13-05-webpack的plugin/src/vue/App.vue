@@ -37,6 +37,9 @@ export default {
 </script>
 
 <style>
+body {
+  background: url("../img/vuelog43kb.jpeg");
+}
 .App {
   background-color: yellow;
 }
