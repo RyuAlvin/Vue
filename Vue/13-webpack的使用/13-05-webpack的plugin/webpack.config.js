@@ -1,11 +1,20 @@
 const path = require('path');
 
+const webpack = require('webpack');
+
 module.exports = {
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js'
   },
+  plugins: [
+    /**
+     * 为打包的文件添加版权声明，属于webpack自带的插件，所以在用的时候需要导入webpack
+     * 打包后，bundle.js的头部带有版权信息
+     */
+    new webpack.BannerPlugin('最终版权归ryualvin所有')
+  ],
   module: {
     rules: [
       {
