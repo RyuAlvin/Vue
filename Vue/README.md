@@ -62,3 +62,32 @@
 # 什么是loader
 
 ![image-20250109214633971](./assets/image-20250109214633971.png)
+
+# 什么是Vue CLI
+
+![image-20250113164742189](./assets/image-20250113164742189.png)
+
+# Vue CLI的使用
+
+这里安装的是Vue CLI3的版本，如果需要想按照Vue CLI2的方式初始化项目是不可以的。
+
+也就是说，只能通过脚手架3来创建vue项目，但是在创建的时候可以通过选择模板的方式指定是vue2的项目还是vue3的项目。
+
+```bash
+# 安装最新版本
+npm install -g @vue/cli
+# 安装指定版本
+npm install -g @vue/cli@<version>
+# 查看版本
+vue --version
+# Vue CLI3和旧版使用了相同的vue命令，所以Vue CLI2（vue-cli）被覆盖了。如果你仍然需要使用旧版本的vue init功能，你可以全局安装一个桥接工具
+npm install -g @vue/cli-init
+# Vue CLI2初始化项目
+vue init webpack <project name>
+# Vue CLI3初始化项目
+vue create <project name>
+```
+
+![image-20250113171004746](./assets/image-20250113171004746.png)
+
+![image-20250113175347972](./assets/image-20250113175347972.png)
