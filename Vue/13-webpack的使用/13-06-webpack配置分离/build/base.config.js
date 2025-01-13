@@ -1,8 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const { prototype } = require('events');
 
 module.exports = {
   entry: './src/main.js',
@@ -28,9 +26,7 @@ module.exports = {
      */
     new HtmlWebpackPlugin({
       template: 'index.html'
-    }),
-    // 报错!!!!!!!!!!!!!!!!!!!!!!!!!!，跳过~
-    new UglifyJsPlugin(),
+    })
   ],
   module: {
     rules: [
@@ -121,20 +117,5 @@ module.exports = {
        */
       'vue$': 'vue/dist/vue.esm.js'
     }
-  },
-  /**
-   * webpack提供了一个可选的本地开发服务器，这个本地服务器基于node.js搭建，内部使用express框架，可以实现我们想要的浏览器自动刷新显示我们修改后的结果。
-   * 但是它是一个单独模块，在webpack使用之前需要先安装它
-   *    npm install --save-dev webpack-dev-server@2.9.1
-   */
-  devServer: {
-    // 为哪一个文件夹提供本地服务，默认是根文件夹，我们这里要填写./dist
-    contentBase: './dist',
-    // 页面实时刷新
-    inline: true,
-    // 端口号
-    // port: 
-    // 在SPA页面中，依赖HTML5的history模式
-    // historyApiFallback:
   }
 };
