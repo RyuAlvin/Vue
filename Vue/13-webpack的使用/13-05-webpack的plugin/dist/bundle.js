@@ -783,6 +783,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 new _vue2.default({
   el: '#app',
+  template: '<App/>',
   components: {
     App: _App2.default
   }
