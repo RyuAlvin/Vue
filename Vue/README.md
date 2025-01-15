@@ -91,3 +91,7 @@ vue create <project name>
 ![image-20250113171004746](./assets/image-20250113171004746.png)
 
 ![image-20250113175347972](./assets/image-20250113175347972.png)
+
+# Vue程序运行过程
+
+![image-20250115203917776](./assets/image-20250115203917776.png)
