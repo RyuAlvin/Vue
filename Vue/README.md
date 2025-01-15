@@ -95,3 +95,11 @@ vue create <project name>
 # Vue程序运行过程
 
 ![image-20250115203917776](./assets/image-20250115203917776.png)
+
+# npm run build
+
+![image-20250115225541261](./assets/image-20250115225541261.png)
+
+# npm run dev
+
+![image-20250115225646973](./assets/image-20250115225646973.png)
