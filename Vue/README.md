@@ -103,3 +103,12 @@ vue create <project name>
 # npm run dev
 
 ![image-20250115225646973](./assets/image-20250115225646973.png)
+
+# Vue CLI3配置文件的查看和修改
+
+```bash
+# GUI
+vue ui
+```
+
+![image-20250116194630864](./assets/image-20250116194630864.png)
