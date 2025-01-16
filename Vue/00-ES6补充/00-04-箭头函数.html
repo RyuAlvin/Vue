@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const obj = {
+      sayHi() {
+        setTimeout(function () {
+          setTimeout(function () {
+            console.log('111 --> ', this); // window
+          })
+
+          setTimeout(() => {
+            setTimeout(function () {
+              console.log('222 --> ', this); // window
+            })
+          });
+        });
+
+        setTimeout(function () {
+          console.log('333 --> ', this); // window
+        })
+
+        setTimeout(() => {
+          console.log('444 --> ', this); // obj
+        })
+      }
+    }
+
+    obj.sayHi();
+  </script>
+</body>
+
+</html>
