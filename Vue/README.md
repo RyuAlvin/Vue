@@ -106,9 +106,23 @@ vue create <project name>
 
 # Vue CLI3配置文件的查看和修改
 
+> 图形化界面
+
 ```bash
 # GUI
 vue ui
 ```
 
+> 实际配置文件
+
 ![image-20250116194630864](./assets/image-20250116194630864.png)
+
+![image-20250116194824375](./assets/image-20250116194824375.png)
+
+# 后端路由阶段
+
+![image-20250116213411784](./assets/image-20250116213411784.png)
+
+# 前端路由阶段
+
+![image-20250116213615673](./assets/image-20250116213615673.png)
