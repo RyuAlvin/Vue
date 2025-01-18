@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <h1>Hello App</h1>
+    <router-link to="/home">Home</router-link> <router-link to="/about">About</router-link>
+    <router-view />
   </div>
 </template>
 
