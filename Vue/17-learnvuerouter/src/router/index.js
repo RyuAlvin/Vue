@@ -22,7 +22,9 @@ const routes = [
 
 export default new Router({
   routes,
-  mode: 'history'
+  mode: 'history',
+  // 为避免批量修改active-class，可在router/index.js中一次性更改 
+  linkActiveClass: 'active'
 })
 
 /**
