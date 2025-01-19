@@ -1,8 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from '../components/Home.vue'
-import About from '../components/About.vue'
-import User from '../components/User.vue'
+// import Home from '../components/Home.vue'
+// import About from '../components/About.vue'
+// import User from '../components/User.vue'
+
+// 以下为懒加载组件。作用是按需加载组件，而不是在应用启动时一次性加载所有组件。
+const Home = ()=> import('../components/Home.vue')
+const About = ()=> import('../components/About.vue')
+const User = ()=> import('../components/User.vue')
 
 Vue.use(Router)
 
