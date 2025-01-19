@@ -5,9 +5,11 @@ import Router from 'vue-router'
 // import User from '../components/User.vue'
 
 // 以下为懒加载组件。作用是按需加载组件，而不是在应用启动时一次性加载所有组件。
-const Home = ()=> import('../components/Home.vue')
-const About = ()=> import('../components/About.vue')
-const User = ()=> import('../components/User.vue')
+const Home = () => import('../components/Home.vue')
+const About = () => import('../components/About.vue')
+const User = () => import('../components/User.vue')
+const HomeNews = () => import('../components/HomeNews.vue')
+const HomeMessages = () => import('../components/HomeMessages.vue')
 
 Vue.use(Router)
 
@@ -18,7 +20,21 @@ const routes = [
   },
   {
     path: '/home',
-    component: Home
+    component: Home,
+    children: [
+      {
+        path: '/home',
+        redirect: 'news'
+      },
+      {
+        path: 'news',
+        component: HomeNews
+      },
+      {
+        path: 'messages',
+        component: HomeMessages
+      }
+    ]
   },
   {
     path: '/about',
