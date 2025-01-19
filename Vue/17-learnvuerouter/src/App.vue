@@ -17,14 +17,29 @@
     <!-- <router-link to="/home" active-class="active">Home</router-link> <router-link to="/about" active-class="active">About</router-link><br/> -->
     <!-- <router-link to="/home" active-class="active">Home</router-link> <router-link to="/about" active-class="active">About</router-link><br/> -->
 
-    <router-link to="/home">Home</router-link> <router-link to="/about">About</router-link><br/>
+    <!-- <router-link to="/home">Home</router-link> <router-link to="/about">About</router-link><br/> -->
+     
+    <button @click="linkToHome">Home</button><button @click="linkToAbout">About</button>
     <router-view />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  methods: {
+    /**
+     * 通过代码跳转路由
+     */
+    linkToHome(){
+      // this.$router.push('/home');
+      this.$router.replace('/home');
+    },
+    linkToAbout(){
+      // this.$router.push('/about');
+      this.$router.replace('/about');
+    }
+  },
 }
 </script>
 
