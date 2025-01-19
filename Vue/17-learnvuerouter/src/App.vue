@@ -20,6 +20,9 @@
     <!-- <router-link to="/home">Home</router-link> <router-link to="/about">About</router-link><br/> -->
      
     <button @click="linkToHome">Home</button><button @click="linkToAbout">About</button>
+
+    <!-- 动态拼接传递参数 -->
+    <router-link :to="`/user/${userId}`">User</router-link>
     <router-view />
   </div>
 </template>
@@ -27,6 +30,11 @@
 <script>
 export default {
   name: 'App',
+  data() {
+    return {
+      userId: 'ryualvin'
+    }
+  },
   methods: {
     /**
      * 通过代码跳转路由

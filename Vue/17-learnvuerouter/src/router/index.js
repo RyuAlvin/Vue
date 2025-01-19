@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../components/Home.vue'
 import About from '../components/About.vue'
+import User from '../components/User.vue'
 
 Vue.use(Router)
 
@@ -17,6 +18,11 @@ const routes = [
   {
     path: '/about',
     component: About
+  },
+  {
+    // :userId，定义路由参数名
+    path: '/user/:userId',
+    component: User
   }
 ]
 
