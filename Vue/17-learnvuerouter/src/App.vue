@@ -23,6 +23,10 @@
 
     <!-- 动态拼接传递参数 -->
     <router-link :to="`/user/${userId}`">User</router-link>
+
+    <!-- 通过query传递参数 -->
+    <router-link :to="{ path: '/profile', query: { id: 'U001', name: 'ryualvin', age: 18 } }">Profile</router-link>
+
     <router-view />
   </div>
 </template>
