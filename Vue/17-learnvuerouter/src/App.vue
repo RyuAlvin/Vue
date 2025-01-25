@@ -28,8 +28,11 @@
     <!-- 通过query传递参数 -->
     <!-- <router-link :to="{ path: '/profile', query: { id: 'U001', name: 'ryualvin', age: 18 } }">Profile</router-link> -->
     <button @click="linkToProfile">profile</button>
-
-    <router-view />
+    
+    <!-- <keep-alive> 是 Vue 内置的一个抽象组件，主要用于缓存动态组件，使被包裹的组件在切换时不会被销毁，而是保留其状态，提高性能。 -->
+    <keep-alive>
+      <router-view />
+    </keep-alive>
   </div>
 </template>
 

@@ -18,11 +18,11 @@ export default {
   //   }
   // }
   beforeRouteEnter (to, from, next) {
-    console.log('Hello User...');
+    // console.log('Hello User...');
     next();
   },
   beforeRouteLeave (to, from, next) {
-    console.log('Bye User...');
+    // console.log('Bye User...');
   }
 }
 </script>

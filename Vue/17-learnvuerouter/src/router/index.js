@@ -62,7 +62,7 @@ const routes = [
       title: '简介'
     },
     beforeEnter: (to, from, next) => {
-      console.log('=======');
+      // console.log('=======');
       next();
     }
   }
@@ -84,14 +84,14 @@ const router = new Router({
 
 // 全局导航守卫（前置钩子）
 router.beforeEach((to, from ,next) => {
-  console.log('++++++');
+  // console.log('++++++');
   document.title = to.matched[0].meta.title;
   next();
 })
 
 // 全局导航守卫（后置钩子）
 router.afterEach((to, from ,next) => {
-  console.log('------');
+  // console.log('------');
 })
 
 export default router;
