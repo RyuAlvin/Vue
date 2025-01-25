@@ -17,6 +17,13 @@ export default {
   //     return this.$route.params.userId;
   //   }
   // }
+  beforeRouteEnter (to, from, next) {
+    console.log('Hello User...');
+    next();
+  },
+  beforeRouteLeave (to, from, next) {
+    console.log('Bye User...');
+  }
 }
 </script>
 
