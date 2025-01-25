@@ -22,6 +22,9 @@ const routes = [
   {
     path: '/home',
     component: Home,
+    meta: {
+      title: '主页'
+    },
     children: [
       {
         path: '/home',
@@ -39,25 +42,55 @@ const routes = [
   },
   {
     path: '/about',
-    component: About
+    component: About,
+    meta: {
+      title: '关于'
+    }
   },
   {
     // :userId，定义路由参数名
     path: '/user/:userId',
-    component: User
+    component: User,
+    meta: {
+      title: '用户'
+    }
   },
   {
     path: '/profile',
-    component: Profile
+    component: Profile,
+    meta: {
+      title: '简介'
+    }
   }
 ]
 
-export default new Router({
+// export default new Router({
+//   routes,
+//   mode: 'history',
+//   // 为避免批量修改active-class，可在router/index.js中一次性更改 
+//   linkActiveClass: 'active'
+// })
+
+const router = new Router({
   routes,
   mode: 'history',
   // 为避免批量修改active-class，可在router/index.js中一次性更改 
   linkActiveClass: 'active'
 })
+
+// 全局导航守卫（前置钩子）
+router.beforeEach((to, from ,next) => {
+  console.log('++++++');
+  document.title = to.matched[0].meta.title;
+  next();
+})
+
+// 全局导航守卫（后置钩子）
+router.afterEach((to, from ,next) => {
+  console.log('------');
+})
+
+export default router;
 
 /**
  * router/index.js
