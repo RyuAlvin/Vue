@@ -60,6 +60,10 @@ const routes = [
     component: Profile,
     meta: {
       title: '简介'
+    },
+    beforeEnter: (to, from, next) => {
+      console.log('=======');
+      next();
     }
   }
 ]
