@@ -29,3 +29,5 @@ bk/
 **/log/
 
 node_modules/
+
+dist/
