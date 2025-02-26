@@ -6,7 +6,7 @@
     <div v-else>
       <slot name="item-img-active"></slot>
     </div>
-    <div :class="{active: isActive}">
+    <div :class="{ active: isActive }">
       <slot name="item-text"></slot>
     </div>
   </div>
@@ -14,21 +14,27 @@
 
 <script>
 export default {
-  name: 'TarBarItem',
+  name: "TarBarItem",
   data() {
     return {
-      isActive: false
-    }
+      
+    };
   },
   props: {
-    link: String
+    link: String,
+  },
+  computed: {
+    isActive() {
+      console.log(this.$route.path);
+      return this.$route.path.indexOf(this.link) !== -1;
+    }
   },
   methods: {
     tabBarItemClick() {
       this.$router.replace(this.link);
-    }
+    },
   },
-}
+};
 </script>
 
 <style>
@@ -36,14 +42,14 @@ export default {
   flex: 1;
   text-align: center;
   height: 49px;
-	font-size: 14px;
+  font-size: 14px;
 }
 
 .tab-bar-item img {
-	width: 24px;
-	height: 24px;
-	margin-top: 3px;
-	vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  margin-top: 3px;
+  vertical-align: middle;
   margin-bottom: 2px;
 }
 
