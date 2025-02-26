@@ -1,5 +1,5 @@
 <template>
-  <div class="tab-bar-item">
+  <div class="tab-bar-item" @click="tabBarItemClick">
     <div v-if="!isActive">
       <slot name="item-img"></slot>
     </div>
@@ -18,6 +18,14 @@ export default {
   data() {
     return {
       isActive: false
+    }
+  },
+  props: {
+    link: String
+  },
+  methods: {
+    tabBarItemClick() {
+      this.$router.replace(this.link);
     }
   },
 }
