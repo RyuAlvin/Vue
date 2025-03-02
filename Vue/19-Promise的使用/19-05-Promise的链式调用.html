@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 方式一：
+    // new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve('第一层处理');
+    //   }, 1000);
+    // }).then(data => {
+    //   console.log(data)
+    //   return Promise.resolve(data + '结束，第二层处理');
+    // }).then(data => {
+    //   console.log(data);
+    //   return Promise.resolve(data + '结束，第三层处理');
+    // }).then(data => {
+    //   console.log(data + '结束，所有处理结束');
+    // })
+
+    // 方式二：
+    // new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve('第一层处理');
+    //   }, 1000);
+    // }).then(data => {
+    //   console.log(data)
+    //   return data + '结束，第二层处理'
+    // }).then(data => {
+    //   console.log(data);
+    //   return data + '结束，第三层处理';
+    // }).then(data => {
+    //   console.log(data + '结束，所有处理结束');
+    // })
+
+    // 带reject的情况：
+    // new Promise((resolve, reject) => {
+    //   setTimeout(() => {
+    //     resolve('第一层处理');
+    //   }, 1000);
+    // }).then(data => {
+    //   console.log(data)
+    //   // 触发失败回调
+    //   return Promise.reject('第一层处理出问题啦')
+    // }).then(data => {
+    //   // 不执行
+    //   console.log(data);
+    //   return data + '结束，第三层处理';
+    // }).then(data => {
+    //   // 不执行
+    //   console.log(data + '结束，所有处理结束');
+    // }).catch(err => {
+    //   // 执行
+    //   console.log(err);
+    // })
+
+    // 通过throw代替reject
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve('第一层处理');
+      }, 1000);
+    }).then(data => {
+      console.log(data)
+      // 触发失败回调
+      // return Promise.reject('第一层处理出问题啦')
+      // throw new Error('第一层处理出问题啦');
+      throw '第一层处理出问题啦';
+    }).then(data => {
+      // 不执行
+      console.log(data);
+      return data + '结束，第三层处理';
+    }).then(data => {
+      // 不执行
+      console.log(data + '结束，所有处理结束');
+    }).catch(err => {
+      // 执行
+      console.log(err);
+    })
+  </script>
+</body>
+
+</html>
