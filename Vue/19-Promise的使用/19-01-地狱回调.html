@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 异步处理 + 回调函数，回调函数中又包含其他的异步处理
+    setTimeout(() => {
+      console.log('Hello World');
+      console.log('Hello World');
+      console.log('Hello World');
+      setTimeout(() => {
+        console.log('Hello Java');
+        console.log('Hello Java');
+        console.log('Hello Java');
+        setTimeout(() => {
+          console.log('Hello Python');
+          console.log('Hello Python');
+          console.log('Hello Python');
+        }, 1000);
+      }, 1000);
+    }, 1000);
+  </script>
+</body>
+
+</html>
