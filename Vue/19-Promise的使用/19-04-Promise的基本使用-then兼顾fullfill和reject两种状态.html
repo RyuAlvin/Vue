@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const flg = true;
+
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (flg) {
+          resolve('Hello World');
+        } else {
+          reject('No Way');
+        }
+      }, 1000);
+    }).then(res => {
+      console.log(res);
+    }, err => {
+      console.log(err);
+    })
+  </script>
+</body>
+
+</html>
