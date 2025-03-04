@@ -5,6 +5,7 @@
     <button @click="incre">Vuex按钮++</button>
     <button @click="decre">Vuex按钮--</button>
     <button @click="increNum(5)">按钮+5</button>
+    <button @click="decreNum(5)">按钮-5</button>
     <h2>App ===> {{ counter }}</h2>
     <h2>Vuexcounter ===> {{ $store.state.vuexCounter }}</h2>
     <hr/>
@@ -40,6 +41,12 @@ export default {
     },
     increNum(num) {
       this.$store.commit('increNum', num);
+    },
+    decreNum(num) {
+      this.$store.commit({
+        type: 'decreNum',
+        num
+      });
     }
   },
 }
