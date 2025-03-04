@@ -8,6 +8,11 @@
     <h2>Vuexcounter ===> {{ $store.state.vuexCounter }}</h2>
     <hr/>
     <hello-vuex :counter="counter"></hello-vuex>
+    <hr/>
+    <h2>学生人数：{{ $store.getters.getStudensCount }}</h2>
+    <h2>平均成绩：{{ $store.getters.getAvrGrade }}</h2>
+    请输入指定成绩：<input type="text" v-model="grade"/>
+    <h2>成绩大于{{grade}}的人有：{{ $store.getters.getCalcStudents(grade) }}人</h2>
   </div>
 </template>
 
@@ -18,7 +23,8 @@ export default {
   name: 'App',
   data() {
     return {
-      counter: 0
+      counter: 0,
+      grade: 0
     }
   },
   components: {
