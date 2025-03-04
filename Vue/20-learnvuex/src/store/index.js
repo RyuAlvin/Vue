@@ -20,6 +20,9 @@ const store = new Vuex.Store({
     },
     decre(state) {
       state.vuexCounter--;
+    },
+    increNum(state, num) {
+      state.vuexCounter += num;
     }
   },
   getters: {
