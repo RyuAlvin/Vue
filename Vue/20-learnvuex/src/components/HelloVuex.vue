@@ -1,6 +1,7 @@
 <template>
   <div id="HelloVuex">
     <h2>HelloVuex ===> {{ counter }}</h2>
+    <h2>Vuexcounter ===> {{ $store.state.vuexCounter }}</h2>
   </div>
 </template>
 
