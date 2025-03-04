@@ -148,3 +148,10 @@ vue ui
 # Vuex状态管理
 
 ![image-20250303201147566](./assets/image-20250303201147566.png)
+
+- 组件之间如何改变共享状态？
+  - 通过提交mutation的方式，而非直接改变state中的数据。
+- 为什么官方不推荐在组件中直接修改state中的数据？
+  1. 状态追踪困难：直接修改state导致状态变化难以追踪，调试和排查问题困难；
+  2. 破坏单相数据流：Vuex推崇单向数据流：View -> Actions -> Mutations -> State -> View。直接修改state会破坏这一流程，增加代码的不可预测性；
+  3. 失去Vuex工具支持：Vuex提供的开发工具（如Vue Devtools）依赖于mutations来记录状态变化，直接修改state会导致这些工具无法正常工作，影响调试效率。
