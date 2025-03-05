@@ -54,6 +54,10 @@ const store = new Vuex.Store({
     },
     changeMessageInRightWay(state) {
       state.message = 'Hello Tokyo'
+    },
+    usePromise(state) {
+      console.log('mutations ===> ');
+      state.message = 'Hello Promise'
     }
   },
   actions: {
@@ -66,6 +70,17 @@ const store = new Vuex.Store({
         // 异步处理结束后通知
         payload.success();
       }, 1000);
+    },
+    usePromise(context, payload) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          console.log('actions ===> username ===> ', payload.username);
+          console.log('actions ===> role ===> ', payload.role);
+          context.commit('usePromise');
+
+          resolve('处理完成啦！')
+        }, 1000);
+      })
     }
   },
   getters: {

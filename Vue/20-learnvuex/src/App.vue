@@ -10,6 +10,7 @@
     <button @click="deleteAge">删除age属性</button>
     <button @click="changeMessage">异步处理更改message</button>
     <button @click="changeMessageInRightWay">【正确的方式】异步处理更改message</button>
+    <button @click="usePromise">【正确的方式】Promise异步处理更改message</button>
     <h2>message ===> {{ $store.state.message }}</h2>
     <h2>userInfo ===> {{ $store.state.userInfo }}</h2>
     <h2>App ===> {{ counter }}</h2>
@@ -56,10 +57,10 @@ export default {
       });
     },
     addCountry() {
-      this.$store.commit('addCountry');
+      this.$store.commit(ADD_COUNTRY);
     },
     deleteAge() {
-      this.$store.commit('deleteAge');
+      this.$store.commit(DELETE_AGE);
     },
     changeMessage() {
       this.$store.commit('changeMessage');
@@ -73,6 +74,16 @@ export default {
           console.log('state已经更改好了');
         }
       });
+    },
+    usePromise() {
+      this.$store
+      .dispatch('usePromise', {
+        username: 'ryualvin',
+        role: 'admin'
+      })
+      .then(res => {
+        console.log('App.vue ===> ', res);
+      })
     }
   },
 }
