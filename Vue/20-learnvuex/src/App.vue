@@ -65,7 +65,10 @@ export default {
       this.$store.commit('changeMessage');
     },
     changeMessageInRightWay() {
-      this.$store.dispatch('changeMessageInRightWay');
+      this.$store.dispatch('changeMessageInRightWay', {
+        username: 'ryualvin',
+        role: 'admin'
+      });
     }
   },
 }

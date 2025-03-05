@@ -57,8 +57,10 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    changeMessageInRightWay(context) {
+    changeMessageInRightWay(context, payload) {
       setTimeout(() => {
+        console.log('username ===> ', payload.username);
+        console.log('role ===> ', payload.role);
         context.commit('changeMessageInRightWay');
       }, 1000);
     }
