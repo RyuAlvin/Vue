@@ -8,6 +8,8 @@
     <button @click="decreNum(5)">按钮-5</button>
     <button @click="addCountry">添加country属性</button>
     <button @click="deleteAge">删除age属性</button>
+    <button @click="changeMessage">异步处理更改message</button>
+    <h2>message ===> {{ $store.state.message }}</h2>
     <h2>userInfo ===> {{ $store.state.userInfo }}</h2>
     <h2>App ===> {{ counter }}</h2>
     <h2>Vuexcounter ===> {{ $store.state.vuexCounter }}</h2>
@@ -57,6 +59,9 @@ export default {
     },
     deleteAge() {
       this.$store.commit('deleteAge');
+    },
+    changeMessage() {
+      this.$store.commit('changeMessage');
     }
   },
 }

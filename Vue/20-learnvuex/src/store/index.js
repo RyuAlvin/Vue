@@ -18,7 +18,8 @@ const store = new Vuex.Store({
       name: 'ryualvin',
       age: 20,
       sex: 'male'
-    }
+    },
+    message: 'Hello World'
   },
   mutations: {
     incre(state) {
@@ -44,6 +45,12 @@ const store = new Vuex.Store({
       // delete state.userInfo.age;
       // 响应式删除属性
       Vue.delete(state.userInfo, 'age');
+    },
+    changeMessage(state) {
+      setTimeout(() => {
+        // 该回调操作能够响应式反映到页面上，但是无法更新调试工具中的state
+        state.message = 'Hello Tokyo'
+      }, 1000);
     }
   },
   getters: {

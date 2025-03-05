@@ -165,3 +165,13 @@ Vuex 的 state 是基于 Vue 的响应式系统实现的。具体来说：
 - 当 state 中的数据发生变化时，Vue 会通知所有依赖该数据的组件进行更新；
 - 如果直接修改 state 中的数据，Vuex 会检测到变化并触发视图更新。但这种方式不推荐，因为它绕过了 Vuex 的调试工具，难以追踪状态变化；
 - 推荐通过提交 mutation 来修改 state，这样可以确保状态变化的可追踪性。
+
+# 不推荐在mutations中异步操作更改state
+
+这是由Vuex的设计原则和工作机制决定的。以下是具体原因和解释：
+
+1. mutations的职责。mutations的主要职责是同步地修改state。Vuex的设计理念是：
+   - 同步操作：mutations必须是同步的，以确保每次state的变化都可以被清晰地追踪和调试；
+   - 可预测性：同步操作使得state的变化是线性的、可预测性的，便于调试工具（Devtools）记录和回放状态变化；
+2. 正确的做法：使用actions。Vuex提供了actions来处理异步操作，actions的设计就是为了解决异步操作的问题：
+   - 异步操作完成后，通过commit提交mutations来修改state；
