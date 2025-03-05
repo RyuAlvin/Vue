@@ -155,3 +155,13 @@ vue ui
   1. 状态追踪困难：直接修改state导致状态变化难以追踪，调试和排查问题困难；
   2. 破坏单相数据流：Vuex推崇单向数据流：View -> Actions -> Mutations -> State -> View。直接修改state会破坏这一流程，增加代码的不可预测性；
   3. 失去Vuex工具支持：Vuex提供的开发工具（如Vue Devtools）依赖于mutations来记录状态变化，直接修改state会导致这些工具无法正常工作，影响调试效率。
+
+# Vuex State的响应式原理
+
+Vuex 的 state 是基于 Vue 的响应式系统实现的。具体来说：
+
+- Vuex 在初始化时，会使用 `Vue.observable()`（Vue 2.x）或 `reactive()`（Vue 3.x）将 state 对象转换为响应式对象；
+- 当组件通过 `mapState` 或 `this.$store.state` 访问 state 时，Vue 会自动追踪这些依赖；
+- 当 state 中的数据发生变化时，Vue 会通知所有依赖该数据的组件进行更新；
+- 如果直接修改 state 中的数据，Vuex 会检测到变化并触发视图更新。但这种方式不推荐，因为它绕过了 Vuex 的调试工具，难以追踪状态变化；
+- 推荐通过提交 mutation 来修改 state，这样可以确保状态变化的可追踪性。
