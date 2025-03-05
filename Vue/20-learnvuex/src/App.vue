@@ -9,6 +9,7 @@
     <button @click="addCountry">添加country属性</button>
     <button @click="deleteAge">删除age属性</button>
     <button @click="changeMessage">异步处理更改message</button>
+    <button @click="changeMessageInRightWay">【正确的方式】异步处理更改message</button>
     <h2>message ===> {{ $store.state.message }}</h2>
     <h2>userInfo ===> {{ $store.state.userInfo }}</h2>
     <h2>App ===> {{ counter }}</h2>
@@ -62,6 +63,9 @@ export default {
     },
     changeMessage() {
       this.$store.commit('changeMessage');
+    },
+    changeMessageInRightWay() {
+      this.$store.dispatch('changeMessageInRightWay');
     }
   },
 }

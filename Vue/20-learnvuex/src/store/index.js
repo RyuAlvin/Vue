@@ -51,6 +51,16 @@ const store = new Vuex.Store({
         // 该回调操作能够响应式反映到页面上，但是无法更新调试工具中的state
         state.message = 'Hello Tokyo'
       }, 1000);
+    },
+    changeMessageInRightWay(state) {
+      state.message = 'Hello Tokyo'
+    }
+  },
+  actions: {
+    changeMessageInRightWay(context) {
+      setTimeout(() => {
+        context.commit('changeMessageInRightWay');
+      }, 1000);
     }
   },
   getters: {
