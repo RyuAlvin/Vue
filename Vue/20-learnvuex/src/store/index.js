@@ -62,6 +62,9 @@ const store = new Vuex.Store({
         console.log('username ===> ', payload.username);
         console.log('role ===> ', payload.role);
         context.commit('changeMessageInRightWay');
+
+        // 异步处理结束后通知
+        payload.success();
       }, 1000);
     }
   },

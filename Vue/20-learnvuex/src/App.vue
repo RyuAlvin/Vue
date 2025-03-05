@@ -67,7 +67,11 @@ export default {
     changeMessageInRightWay() {
       this.$store.dispatch('changeMessageInRightWay', {
         username: 'ryualvin',
-        role: 'admin'
+        role: 'admin',
+        // 异步处理结束后通知
+        success: function() {
+          console.log('state已经更改好了');
+        }
       });
     }
   },
