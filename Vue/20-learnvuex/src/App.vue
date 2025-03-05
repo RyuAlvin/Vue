@@ -23,6 +23,7 @@
 
 <script>
 import HelloVuex from '@/components/HelloVuex'
+import { ADD_COUNTRY, DELETE_AGE } from './store/mutations-types';
 
 export default {
   name: 'App',
@@ -37,7 +38,7 @@ export default {
   },
   methods: {
     incre(){
-      this.$store.commit('incre');
+      this.$store.commit(INCRE);
     },
     decre(){
       this.$store.commit('decre');

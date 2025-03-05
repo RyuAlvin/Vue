@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { ADD_COUNTRY, DELETE_AGE } from './mutations-types';
 
 Vue.use(Vuex)
 
@@ -32,13 +33,13 @@ const store = new Vuex.Store({
     decreNum(state, payload) {
       state.vuexCounter -= payload.num;
     },
-    addCountry(state) {
+    [ADD_COUNTRY](state) {
       // 在DevTools中可以看到userInfo中是多了country这个属性，但是页面没有反映，这种添加属性的方式不是响应式
       // state.userInfo.country = 'China';
       // 响应式添加属性
       Vue.set(state.userInfo, 'country', 'China');
     },
-    deleteAge(state) {
+    [DELETE_AGE](state) {
       // 在DevTools中可以看到userInfo中是少了age这个属性，但是页面没有反映，这种删除属性的方式不是响应式
       // delete state.userInfo.age;
       // 响应式删除属性
