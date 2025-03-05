@@ -34,11 +34,15 @@ const store = new Vuex.Store({
     },
     addCountry(state) {
       // 在DevTools中可以看到userInfo中是多了country这个属性，但是页面没有反映，这种添加属性的方式不是响应式
-      state.userInfo.country = 'China';
+      // state.userInfo.country = 'China';
+      // 响应式添加属性
+      Vue.set(state.userInfo, 'country', 'China');
     },
     deleteAge(state) {
       // 在DevTools中可以看到userInfo中是少了age这个属性，但是页面没有反映，这种删除属性的方式不是响应式
-      delete state.userInfo.age;
+      // delete state.userInfo.age;
+      // 响应式删除属性
+      Vue.delete(state.userInfo, 'age');
     }
   },
   getters: {
