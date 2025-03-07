@@ -175,3 +175,21 @@ Vuex 的 state 是基于 Vue 的响应式系统实现的。具体来说：
    - 可预测性：同步操作使得state的变化是线性的、可预测性的，便于调试工具（Devtools）记录和回放状态变化；
 2. 正确的做法：使用actions。Vuex提供了actions来处理异步操作，actions的设计就是为了解决异步操作的问题：
    - 异步操作完成后，通过commit提交mutations来修改state；
+
+# 选择什么网络模块
+
+选择一：传统的Ajax是基于XMLHttpRequest(XHR)，为什么不用？
+
+- 配置和调用非常混乱，编码蛋疼。真实开发中很少直接使用而是是应用jQuery-Ajax；
+
+选择二：jQuery-Ajax：相对于传统的Ajax非常好用，但为什么不用？
+
+- 在Vue的整个开发中都是不需要jQuery。我们为了方便进行一个网络请求，特意需要引用一个jQuery，不合理；
+- jQuery的代码1W+行，Vue的代码才1W+行。完全没有必要为了用网络请求就引用这个重量级框架；
+
+选择三：Vue1.x Resource，相对于jQuery小很多，也是Vue官方推出的，为什么不用？
+
+- 在Vue2.0推出后，Vue官网就去掉了Vue-resource，意味着不再更新和维护，对以后的项目开发和维护都存在着很大的隐患；
+
+选择四：axios，Vue官方宣布不再维护Vue-resource后，推荐使用axios。
+
