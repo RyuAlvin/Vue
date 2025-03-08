@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0505_姓名案例_计算属性</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        姓：<input type="text" v-model="familyName" /><br /><br />
+        名：<input type="text" v-model="firstName" /><br /><br />
+        全名：<span>{{fullName}}</span>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                familyName: '张',
+                firstName: '三'
+            },
+            computed: {
+                fullName() {
+                    return this.familyName + '-' + this.firstName;
+                }
+                /*
+                    在这里这么写，那么return就是return给了setTimeout了，完全错误
+                        fullName就没有返回值了，就是undefined了
+                        计算属性里不能开启异步任务去维护数据
+                */
+                // fullName() {
+                //     setTimeout(() => {
+                //         return this.familyName + '-' + this.firstName;
+                //     }, 1000)
+                // }
+            }
+        })
+    </script>
+</body>
+
+</html>

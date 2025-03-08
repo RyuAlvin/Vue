@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0809_总结Vue数据监测</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        数据劫持：
+            data: { name: 'xxx', ... } 中在 vm 中的呈现形式为：
+                name: (...)
+                __ob__: Observer { ... }
+                get student: reactiveGetter()
+                set student: reactiveSetter(newVal)
+                __proto__: Object
+            
+            每一份属性数据都变为以上的形式，这种操作称为数据劫持，即：
+                如果有人修改了name，马上就被上面的 setter 方法劫持到了，劫持后做了两件事：
+                    （1）、正常地改了数据；
+                    （2）、重新解析模版；
+
+            数据劫持和数据代理都离不开 Object.defineProperty(obj, prop, attr)
+
+        Vue监视数据的原理：
+            1、Vue会监视data中所有层次的数据；
+            2、如何检测对象中的数据？
+                通过setter实现监控，且要在new Vue时就传入要监测的数据；
+                    （1）、对象中后追加的属性，Vue默认不做响应式处理；
+                    （2）、如需给后添加的属性做响应式，请使用如下API：
+                        Vue.set(target, propertyName/index, value) 或
+                        vm.$set(target, propertyName/index, value)
+            3、如何监测数组中的数据？
+                通过包裹数组更新元素的方法实现，本质就是做了两件事；
+                    （1）、调用原生对应的方法对数组进行更新；
+                    （2）、重新解析模版，进而更新页面；
+            4、在Vue修改数组中的某个元素一定要用如下方法：
+                （1）、使用这些API：
+                        push()
+                        pop()
+                        shift()
+                        unshift()
+                        splice()
+                        sort()
+                        reverse()
+                （2）、Vue.set() 或 vm.$set()
+
+            特别注意：Vue.set() 和 vm.$set() 不能给vm 或 vm的根数据对象 添加属性！！！
+     -->
+    <div id="root">
+        <h1>学生信息</h1>
+        <button @click="student.age++">年龄+1岁</button>
+        <button @click="addSexProp">添加性别属性，默认值：男</button>
+        <button @click="updateSex">修改性别</button>
+        <button @click="addFriend">在列表首位添加一个朋友</button>
+        <button @click="updateFriend">修改第一个朋友的名字为：张哈哈哈哈哈</button>
+        <button @click="addHobby">添加一个爱好</button>
+        <button @click="updateHobby">修改第一个爱好为：抽烟</button>
+        <button @click="filterHobby">过滤爱好中的抽烟</button>
+        <h2>姓名：{{student.name}}</h2>
+        <h2 v-if="student.sex!==undefined">性别：{{student.sex?'男':'女'}}</h2>
+        <h2>年龄：{{student.age}}</h2>
+        <h2>爱好：</h2>
+        <ul>
+            <li v-for="(val,index) in hobbies" :key="index">
+                {{val}}
+            </li>
+        </ul>
+        <h2>朋友：</h2>
+        <ul>
+            <li v-for="(f,index) in friends" :key="f.id">
+                id: {{f.id}} -- name: {{f.name}}
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                student: {
+                    name: 'Ryu',
+                    age: 18,
+                },
+                hobbies: ['篮球', '游泳', '开车'],
+                friends: [
+                    { id: '001', name: '张三' },
+                    { id: '002', name: '李四' },
+                    { id: '003', name: '王五' },
+                ]
+            },
+            methods: {
+                addSexProp() {
+                    Vue.set(this.student, 'sex', 1)
+                },
+                updateSex() {
+                    this.student.sex = !this.student.sex
+                },
+                addFriend() {
+                    this.friends.unshift({ id: '004', name: '赵六' })
+                },
+                updateFriend() {
+                    this.friends.splice(0, 1, { id: '004', name: '张哈哈哈哈哈' })
+                },
+                addHobby() {
+                    this.hobbies.push('敲代码')
+                },
+                updateHobby() {
+                    this.hobbies.splice(0, 1, '抽烟')
+                },
+                filterHobby() {
+                    this.hobbies = this.hobbies.filter((el) => {
+                        return el !== '抽烟';
+                    })
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

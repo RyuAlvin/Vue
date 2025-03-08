@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1302_分析生命周期</title>
+    <script src="../../js/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="root" :x="x">
+        <h2>number：{{number}}</h2>
+        <button @click="add">点击+1</button>
+        <button @click="destroy">销毁</button>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            // 若没有指定容器，生命周期只会执行beforeCreate->created
+            el: '#root',
+            /*
+                若使用以下方式，需要包上一层div，必须只能有一个根元素，但是将会替换掉上面整个id="root"的div容器
+            */
+            // template: `<div><h2>number：{{number}}</h2>
+            //             <button @click="add">点击+1</button></div>`,
+            data: {
+                number: 1,
+                x: 2
+            },
+            methods: {
+                add() {
+                    console.log('add')
+                    this.number++
+                },
+                destroy() {
+                    this.$destroy()
+                }
+            },
+            beforeCreate() {
+                console.log('beforeCreate')
+                // console.log(this)
+                // debugger;
+                /*
+                    此时的Vue中已经没有方法和_data了
+                */
+            },
+            created() {
+                console.log('created')
+                // console.log(this)
+                // debugger;
+                /*
+                    此时的Vue中已经有方法和_data了
+                */
+            },
+            beforeMount() {
+                console.log('beforeMount')
+                // console.log(this)
+                // debugger;
+                /*
+                    此时在控制台通过 document.querySelector('h2').innerText='哈哈' 去操作h2，
+                        虽然页面上的h2显示内容会被更改成'哈哈'，但是放开断点继续执行后，页面又回变为
+                            number：{{number}} -> 哈哈 -> number：1
+                            未经Vue编译的DOM结构
+                                    ↓
+                                   哈哈
+                                    ↓
+                            将内存中的虚拟DOM：<h2>number：1</h2>　转为真实DOM：number：1插入页面
+                                    ↓
+                                number：1
+                */
+            },
+            mounted() {
+                console.log('mounted')
+                // console.log(this)
+                /*
+                    在 beforeMount 执行结束后 mounted 执行前，
+                        将内存中的虚拟DOM转为真实DOM，并保存一份为this.$el，然后替换el
+                */
+                console.log('mounted阶段，this.$el是不是真实DOM：' + (this.$el instanceof HTMLElement)) // true
+                // debugger;
+                /*
+                    页面中呈现的是经过Vue编译的DOM
+                        此时对DOM的操作均有效（尽可能避免，因为：Vue刚给你挂载完，你就更改，那Vue的至此的工作有啥意义？
+                */
+            },
+            beforeUpdate() {
+                console.log('beforeUpdate')
+                // debugger;
+                /*
+                    数据是新的，页面是旧的
+                        页面尚未和数据保持同步
+                */
+            },
+            updated() {
+                console.log('updated')
+                // debugger;
+            },
+            beforeDestroy() {
+                console.log('beforeDestroy')
+                // debugger;
+            },
+            destroyed() {
+                console.log('destroyed')
+                // debugger;
+            },
+        })
+
+        // vm.$mount('#root')
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    <h1>{{name}}</h1>
+    <!-- 只有按下ctrl+y的情况下才会触发keyup事件 -->
+    <input type="text" @keyup.ctrl.y="showInfo">
+  </div>
+  <script>
+    const vm = new Vue({
+      data() {
+        return {
+          name: 'ryualvin'
+        }
+      },
+      methods: {
+        showInfo() {
+          alert('hello');
+        }
+      }
+    });
+    vm.$mount('#root');
+  </script>
+</body>
+
+</html>

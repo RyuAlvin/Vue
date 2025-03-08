@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+  <div id="root">
+    姓：<input type="text" v-model="firstName"><br />
+    名：<input type="text" v-model="lastName"><br />
+    全名：<span>{{fullName}}</span>
+  </div>
+  <script>
+    const vm = new Vue({
+      data() {
+        return {
+          firstName: '张',
+          lastName: '三',
+          x: '你好'
+        }
+      },
+      computed: {
+        /**
+         * 当计算属性只考虑读，不考虑写的时候，可以使用简写形式：
+         * 1、fullName: function() { return ... ; }
+         * 2、或者以下写法：
+         */
+        fullName() {
+          console.log('加载计算属性fullName...');
+          return this.firstName + '-' + this.lastName;
+        }
+      }
+    });
+    vm.$mount('#root');
+  </script>
+</body>
+
+</html>

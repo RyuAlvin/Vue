@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+  <!-- 
+      1、v-if
+            写法：
+                (1).v-if="表达式"
+                (2).v-else-if="表达式"
+                (3).v-else="表达式"
+            适用于：切换频率较低的场景。
+            特点：不展示的DOM元素直接被移除。
+            注意：v-if可以和:v-else-if、v-else一起使用，但要求结构不能被"打断"。
+      2、v-show
+            写法：v-show="表达式"
+            适用于：切换频率较高的场景。
+            特点：不展示的DOM元素未被移除，仅仅是使用样式隐藏掉
+      3、备注：使用v-if的时候，元素可能无法获取到，而使用v-show一定可以获取到。
+  -->
+  <div id="root">
+    <button @click="n++">++</button>
+    <button @click="n--">--</button>
+    <!-- display: block -->
+    <h1 v-show="1===1">{{name}}</h1>
+    <!-- display: block -->
+    <h1 v-show="true">{{name}}</h1>
+    <!-- dispalay: none -->
+    <h1 v-show="false">{{name}}</h1>
+
+    <!-- 不符合条件的直接从页面上删除该元素标签 -->
+    <h1 v-if="n===1">1</h1>
+    <h1 v-else-if="n===2">2</h1>
+    <h1 v-else-if="n===3">3</h1>
+    <h1 v-else="n===3">else</h1>
+
+    <!-- 符合条件才在页面上添加<template></template>标签之间的内容，不符合条件则删除，只能搭配v-if使用 -->
+    <template v-if="n===4">
+      <h1>哈哈哈</h1>
+      <h1>嘿嘿嘿</h1>
+      <h1>嘻嘻嘻</h1>
+    </template>
+  </div>
+  <script>
+    const vm = new Vue({
+      data() {
+        return {
+          name: 'Hello World',
+          n: 1
+        }
+      }
+    });
+    vm.$mount('#root');
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0501_天气案例</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- <span>今天天气很炎热</span><br /><br /> -->
+        <!-- <span>今天天气很{{info}}</span><br /><br /> -->
+        <span>今天天气很{{info}}，{{i}}</span><br /><br />
+        <button @click="changeWeather">点击切换天气</button>
+        <!-- 
+            一个技巧：
+                如果是简单语句（只完成一件事情）的情况，
+                可以直接在通过下面这种方式完成：@click="将方法中要完成的语句写在这儿"
+         -->
+        <!-- <button @click="isHot=!isHot;i++">点击切换天气</button> -->
+
+        <!-- 
+            在Vue实例对象中使用window全局对象
+         -->
+        <!-- <button @click="window.alert('Hi')">点击切换天气</button> -->
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        /*
+            一个坑：
+                如果在模版中没有用到isHot和info属性，
+                点击按钮后，vm中的isHot和info属性会改变，但是在vue插件中的<Root>中不会体现
+        */
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                isHot: true,
+                i: 0,
+                // Vue实例对象中没办法用到window全局对象的时候，可以这么做
+                window: window
+            },
+            computed: {
+                info() {
+                    return this.isHot ? '炎热' : '凉快';
+                }
+            },
+            methods: {
+                changeWeather() {
+                    this.i++;
+                    this.isHot = !this.isHot;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

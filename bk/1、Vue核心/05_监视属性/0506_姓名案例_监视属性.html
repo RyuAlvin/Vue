@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>0506_姓名案例_监视属性</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <!-- 
+        computed和watch之间的区别：
+            1、computed能完成的功能，watch都可以完成；
+            2、watch能完成的功能，computed不一定能完成，例如：watch可以进行异步操作；
+        两个重要的小原则：
+            1、所被Vue管理的函数，最好写成普通函数 xxx(){...} 或 xxx:function(){...} ，
+                这样this的指向才是vm或组件实例对象；
+            2、所有不被Vue所管理的函数（定时器的回调函数、ajax的回调函数等、Promise的回调函数），最好写成箭头函数，
+                这样this的指向才是vm或组件实例对象；
+     -->
+    <div id="root">
+        姓：<input type="text" v-model="familyName" /><br /><br />
+        名：<input type="text" v-model="firstName" /><br /><br />
+        全名：<span>{{fullName}}</span>
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+        const vm = new Vue({
+            el: '#root',
+            data: {
+                familyName: '张',
+                firstName: '三',
+                fullName: '张-三'
+            },
+            watch: {
+                familyName(newValue) {
+                    /*
+                        定时器并不是Vue管理的函数，而是在Vue管理的一个叫做familyName的函数中开启的
+                            但是定时器所指定的回调函数是不受Vue控制的，是浏览器里的定时模块控制的，
+                            最后定时器到点了，js引擎帮你调的setTimeout里的回调函数，
+                            像这种地方就一定得写成箭头函数，它就没有了自己的this，就会往外一层去找，
+                                就会找到familyName的this，familyName是Vue所管理的函数，而且还写成了普通函数形式，
+                                familyName的this就是Vue的实例对象；
+                            如果setTimeout里的回调函数，在这里写成普通函数，那么就是window全局对象了。
+                    */
+                    setTimeout(() => {
+                        在这里
+                        console.log(this);
+                        this.fullName = newValue + '-' + this.firstName;
+                    }, 1000);
+                },
+                // familyName(newValue) {
+                //     this.fullName = newValue + '-' + this.firstName;
+                // },
+                firstName(newValue) {
+                    this.fullName = this.familyName + '-' + newValue;
+                },
+            }
+        })
+    </script>
+</body>
+
+</html>

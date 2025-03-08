@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1403_组件的嵌套</title>
+    <script src="../../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- <app></app> -->
+    </div>
+    <script type="text/javascript">
+        Vue.config.productionTip = false
+
+        // 定义组件：三级
+        const student = {
+            name: 'Student',
+            template: `<div>
+                        <h2>---{{name}}</h2>
+                        <h2>---{{age}}</h2>
+                        </div>`,
+            data() {
+                return {
+                    name: 'Ryu',
+                    age: '18'
+                }
+            }
+        }
+
+        // 定义组件：二级
+        const school = {
+            name: 'School',
+            template: `<div>
+                        <h2>--{{name}}</h2>
+                        <h2>--{{address}}</h2>
+                        <student></student>
+                        </div>`,
+            data() {
+                return {
+                    name: '东京大学',
+                    address: '千代田区'
+                }
+            }, components: {
+                // 注册组件：三级
+                student
+            }
+        }
+
+        // 定义组件：二级
+        const city = {
+            name: 'City',
+            template: `<div>
+                        <h2>--{{name}}</h2>
+                        </div>`,
+            data() {
+                return {
+                    name: '东京',
+                    nation: '日本'
+                }
+            }
+        }
+
+        // 定义组件：一级
+        const app = {
+            data() {
+                return {
+                    info: 'App'
+                }
+            },
+            template: `<div>
+                        <h2>-{{info}}</h2>
+                        <city></city>
+                        <school></school>
+                        </div>`,
+            name: 'App',
+            components: {
+                // 注册组件：二级
+                city,
+                school
+            }
+        }
+
+        new Vue({
+            el: '#root',
+            template: `<app></app>`,
+            components: {
+                /*
+                    这里全写是：app:app，使用的时候是是<app></app>，
+                        但是在Vue开发工具中显示的节点名是<App> -> 也就是对应 name: 'App'
+
+                    注册组件：一级
+                */
+                app
+            }
+        })
+    </script>
+</body>
+
+</html>
