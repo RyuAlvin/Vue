@@ -6,8 +6,11 @@ module.exports = {
         'assets': '@/assets',
         'common': '@/common',
         'components': '@/components',
-        'network': '@/network'
+        'network': '@/network',
+        'views': '@/views'
       }
     }
-  }
+  },
+  // 关闭lint检查
+  lintOnSave: false
 }
