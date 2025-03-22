@@ -193,3 +193,15 @@ Vuex 的 state 是基于 Vue 的响应式系统实现的。具体来说：
 
 选择四：axios，Vue官方宣布不再维护Vue-resource后，推荐使用axios。
 
+# <%= BASE_URL %>
+
+![image-20250322115346808](./assets/image-20250322115346808.png)
+
+<%= BASE_URL %>是Vue CLI项目中的模板语法，用于动态插入publicPath（基础路径）。
+
+BASE_URL是Vue CLI提供的一个环境变量，表示项目的基础路径（默认为 / ）。
+
+BASE_URL会根据项目的部署环境动态变化。例如：
+
+- 开发环境：BASE_URL通常是 / 。
+- 生产环境：如果项目部署在子路径下（如https://example.com/my-app/），BASE_URL会是 /my-app/ 。
