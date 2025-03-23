@@ -5,12 +5,13 @@
         购物街
       </div>
     </nav-bar>
-    <h2>主页</h2>
+    <home-swiper :banners="banners"></home-swiper>
   </div>
 </template>
 
 <script>
 import NavBar from '@/components/common/navBar/NavBar.vue';
+import HomeSwiper from '@/views/Home/childComps/HomeSwiper.vue';
 import { getHomeMultiData } from '@/network/home';
 export default {
   name: 'Home',
@@ -21,7 +22,8 @@ export default {
     }
   },
   components: {
-    NavBar
+    NavBar,
+    HomeSwiper
   },
   created() {
     /**
