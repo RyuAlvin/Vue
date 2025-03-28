@@ -4,6 +4,7 @@
     <home-swiper :banners="banners"></home-swiper>
     <home-recommend :recommends="recommends"></home-recommend>
     <feature-view></feature-view>
+    <tab-control :titles="['流行', '新款', '精选']"></tab-control>
     <ul>
       <li>列表1</li>
       <li>列表2</li>
@@ -110,11 +111,15 @@
 </template>
 
 <script>
+import HomeSwiper from './childComps/HomeSwiper.vue';
+import HomeRecommend from './childComps/HomeRecommend.vue';
+import FeatureView from './childComps/FeatureView.vue';
+
 import NavBar from '@/components/common/navBar/NavBar.vue';
-import HomeSwiper from '@/views/Home/childComps/HomeSwiper.vue';
-import HomeRecommend from '@/views/Home/childComps/HomeRecommend.vue';
-import FeatureView from '@/views/Home//childComps/FeatureView.vue';
+import TabControl from '@/components/content/tabControl/TabControl.vue';
+
 import { getHomeMultiData } from '@/network/home';
+
 export default {
   name: 'Home',
   data() {
@@ -124,10 +129,11 @@ export default {
     }
   },
   components: {
-    NavBar,
     HomeSwiper,
     HomeRecommend,
-    FeatureView
+    FeatureView,
+    NavBar,
+    TabControl
   },
   created() {
     /**
@@ -166,5 +172,20 @@ export default {
 
 #home {
   padding-top: 44px;
+}
+
+.tab-control {
+  /* 
+  position:sticky
+    1、相对于固定的混合：
+        元素在容器内时表现为 position: relative
+        当视口滚动达到指定阈值时变为 position: fixed
+        元素会一直固定在容器内，直到容器滚动离开视口
+    2、必须指定阈值：
+        必须设置 top、right、bottom 或 left 中的一个
+        例如 top: 10px 表示距离视口顶部 10px 时开始固定
+   */
+  position: sticky;
+  top: 44px;
 }
 </style>
