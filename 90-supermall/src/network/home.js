@@ -6,3 +6,13 @@ export function getHomeMultiData() {
     method: 'get'
   })
 }
+
+export function getHomeGoods(type, page) {
+  return request({
+    url: '/home/data',
+    method: 'get',
+    params: {
+      type, page
+    }
+  })
+}

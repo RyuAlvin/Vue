@@ -35,6 +35,8 @@ export default {
   methods: {
     tabClick(index){
       this.currentIndex = index;
+      // 将当前选中的标签索引传递给父组件
+      this.$emit('tab-click', index);
     }
   },
 }
