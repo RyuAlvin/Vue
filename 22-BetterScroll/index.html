@@ -1,6 +1,25 @@
-<template>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .wrapper {
+      height: 150px;
+      background-color: cadetblue;
+      overflow: hidden;
+      /* overflow-y: scroll; */
+    }
+    .wrapper ul, li {
+      list-style: none;
+      /* padding-left: 0; */
+    }
+  </style>
+</head>
+<body>
   <div class="wrapper">
-    <ul class="content">
+    <ul>
       <li>1</li>
       <li>2</li>
       <li>3</li>
@@ -1003,28 +1022,10 @@
       <li>1000</li>
     </ul>
   </div>
-</template>
 
-<script>
-import BScroll from 'better-scroll'
-export default {
-  name: 'Category',
-  data() {
-    return {
-      scroll: null
-    }
-  },
-  mounted() {
-    this.scroll = new BScroll(document.querySelector('.wrapper'), {
-    })
-  },
-}
-</script>
-
-<style>
-.wrapper {
-  height: 150px;
-  background-color: cadetblue;
-  overflow: hidden;
-}
-</style>
+  <script src="./bscroll.js"></script>
+  <script>
+    const scroll = new BScroll(document.querySelector('.wrapper'))
+  </script>
+</body>
+</html>
