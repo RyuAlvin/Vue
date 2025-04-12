@@ -336,11 +336,21 @@
 
       // probeType: 3 // 从手指滑动开始，到滚动结束，会一直派发scroll事件
 
-      click: true // BetterScroll默认会阻止可滚动范围内的元素的元素click事件，需要手动打开
+      // click: true // BetterScroll默认会阻止可滚动范围内的元素的元素click事件，需要手动打开
+
+      pullUpLoad: true // 启动上拉加载
     })
 
     scroll.on('scroll', (position) => {
-      console.log(position)
+      // console.log(positions)
+    })
+
+    // 该事件需要开启属性 pullUpLoad（启动上拉加载）
+    scroll.on('pullingUp', () => {
+      console.log('滚动到底部，触发上拉加载');
+
+      // 必须调用，否则上拉加载只会触发一次。即，滚动到底部后再往上滚动，最后再滚动到底部则不会触发
+      scroll.finishPullUp();
     })
 
     document.querySelector('.btn').addEventListener('click', function() {
