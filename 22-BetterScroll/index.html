@@ -20,6 +20,7 @@
 <body>
   <div class="wrapper">
     <ul>
+      <button class="btn">按钮</button>
       <li>1</li>
       <li>2</li>
       <li>3</li>
@@ -333,11 +334,17 @@
 
       // probeType: 2 // 只要手指按在滚动区域上的时候，就会一直派发scroll事件
 
-      probeType: 3 // 从手指滑动开始，到滚动结束，会一直派发scroll事件
+      // probeType: 3 // 从手指滑动开始，到滚动结束，会一直派发scroll事件
+
+      click: true // BetterScroll默认会阻止可滚动范围内的元素的元素click事件，需要手动打开
     })
 
     scroll.on('scroll', (position) => {
       console.log(position)
+    })
+
+    document.querySelector('.btn').addEventListener('click', function() {
+      console.log('Hello Button');
     })
   </script>
 </body>
