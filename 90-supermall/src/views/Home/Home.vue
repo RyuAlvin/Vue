@@ -123,6 +123,11 @@ export default {
 
 #home {
   padding-top: 44px;
+  /* 
+  vh 是CSS的相对长度单位，代表当前浏览器视口（viewport）高度的百分比
+  100vh 即等于视口总高度的100%
+   */
+  height: 100vh;
 }
 
 .tab-control {
