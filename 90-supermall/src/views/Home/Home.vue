@@ -1,12 +1,14 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    <home-swiper :banners="banners"></home-swiper>
-    <home-recommend :recommends="recommends"></home-recommend>
-    <feature-view></feature-view>
-    <tab-control :titles="['流行', '新款', '精选']" @tab-click="tabClick"></tab-control>
-    <!-- 传递当前type下的list数据给GoodsList组件，通过计算属性获取 -->
-    <goods-list :goods="showGoods"></goods-list>
+    <scroll class="content">
+      <home-swiper :banners="banners"></home-swiper>
+      <home-recommend :recommends="recommends"></home-recommend>
+      <feature-view></feature-view>
+      <tab-control :titles="['流行', '新款', '精选']" @tab-click="tabClick"></tab-control>
+      <!-- 传递当前type下的list数据给GoodsList组件，通过计算属性获取 -->
+      <goods-list :goods="showGoods"></goods-list>
+    </scroll>
   </div>
 </template>
 
@@ -18,6 +20,7 @@ import FeatureView from './childComps/FeatureView.vue';
 import NavBar from '@/components/common/navBar/NavBar.vue';
 import TabControl from '@/components/content/tabControl/TabControl.vue';
 import GoodsList from '@/components/content/goods/GoodsList.vue';
+import Scroll from '@/components/common/scroll/Scroll.vue';
 
 import { getHomeMultiData, getHomeGoods } from '@/network/home';
 
@@ -46,7 +49,8 @@ export default {
     FeatureView,
     NavBar,
     TabControl,
-    GoodsList
+    GoodsList,
+    Scroll
   },
   created() {
     /**
@@ -107,7 +111,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .home-nav {
   /* 引用base.css中的变量 --color-tint: #ff8198; */
   background-color: var(--color-tint);
@@ -144,5 +148,13 @@ export default {
   position: sticky;
   top: 44px;
   z-index: 9;
+}
+
+.content {
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
 }
 </style>
