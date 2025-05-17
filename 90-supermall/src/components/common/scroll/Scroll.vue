@@ -21,7 +21,13 @@ export default {
   mounted() {
     this.scroll = new BScroll(this.$refs.wrapper, {
       probeType: 3
-    })
+    });
+    this.scroll.scrollTo(0, 0);
+  },
+  methods: {
+    backTop(x, y, time = 300) {
+      this.scroll.scrollTo(x, y, time);
+    }
   },
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    <scroll class="content">
+    <scroll class="content" ref="scroll">
       <home-swiper :banners="banners"></home-swiper>
       <home-recommend :recommends="recommends"></home-recommend>
       <feature-view></feature-view>
@@ -9,6 +9,8 @@
       <!-- 传递当前type下的list数据给GoodsList组件，通过计算属性获取 -->
       <goods-list :goods="showGoods"></goods-list>
     </scroll>
+    <!-- 对于自定义组件，click事件无效。需要使用.native修饰符才能调用原生的click事件 -->
+    <back-top @click.native="backTop"/>
   </div>
 </template>
 
@@ -21,6 +23,7 @@ import NavBar from '@/components/common/navBar/NavBar.vue';
 import TabControl from '@/components/content/tabControl/TabControl.vue';
 import GoodsList from '@/components/content/goods/GoodsList.vue';
 import Scroll from '@/components/common/scroll/Scroll.vue';
+import BackTop from '@/components/content/backTop/BackTop.vue';
 
 import { getHomeMultiData, getHomeGoods } from '@/network/home';
 
@@ -50,7 +53,8 @@ export default {
     NavBar,
     TabControl,
     GoodsList,
-    Scroll
+    Scroll,
+    BackTop
   },
   created() {
     /**
@@ -106,6 +110,9 @@ export default {
         default:
           break;
       }
+    },
+    backTop() {
+      this.$refs.scroll.backTop(0, 0, 500);
     }
   },
 }
