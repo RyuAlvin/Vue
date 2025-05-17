@@ -1,7 +1,14 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
-    <scroll class="content" ref="scroll">
+    <!-- 
+    加:（动态绑定），
+    特点：
+      传递的是JS表达式的结果
+      可以传递各种类型的数据（数字、对象、数组、布尔值等）
+      可以传递变量、计算属性或方法返回值
+    -->
+    <scroll class="content" ref="scroll" :probe-type="probeType" @scroll="contentScroll">
       <home-swiper :banners="banners"></home-swiper>
       <home-recommend :recommends="recommends"></home-recommend>
       <feature-view></feature-view>
@@ -10,7 +17,7 @@
       <goods-list :goods="showGoods"></goods-list>
     </scroll>
     <!-- 对于自定义组件，click事件无效。需要使用.native修饰符才能调用原生的click事件 -->
-    <back-top @click.native="backTop"/>
+    <back-top @click.native="backTop" v-show="isShowBackTop"/>
   </div>
 </template>
 
@@ -38,7 +45,9 @@ export default {
         'new': { list: [], page: 0},
         'sell': { list: [], page: 0},
       },
-      currentType: 'pop'
+      currentType: 'pop',
+      probeType: 3,
+      isShowBackTop: false
     }
   },
   computed: {
@@ -113,6 +122,20 @@ export default {
     },
     backTop() {
       this.$refs.scroll.backTop(0, 0, 500);
+    },
+    /**
+     * BackTop的显示和隐藏：
+     * 1、Home调用Scroll的时候动态传递灵敏度probeType，Scroll通过props接收；
+     * 2、Scroll在挂载的时候，绑定scroll事件，并向调用方释放scroll事件以及位置参数；
+     * 3、Home中通过v-show动态显示BackTop组件
+     * 4、Home接收到scroll事件后，通过位置参数y判断：
+     *      大于1000的时候，动态显示BackTop组件、
+     *      小于的时候，动态隐藏BackTop组件。
+     * @param options 
+     */
+    contentScroll(options) {
+      // console.log('Home.vue ===> ', options);
+      this.isShowBackTop = -options.y > 700 ? true : false; 
     }
   },
 }

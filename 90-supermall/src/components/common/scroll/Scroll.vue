@@ -18,16 +18,28 @@ export default {
       scroll: null
     }
   },
+  props: {
+    probeType: {
+      type: Number,
+      default: 3
+    }
+  },
   mounted() {
     this.scroll = new BScroll(this.$refs.wrapper, {
-      probeType: 3
+      probeType: this.probeType
     });
+
     this.scroll.scrollTo(0, 0);
+
+    this.scroll.on('scroll', options => {
+      // console.log('Scroll.vue ===> 'options);
+      this.$emit('scroll', options);
+    })
   },
   methods: {
     backTop(x, y, time = 300) {
       this.scroll.scrollTo(x, y, time);
-    }
+    },
   },
 }
 </script>
