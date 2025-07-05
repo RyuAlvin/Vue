@@ -8,7 +8,11 @@
       可以传递各种类型的数据（数字、对象、数组、布尔值等）
       可以传递变量、计算属性或方法返回值
     -->
-    <scroll class="content" ref="scroll" :probe-type="probeType" @scroll="contentScroll">
+    <scroll class="content" ref="scroll" 
+    :probe-type="probeType" 
+    :pull-up-load="pullUpLoad"
+    @scroll="contentScroll"
+    @pullingUp="pullingUp">
       <home-swiper :banners="banners"></home-swiper>
       <home-recommend :recommends="recommends"></home-recommend>
       <feature-view></feature-view>
@@ -47,6 +51,7 @@ export default {
       },
       currentType: 'pop',
       probeType: 3,
+      pullUpLoad: true,
       isShowBackTop: false
     }
   },
@@ -102,6 +107,8 @@ export default {
           this.goods[type].list.push(...res.data.list)
           this.goods[type].page += 1; 
         }
+        // 数据加载完成后，必须调用finishPullUp()重置BetterScroll状态
+        this.$refs.scroll.finishPullUp();
       })
     },
     // 子组件TabControl内部触发
@@ -136,6 +143,28 @@ export default {
     contentScroll(options) {
       // console.log('Home.vue ===> ', options);
       this.isShowBackTop = -options.y > 700 ? true : false; 
+    },
+    /**
+     * 1、BetterScroll开启上拉属性
+     *    但是属性不要在Scroll.vue组件中写死，需要根据调用方决定。
+     *    所以，将上拉属性是否开启作为属性传入Scroll.vue
+     * 2、在BetterScroll的mounted生命周期中监听上拉事件
+     *    一旦监听到上拉动作则通知调用方，由调用方决定后续操作。
+     * 3、在Home.vue中获取到上拉事件被触发的通知，调用后续操作方法。
+     *    后续操作1：调用获取数据的方法
+     *    后续操作2：重置BetterScroll状态（解除上拉锁）
+     *    后续操作3：重新计算滚动区域高度
+     */
+    pullingUp() {
+      // console.log('Home.vue -> 上拉加载更多');
+      this.getHomeGoods('pop');
+      /**
+       * 重新计算滚动区域高度
+       * 为什么需要重新计算滚动区域高度？
+       *   因为异步请求的数据中包含会影响滚动区域高度的内容（图片等），
+       *   所以在保证所有的数据都已请求完成，并反映到DOM上后，需要重新计算，确保滚动最新的滚动区域以适应最新的内容页
+       */
+      this.$refs.scroll.refresh();
     }
   },
 }
