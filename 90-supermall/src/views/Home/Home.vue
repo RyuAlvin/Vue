@@ -93,23 +93,29 @@ export default {
      this.getHomeGoods('sell');
      this.getHomeGoods('pop');
      this.getHomeGoods('new');
-
-     /**
-      * 1、Better-Scroll在决定有多少区域可以滚动时，是根据scrollerHeight属性决定
-      *    1.1、scrollerHeight属性是根据Better-Scroll的content中的子组件的高度
-      *    1.2、但是我们的首页中，刚开始在计算scrollerHeight属性时，是没有将图片计算在内的
-      *    1.3、后来图片加载进来之后有了新的高度，但是scrollerHeight属性并没有进行更新，所以滚动出了问题
-      * 2、如何解决这个问题？
-      *    2.1、监听每一张图片是否加载完成，只要有一张图片加载完成了，执行一次refresh()
-      *    2.2、如何监听图片加载完成了？
-      *         原生的js监听图片：img.onload = function() { ... }
-      *         vue中监听：@load = '方法'
-      *    2.3、调用scroll的refresh()
-      */
-     this.$bus.$on('itemImgLoad', () => {
+  },
+  mounted() {
+    /**
+     * 为什么要将监听itemImgLoad事件的操作放在mounted中执行？
+     *   因为需要访问this.$refs.scroll，
+     *   而在created钩子函数中，只是Vue实例被创建，还没有将模板编译成真正的DOM节点，
+     *   此时去访问this.$refs.scroll获取scroll组件是无法获取的。
+     * 
+     * 1、Better-Scroll在决定有多少区域可以滚动时，是根据scrollerHeight属性决定
+     *    1.1、scrollerHeight属性是根据Better-Scroll的content中的子组件的高度
+     *    1.2、但是我们的首页中，刚开始在计算scrollerHeight属性时，是没有将图片计算在内的
+     *    1.3、后来图片加载进来之后有了新的高度，但是scrollerHeight属性并没有进行更新，所以滚动出了问题
+     * 2、如何解决这个问题？
+     *    2.1、监听每一张图片是否加载完成，只要有一张图片加载完成了，执行一次refresh()
+     *    2.2、如何监听图片加载完成了？
+     *         原生的js监听图片：img.onload = function() { ... }
+     *         vue中监听：@load = '方法'
+     *    2.3、调用scroll的refresh()
+     */
+    this.$bus.$on('itemImgLoad', () => {
       this.$refs.scroll.refresh();
       // console.log('----')
-     });
+    });
   },
   methods: {
     getHomeMultiData() {
