@@ -64,6 +64,8 @@ export default {
     refresh() {
       // 重新计算滚动区域高度（DOM变化后调用，确保滚动正确）
       this.scroll.refresh();
+
+      console.log('Scroll refresh...');
     }
   },
 }
