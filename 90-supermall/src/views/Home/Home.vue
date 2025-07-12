@@ -1,6 +1,12 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">购物街</div></nav-bar>
+    <tab-control 
+    ref="tabControl1"
+    :titles="['流行', '新款', '精选']" 
+    @tab-click="tabClick" 
+    class="tab-fixed" 
+    v-show="isTabFixed"></tab-control>
     <!-- 
     加:（动态绑定），
     特点：
@@ -8,15 +14,20 @@
       可以传递各种类型的数据（数字、对象、数组、布尔值等）
       可以传递变量、计算属性或方法返回值
     -->
-    <scroll class="content" ref="scroll" 
+    <scroll 
+    class="content" 
+    ref="scroll" 
     :probe-type="probeType" 
     :pull-up-load="pullUpLoad"
     @scroll="contentScroll"
     @pullingUp="pullingUp">
-      <home-swiper :banners="banners"></home-swiper>
+      <home-swiper :banners="banners" @img-load="imgLoad"></home-swiper>
       <home-recommend :recommends="recommends"></home-recommend>
       <feature-view></feature-view>
-      <tab-control :titles="['流行', '新款', '精选']" @tab-click="tabClick"></tab-control>
+      <tab-control 
+      ref="tabControl2" 
+      :titles="['流行', '新款', '精选']" 
+      @tab-click="tabClick"></tab-control>
       <!-- 传递当前type下的list数据给GoodsList组件，通过计算属性获取 -->
       <goods-list :goods="showGoods"></goods-list>
     </scroll>
@@ -53,7 +64,9 @@ export default {
       currentType: 'pop',
       probeType: 3,
       pullUpLoad: true,
-      isShowBackTop: false
+      isShowBackTop: false,
+      tabOffsetTop: 0,
+      isTabFixed: false
     }
   },
   computed: {
@@ -212,23 +225,42 @@ export default {
         default:
           break;
       }
+
+      this.$refs.tabControl1.currentIndex = index;
+      this.$refs.tabControl2.currentIndex = index;
     },
     backTop() {
       this.$refs.scroll.backTop(0, 0, 500);
     },
-    /**
-     * BackTop的显示和隐藏：
-     * 1、Home调用Scroll的时候动态传递灵敏度probeType，Scroll通过props接收；
-     * 2、Scroll在挂载的时候，绑定scroll事件，并向调用方释放scroll事件以及位置参数；
-     * 3、Home中通过v-show动态显示BackTop组件
-     * 4、Home接收到scroll事件后，通过位置参数y判断：
-     *      大于1000的时候，动态显示BackTop组件、
-     *      小于的时候，动态隐藏BackTop组件。
-     * @param options 
-     */
     contentScroll(options) {
+      // console.log('options.y ---> ', options.y);
+      /**
+       * BackTop的显示和隐藏：
+       * 1、Home调用Scroll的时候动态传递灵敏度probeType，Scroll通过props接收；
+       * 2、Scroll在挂载的时候，绑定scroll事件，并向调用方释放scroll事件以及位置参数；
+       * 3、Home中通过v-show动态显示BackTop组件
+       * 4、Home接收到scroll事件后，通过位置参数y判断：
+       *      大于1000的时候，动态显示BackTop组件、
+       *      小于的时候，动态隐藏BackTop组件。
+       */
       this.isShowBackTop = -options.y > 700 ? true : false; 
-      console.log('options.y ---> ', options.y);
+
+      /**
+       * 吸顶效果实现思想
+       * 1、需要TabControl的offsetTop
+       * 2、当滚动距离大于TabControl的offsetTop的时候，固定TabControl
+       * 
+       * 注意点：
+       * 1、TabControl的位置在轮播图组件下方，轮播图是否完全加载完成会影响TabControl的offsetTop
+       * 2、需要在轮播图加载完成后再去获取TabControl的offsetTop
+       * 3、虽然有多张轮播图，但只要有一张加载完成，轮播图组件的高度就可以确定了。
+       *      所以只需要执行一次offsetTop的取值操作做
+       * 4、TabControl2样式：relative定位，z-index大于Scroll部分
+       * 5、TabControl2最初不显示
+       * 6、在Scroll的滚动事件中，判断滚动距离是否大于offsetTop
+       *      当滚动距离大于 > offsetTop 时，则显示TabControl2
+       */
+      this.isTabFixed = (-options.y > this.tabOffsetTop)
     },
     /**
      * 1、BetterScroll开启上拉属性
@@ -250,6 +282,9 @@ export default {
        *   所以在保证所有的数据都已请求完成，并反映到DOM上后，需要重新计算，确保滚动最新的滚动区域以适应最新的内容页
        */
       this.$refs.scroll.refresh();
+    },
+    imgLoad() {
+      this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop;
     }
   },
 }
@@ -276,6 +311,11 @@ export default {
   top: 0;
   left: 0;
   right: 0; */
+}
+
+.tab-fixed {
+  position: relative;
+  z-index: 1;
 }
 
 .content {
