@@ -30,6 +30,7 @@ export default {
   },
   mounted() {
     this.scroll = new BScroll(this.$refs.wrapper, {
+      click: true,
       /**
        * 用于控制滚动事件的监听频率和精度。
        * 它决定了在滚动过程中，BetterScroll如何触发scroll事件，适用于需要实时获取滚动位置。
@@ -52,18 +53,16 @@ export default {
      * 
      * 只有开启实施派发scroll事件（2和3），才做监听
      */
-    if(this.scroll.probeType === 2 || this.scroll.probeType === 3 ) {
+    if(this.probeType === 2 || this.scroll.probeType === 3 ) {
       this.scroll.on('scroll', options => {
-        // console.log('Scroll.vue ===> 'options);
         this.$emit('scroll', options);
       })
     }
 
     // 开启上拉加载的时候，才监听上拉加载事件
-    if(this.scroll.pullUpLoad) {
+    if(this.pullUpLoad) {
       // 监听上拉加载事件
       this.scroll.on('pullingUp', () => {
-        // console.log('上拉加载更多');
         this.$emit('pullingUp');
       })
     }
@@ -85,8 +84,6 @@ export default {
     refresh() {
       // 重新计算滚动区域高度（DOM变化后调用，确保滚动正确）
       this.scroll.refresh();
-
-      console.log('Scroll refresh...');
     }
   },
 }

@@ -119,7 +119,6 @@ export default {
        * 这里的refresh将会执行30次，因为一次数据的获取有30个Item，针对每个Item里的image都会执行refresh
        */
       // this.$refs.scroll.refresh();
-      // console.log('----');
 
       refresh();
 
@@ -228,7 +227,6 @@ export default {
      * @param options 
      */
     contentScroll(options) {
-      // console.log('Home.vue ===> ', options);
       this.isShowBackTop = -options.y > 700 ? true : false; 
     },
     /**
@@ -243,8 +241,7 @@ export default {
      *    后续操作3：重新计算滚动区域高度
      */
     pullingUp() {
-      // console.log('Home.vue -> 上拉加载更多');
-      this.getHomeGoods('pop');
+      this.getHomeGoods(this.currentType);
       /**
        * 重新计算滚动区域高度
        * 为什么需要重新计算滚动区域高度？
