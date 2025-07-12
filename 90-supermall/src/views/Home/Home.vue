@@ -228,6 +228,7 @@ export default {
      */
     contentScroll(options) {
       this.isShowBackTop = -options.y > 700 ? true : false; 
+      console.log('options.y ---> ', options.y);
     },
     /**
      * 1、BetterScroll开启上拉属性
@@ -255,21 +256,8 @@ export default {
 </script>
 
 <style scoped>
-.home-nav {
-  /* 引用base.css中的变量 --color-tint: #ff8198; */
-  background-color: var(--color-tint);
-  color: #fff;
-  font-weight: 700;
-
-  position: fixed;
-  z-index: 10;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
 #home {
-  padding-top: 44px;
+  /* padding-top: 44px; */
   /* 
   vh 是CSS的相对长度单位，代表当前浏览器视口（viewport）高度的百分比
   100vh 即等于视口总高度的100%
@@ -277,20 +265,17 @@ export default {
   height: 100vh;
 }
 
-.tab-control {
-  /* 
-  position:sticky
-    1、相对于固定的混合：
-        元素在容器内时表现为 position: relative
-        当视口滚动达到指定阈值时变为 position: fixed
-        元素会一直固定在容器内，直到容器滚动离开视口
-    2、必须指定阈值：
-        必须设置 top、right、bottom 或 left 中的一个
-        例如 top: 10px 表示距离视口顶部 10px 时开始固定
-   */
-  position: sticky;
-  top: 44px;
-  z-index: 9;
+.home-nav {
+  /* 引用base.css中的变量 --color-tint: #ff8198; */
+  background-color: var(--color-tint);
+  color: #fff;
+  font-weight: 700;
+
+  /* position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0; */
 }
 
 .content {
@@ -300,4 +285,20 @@ export default {
   left: 0;
   right: 0;
 }
+
+/* 
+position:sticky
+1、相对于固定的混合：
+    元素在容器内时表现为 position: relative
+    当视口滚动达到指定阈值时变为 position: fixed
+    元素会一直固定在容器内，直到容器滚动离开视口
+2、必须指定阈值：
+    必须设置 top、right、bottom 或 left 中的一个
+    例如 top: 10px 表示距离视口顶部 10px 时开始固定
+ */
+/* .tab-control {
+  position: sticky;
+  top: 44px;
+  z-index: 9;
+} */
 </style>

@@ -53,7 +53,7 @@ export default {
      * 
      * 只有开启实施派发scroll事件（2和3），才做监听
      */
-    if(this.probeType === 2 || this.scroll.probeType === 3 ) {
+    if(this.probeType === 2 || this.probeType === 3 ) {
       this.scroll.on('scroll', options => {
         this.$emit('scroll', options);
       })
