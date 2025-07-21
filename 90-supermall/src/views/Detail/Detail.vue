@@ -1,12 +1,13 @@
 <template>
   <div>
-    详情页
-    {{ this.id }}
+    <detail-nav-bar/>
   </div>
 </template>
 
 <script>
+import DetailNavBar from './childComps/DetailNavBar.vue';
 export default {
+  components: { DetailNavBar },
   data() {
     return {
       id: null
