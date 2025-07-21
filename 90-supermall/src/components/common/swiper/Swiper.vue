@@ -41,16 +41,26 @@
         swiperStyle: {}, // swiper样式
         currentIndex: 1, // 当前的index
         scrolling: false, // 是否正在滚动
+        timer: 0
       }
     },
     mounted: function () {
       // 1.操作DOM, 在前后添加Slide
-      setTimeout(() => {
+      this.timer = setTimeout(() => {
         this.handleDom();
 
         // 2.开启定时器
         this.startTimer();
       }, 3000)
+    },
+    deactivated() {
+      /**
+       * 失活时，清除定时器，否则还在handleDom方法还在一直执行，
+       * 即寻找id=swiper的元素，往里添加slider元素
+       * 由于这里的swiper是存在于父组件Home中，一旦从Home移动到别的标签页（例：Cart）,那么此时就找不到swiper，控制台会报错
+       */
+      console.log('Swiper.vue deactived...');
+      clearTimeout(this.timer);
     },
     methods: {
 		  /**

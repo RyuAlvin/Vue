@@ -21,7 +21,7 @@
     :pull-up-load="pullUpLoad"
     @scroll="contentScroll"
     @pullingUp="pullingUp">
-      <home-swiper :banners="banners" @img-load="imgLoad"></home-swiper>
+      <home-swiper v-if="showSwiper" :banners="banners" @img-load="imgLoad"></home-swiper>
       <home-recommend :recommends="recommends"></home-recommend>
       <feature-view></feature-view>
       <tab-control 
@@ -67,7 +67,8 @@ export default {
       isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
-      scrollY: 0
+      scrollY: 0,
+      showSwiper: false
     }
   },
   computed: {
@@ -195,12 +196,16 @@ export default {
     });
   },
   activated() {
+    // 激活时创建轮播图组件
+    this.showSwiper = true;
     // 激活时，获取滚动高度（第一次时为0），并滚动到对应位置
     this.$refs.scroll.scrollTo(0, this.scrollY, 0);
     // 滚动到对应位置以后，刷新高度
     this.$refs.scroll.refresh();
   },
   deactivated() {
+    // 失活时销毁轮播图组件
+    this.showSwiper = false;
     // 失活时，记录实时滚动高度
     this.scrollY = this.$refs.scroll.getScrollY();
   },
