@@ -10,6 +10,7 @@ import DetailNavBar from './childComps/DetailNavBar.vue';
 import DetailSwiper from './childComps/DetailSwiper.vue';
 import { getDetailData } from '@/network/detail';
 export default {
+  name: 'Detail',
   components: { DetailNavBar, DetailSwiper },
   data() {
     return {
