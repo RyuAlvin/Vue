@@ -21,6 +21,17 @@ export default {
     }
   },
   methods: {
+    /**
+     * 1、添加详情页
+     * 2、给详情页添加动态路由
+     * 3、给Item添加点击事件，事件内容，通过push跳转至详情页
+     *    为什么用push？
+     *     标签页之类的互相切换，一般通过用户点击完成，所以只要用replace实现，直接替换路由
+     *     而进入详情页之后，需要返回至原来的页面，所以需要在内存中保留原来的页面，因而需要用push实现
+     * 4、通过RESTFUL风格传递参数:id，push的时候直接在路径后拼接参数
+     *     回忆：如果是通过request param的方式，在push的时候则是通过对象传递
+     * @param iid 
+     */
     goToDetail(iid) {
       this.$router.push(`detail/${iid}`);
     }
