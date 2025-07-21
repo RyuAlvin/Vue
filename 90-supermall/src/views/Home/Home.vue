@@ -66,7 +66,8 @@ export default {
       pullUpLoad: true,
       isShowBackTop: false,
       tabOffsetTop: 0,
-      isTabFixed: false
+      isTabFixed: false,
+      scrollY: 0
     }
   },
   computed: {
@@ -192,6 +193,16 @@ export default {
        * 	     重复以上操作
        */
     });
+  },
+  activated() {
+    // 激活时，获取滚动高度（第一次时为0），并滚动到对应位置
+    this.$refs.scroll.scrollTo(0, this.scrollY, 0);
+    // 滚动到对应位置以后，刷新高度
+    this.$refs.scroll.refresh();
+  },
+  deactivated() {
+    // 失活时，记录实时滚动高度
+    this.scrollY = this.$refs.scroll.getScrollY();
   },
   methods: {
     getHomeMultiData() {

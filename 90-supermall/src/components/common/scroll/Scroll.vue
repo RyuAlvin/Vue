@@ -69,7 +69,7 @@ export default {
   },
   methods: {
     backTop(x, y, time = 300) {
-      this.scroll.scrollTo(x, y, time);
+      this.scrollTo(x, y, time);
     },
     finishPullUp() {
       /**
@@ -84,6 +84,12 @@ export default {
     refresh() {
       // 重新计算滚动区域高度（DOM变化后调用，确保滚动正确）
       this.scroll.refresh();
+    },
+    getScrollY(){
+      return this.scroll.y;
+    },
+    scrollTo(x, y, time = 300) {
+      this.scroll.scrollTo(x, y, time);
     }
   },
 }
