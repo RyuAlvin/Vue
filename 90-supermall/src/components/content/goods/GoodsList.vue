@@ -1,7 +1,7 @@
 <template>
   <div class="goods-list">
     <!-- 遍历循环父组件传来的list数据，并传递给GoodsListItem组件 -->
-    <goods-list-item v-for="(item, index) in goods" :key="index" :item="item"></goods-list-item>
+    <goods-list-item v-for="(item, index) in goods" :key="index" :item="item" @click.native="goToDetail(item.iid)"></goods-list-item>
   </div>
 </template>
 
@@ -19,7 +19,12 @@ export default {
       type: Array,
       default: []
     }
-  }
+  },
+  methods: {
+    goToDetail(iid) {
+      this.$router.push(`detail/${iid}`);
+    }
+  },
 }
 </script>
 
