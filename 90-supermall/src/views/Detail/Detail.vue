@@ -1,21 +1,28 @@
 <template>
   <div id="detail">
     <detail-nav-bar/>
-    <scroll class="content">
+    <scroll class="content"
+    ref="scroll"
+    :probe-type="probeType" 
+    :pull-up-load="pullUpLoad"
+    @pullingUp="pullingUp">
       <detail-swiper :images="topImages"/>
       <detail-base-info :goods="goods"/>
       <detail-shop-info :shop="shop"/>
+      <detail-goods-info :detail-info="detailInfo" @imgLoad="imgLoad"/>
     </scroll>
   </div>
 </template>
 
 <script>
 import DetailNavBar from './childComps/DetailNavBar.vue';
+import Scroll from '@/components/common/scroll/Scroll.vue';
 import DetailSwiper from './childComps/DetailSwiper.vue';
 import DetailBaseInfo from './childComps/DetailBaseInfo.vue';
-import { getDetailData, Goods, Shop } from '@/network/detail';
 import DetailShopInfo from './childComps/DetailShopInfo.vue';
-import Scroll from '@/components/common/scroll/Scroll.vue';
+import DetailGoodsInfo from './childComps/DetailGoodsInfo.vue';
+
+import { getDetailData, Goods, Shop } from '@/network/detail';
 
 export default {
   name: 'Detail',
@@ -24,14 +31,18 @@ export default {
     DetailSwiper,
     DetailBaseInfo,
     DetailShopInfo,
+    DetailGoodsInfo,
     Scroll
   },
   data() {
     return {
       id: null,
+      probeType: 3,
+      pullUpLoad: true,
       topImages: [],
       goods: {},
-      shop: {}
+      shop: {},
+      detailInfo: {}
     }
   },
   created() {
@@ -48,7 +59,23 @@ export default {
       this.goods = new Goods(data.itemInfo, data.columns, data.shopInfo.services);
       // 获取店铺信息
       this.shop = new Shop(data.shopInfo);
+      // 获取商品信息
+      this.detailInfo = data.detailInfo;
     })
+  },
+  methods: {
+    imgLoad() {
+      this.$refs.scroll.refresh();
+    },
+    pullingUp() {
+      /**
+       * 重新计算滚动区域高度
+       * 为什么需要重新计算滚动区域高度？
+       *   因为异步请求的数据中包含会影响滚动区域高度的内容（图片等），
+       *   所以在保证所有的数据都已请求完成，并反映到DOM上后，需要重新计算，确保滚动最新的滚动区域以适应最新的内容页
+       */
+      this.$refs.scroll.refresh();
+    },
   },
 }
 </script>
