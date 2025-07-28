@@ -40,11 +40,12 @@ export default {
      *    可以用到Vue中的混入mixin，将相同的代码抽取作为一个混入对象，在Home和Detail中分别混入复用。
      */
     imgLoad() {
-      if(this.$route.path.includes('home')) {
-        this.$bus.$emit('homeItemImgLoad');
-      } else if(this.$route.path.includes('detail')) {
-        this.$bus.$emit('detailItemImgLoad');
-      }
+      // if(this.$route.path.includes('home')) {
+      //   this.$bus.$emit('homeItemImgLoad');
+      // } else if(this.$route.path.includes('detail')) {
+      //   this.$bus.$emit('detailItemImgLoad');
+      // }
+      this.$bus.$emit('itemImgLoad');
     }
   },
   computed: {

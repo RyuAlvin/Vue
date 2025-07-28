@@ -29,7 +29,9 @@ import DetailCommentInfo from './childComps/DetailCommentInfo.vue';
 import DetailRecommendInfo from './childComps/DetailRecommendInfo.vue';
 
 import { getDetailData, getRecommend, Goods, Shop, GoodsParam } from '@/network/detail';
-import { debounce } from '@/common/utils';
+
+// 导入混入
+import { itemImgLoadListenerMixin } from '@/common/mixin';
 
 export default {
   name: 'Detail',
@@ -44,6 +46,8 @@ export default {
     DetailCommentInfo,
     DetailRecommendInfo
   },
+  // 引入混入
+  mixins: [ itemImgLoadListenerMixin ],
   data() {
     return {
       id: null,
@@ -86,12 +90,9 @@ export default {
       this.recommendList = res.data.list;
     })
   },
-  mounted() {
-    const newRefresh = debounce(this.$refs.scroll.refresh, 50);
-    this.$bus.$on('detailItemImgLoad', () => {
-      console.log('detailItemImgLoad');
-      newRefresh();
-    });
+  beforeDestroy() {
+    // 组件销毁前，解除对图片加载完成事件的监听
+    this.$bus.$off('itemImgLoad', this.refreshScrollHeightMet);
   },
   methods: {
     imgLoad() {

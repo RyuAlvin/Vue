@@ -48,10 +48,14 @@ import Scroll from '@/components/common/scroll/Scroll.vue';
 import BackTop from '@/components/content/backTop/BackTop.vue';
 
 import { getHomeMultiData, getHomeGoods } from '@/network/home';
-import { debounce } from '@/common/utils';
+
+// 导入混入
+import { itemImgLoadListenerMixin } from '@/common/mixin';
 
 export default {
   name: 'Home',
+  // 引入混入
+  mixins: [ itemImgLoadListenerMixin ],
   data() {
     return {
       banners: [],
@@ -110,92 +114,6 @@ export default {
      this.getHomeGoods('pop');
      this.getHomeGoods('new');
   },
-  mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh, 50);
-    /**
-     * 为什么要将监听itemImgLoad事件的操作放在mounted中执行？
-     *   因为需要访问this.$refs.scroll，
-     *   而在created钩子函数中，只是Vue实例被创建，还没有将模板编译成真正的DOM节点，
-     *   此时去访问this.$refs.scroll获取scroll组件是无法获取的。
-     * 
-     * 1、Better-Scroll在决定有多少区域可以滚动时，是根据scrollerHeight属性决定
-     *    1.1、scrollerHeight属性是根据Better-Scroll的content中的子组件的高度
-     *    1.2、但是我们的首页中，刚开始在计算scrollerHeight属性时，是没有将图片计算在内的
-     *    1.3、后来图片加载进来之后有了新的高度，但是scrollerHeight属性并没有进行更新，所以滚动出了问题
-     * 2、如何解决这个问题？
-     *    2.1、监听每一张图片是否加载完成，只要有一张图片加载完成了，执行一次refresh()
-     *    2.2、如何监听图片加载完成了？
-     *         原生的js监听图片：img.onload = function() { ... }
-     *         vue中监听：@load = '方法'
-     *    2.3、调用scroll的refresh()
-     */
-    this.$bus.$on('homeItemImgLoad', () => {
-      console.log('homeItemImgLoad');
-      /**
-       * 这里的refresh将会执行30次，因为一次数据的获取有30个Item，针对每个Item里的image都会执行refresh
-       */
-      // this.$refs.scroll.refresh();
-
-      refresh();
-
-      /**
-       * 上拉加载更多总结：
-       * 
-       * 1、在Scroll组件中添加上拉加载属性（给父组件开放一个窗口）
-       * 2、在Scroll组件的mounted钩子函数中监听上拉加载事件
-       * 	  一旦被触发，则emit给父组件
-       * 3、父组件执行上拉加载更多的回调
-       * 	  a、请求数据
-       * 	  b、获取到数据后执行scroll的finishPullup（相当于释放锁）
-       * 	  c、执行scroll的refresh（重新计算滚动高度）
-       * 4、但是请求到的数据中，每一个item的img完全加载成功的时机各不相同，
-       *    这就造成了一个问题：以下两个时机的滚动高度不一定是相同的
-       *      a、获取到数据后执行scroll的refresh
-       *    	b、所有数据item里的img全部加载成功
-       * 5、所以我们需要在每一个img加载成功后执行scroll的refresh
-       * 6、但是img所在组件和scroll都是不同的子组件，不同的子组件要如何通信？
-       *      a、vuex
-       *      b、事件总线
-       * 7、在这里通过事件总线实现子组件之间的通信，步骤如下：
-       * 	  a、在main.js中，给Vue原型注册事件总线：
-       *       Vue.prototype.$bus = new Vue();
-       * 	  b、在每个img的load事件中，通过事件总线发送图片加载成功的通知
-       * 	  c、在Home组件中的mounted钩子函数中，通过事件总线监听图片加载成功的通知
-       * 	  d、Home组件中一旦接收到图片加载成功的通知，则调用scroll的refresh
-       * 8、但是这里又有一个新的问题：
-       *    如果有大量的图片，每一个图片加载完成都需要执行一次refresh的话，会频繁刷新高度，影响性能。
-       *    按临界点来考虑的话，理想状态我们只需要最后一张加载完成的图片回调refresh就可以。
-       *    可我们无法掌握最后一次加载完成的时机，我们只能保证在一定的时间内尽量少地执行refresh。
-       *    这时候，我们就需要一个防抖动函数。
-       * 9、防抖动函数（利用闭包完成）：
-       * 	  a、代码结构：
-       * 	     定义一个防抖动函数，
-       * 	     内部定义一个timer变量和一个内部函数，
-       * 	     内部函数引用timer，保存timer的作用域链，形成闭包结构。
-       * 	     内部函数中开启定时器，回调中执行refresh
-       * 	     将内部函数返回。
-       * 	  b、执行逻辑：
-       * 	     第一张图片加载完成时，
-       * 	   		 timer=null，开启一个计时器，赋值给timer
-       * 	     第二张图片加载完成时，
-       * 	   	 	 此时计时器的时间还没走完，
-       * 	   		 清空timer（即timer=null），
-       * 	   		 开启一个新的计时器，赋值给timer
-       * 	     ...
-       * 	     第n张图片加载完成时，
-       * 	   		 此时计时器的时间还没走完，
-       * 	   		 清空timer（即timer=null），
-       * 	   		 开启一个新的计时器，赋值给timer
-       * 	     ...
-       * 	     第m张图片加载完成时，
-       * 	     	 此时计时器的时间已经走完，并且执行了回调refresh函数，重新计算了滚动高度
-       * 	   		 清空timer（即timer=null），
-       * 	     	 开启一个新的计时器，赋值给timer
-       * 	     ...
-       * 	     重复以上操作
-       */
-    });
-  },
   activated() {
     // 激活时创建轮播图组件
     this.showSwiper = true;
@@ -203,12 +121,16 @@ export default {
     this.$refs.scroll.scrollTo(0, this.scrollY, 0);
     // 滚动到对应位置以后，刷新高度
     this.$refs.scroll.refresh();
+    // Home去别组件，再回到Home的时候，应该重新加载对该事件的监听
+    this.$bus.$on('itemImgLoad', this.refreshScrollHeightMet);
   },
   deactivated() {
     // 失活时销毁轮播图组件
     this.showSwiper = false;
     // 失活时，记录实时滚动高度
     this.scrollY = this.$refs.scroll.getScrollY();
+    // 失活时，解除对图片加载完成事件的监听
+    this.$bus.$off('itemImgLoad', this.refreshScrollHeightMet);
   },
   methods: {
     getHomeMultiData() {
