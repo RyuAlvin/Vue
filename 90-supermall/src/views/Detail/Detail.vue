@@ -29,6 +29,7 @@ import DetailCommentInfo from './childComps/DetailCommentInfo.vue';
 import DetailRecommendInfo from './childComps/DetailRecommendInfo.vue';
 
 import { getDetailData, getRecommend, Goods, Shop, GoodsParam } from '@/network/detail';
+import { debounce } from '@/common/utils';
 
 export default {
   name: 'Detail',
@@ -83,9 +84,14 @@ export default {
     
     getRecommend().then(res => {
       this.recommendList = res.data.list;
-      // console.log(this.recommendList);
     })
-      
+  },
+  mounted() {
+    const newRefresh = debounce(this.$refs.scroll.refresh, 50);
+    this.$bus.$on('detailItemImgLoad', () => {
+      console.log('detailItemImgLoad');
+      newRefresh();
+    });
   },
   methods: {
     imgLoad() {

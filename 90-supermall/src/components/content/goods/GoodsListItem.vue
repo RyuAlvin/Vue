@@ -20,8 +20,31 @@ export default {
     }
   },
   methods: {
+    /**
+     * 1、Home和Detail组件都要做的操作：在图片完全加载时，刷新可滚动高度
+     * 2、图片完全加载时，通过事件总线触发itemImgLoad事件
+     * 3、由于Home和Detai组件都对itemImgLoad事件进行监听，所以需要防止重复触发。
+     *    解决方式一：通过路由区分，触发不同的事件
+     *                路由为Home的时候触发homeItemImgLoad事件
+     *                路由为Detai的时候触发detailItemImgLoad事件
+     *    解决方式二：图片完全加载时触发itemImgLoad事件
+     *                Home组件：
+     *                  在挂载时，通过事件总线监听itemImgLoad事件，执行回调，防抖动地刷新滚动高度。
+     *                  在失活时，手动移除对itemImgLoad事件的监听。
+     *                Detail组件：
+     *                  在挂载时，和Home组件做的事一样。
+     *                  在销毁前，手动移除对itemImgLoad事件的监听。
+     * 4、从以上解决方式二可以看出，不管是在Home还是Detail中，
+     *    对于itemImgLoad事件的监听以及手动解除，其实操作都是一样的。
+     *    为了防止同样写同样的代码，我们需要想办法对其进行抽取和复用。
+     *    可以用到Vue中的混入mixin，将相同的代码抽取作为一个混入对象，在Home和Detail中分别混入复用。
+     */
     imgLoad() {
-      this.$bus.$emit('itemImgLoad');
+      if(this.$route.path.includes('home')) {
+        this.$bus.$emit('homeItemImgLoad');
+      } else if(this.$route.path.includes('detail')) {
+        this.$bus.$emit('detailItemImgLoad');
+      }
     }
   },
   computed: {

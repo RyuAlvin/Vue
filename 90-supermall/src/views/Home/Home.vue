@@ -129,7 +129,8 @@ export default {
      *         vue中监听：@load = '方法'
      *    2.3、调用scroll的refresh()
      */
-    this.$bus.$on('itemImgLoad', () => {
+    this.$bus.$on('homeItemImgLoad', () => {
+      console.log('homeItemImgLoad');
       /**
        * 这里的refresh将会执行30次，因为一次数据的获取有30个Item，针对每个Item里的image都会执行refresh
        */
