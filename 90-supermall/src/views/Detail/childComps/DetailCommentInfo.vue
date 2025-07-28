@@ -38,8 +38,12 @@
     },
     filters: {
 		  showDate: function (value) {
-        let date = new Date(value*1000);
-        return formatDate(date, 'yyyy-MM-dd')
+        /**
+         * 一般从服务器收到的是时间戳，即unix时间元年开始到现在的秒数
+         * 将秒数转成毫秒数，创建时间对象，再通过时间对象获取时间格式化字符串
+         */
+        let date = new Date(value * 1000);
+        return formatDate(date, 'yyyy-MM-dd hh:mm:ss')
       }
     }
 	}
