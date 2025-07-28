@@ -25,6 +25,9 @@ export default {
     }
   },
   computed: {
+    /**
+     * 用计算属性屏蔽各个组件在使用GoodsList的时候，传入数据的差异
+     */
     showImg() {
       return this.item.image || this.item.show.img;
     }
