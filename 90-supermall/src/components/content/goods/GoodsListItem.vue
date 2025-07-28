@@ -1,7 +1,7 @@
 <template>
   <div class="goods-item">
     <!-- Vue中自带的load方法，用于监听图片加载完成的操作 -->
-    <img :src="item.show.img" @load="imgLoad"/>
+    <img :src="showImg" @load="imgLoad"/>
     <div class="goods-info">
       <p>{{ item.title }}</p>
       <span class="price">{{ item.price }}</span>
@@ -22,6 +22,11 @@ export default {
   methods: {
     imgLoad() {
       this.$bus.$emit('itemImgLoad');
+    }
+  },
+  computed: {
+    showImg() {
+      return this.item.image || this.item.show.img;
     }
   }
 }

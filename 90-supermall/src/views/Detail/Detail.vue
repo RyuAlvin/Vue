@@ -12,6 +12,7 @@
       <detail-goods-info :detail-info="detailInfo" @imgLoad="imgLoad"/>
       <detail-param-info ref="param" :param-info="paramInfo"/>
       <detail-comment-info :comment-info="commentInfo"/>
+      <detail-recommend-info :recommend-list="recommendList"/>
     </scroll>
   </div>
 </template>
@@ -25,8 +26,9 @@ import DetailShopInfo from './childComps/DetailShopInfo.vue';
 import DetailGoodsInfo from './childComps/DetailGoodsInfo.vue';
 import DetailParamInfo from './childComps/DetailParamInfo.vue';
 import DetailCommentInfo from './childComps/DetailCommentInfo.vue';
+import DetailRecommendInfo from './childComps/DetailRecommendInfo.vue';
 
-import { getDetailData, Goods, Shop, GoodsParam } from '@/network/detail';
+import { getDetailData, getRecommend, Goods, Shop, GoodsParam } from '@/network/detail';
 
 export default {
   name: 'Detail',
@@ -38,7 +40,8 @@ export default {
     DetailShopInfo,
     DetailGoodsInfo,
     DetailParamInfo,
-    DetailCommentInfo
+    DetailCommentInfo,
+    DetailRecommendInfo
   },
   data() {
     return {
@@ -50,7 +53,8 @@ export default {
       shop: {},
       detailInfo: {},
       paramInfo: {},
-      commentInfo: {}
+      commentInfo: {},
+      recommendList: []
     }
   },
   created() {
@@ -75,7 +79,13 @@ export default {
       if (data.rate.list) {
         this.commentInfo = data.rate.list[0];
       }
+    });
+    
+    getRecommend().then(res => {
+      this.recommendList = res.data.list;
+      // console.log(this.recommendList);
     })
+      
   },
   methods: {
     imgLoad() {
