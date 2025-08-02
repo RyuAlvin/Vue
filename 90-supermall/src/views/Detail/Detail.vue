@@ -9,7 +9,7 @@
       <detail-swiper :images="topImages"/>
       <detail-base-info :goods="goods"/>
       <detail-shop-info :shop="shop"/>
-      <detail-goods-info :detail-info="detailInfo" @imgLoad="imgLoad"/>
+      <detail-goods-info :detail-info="detailInfo" @img-load="imgLoad"/>
       <detail-param-info ref="param" :param-info="paramInfo"/>
       <detail-comment-info :comment-info="commentInfo"/>
       <detail-recommend-info :recommend-list="recommendList"/>
