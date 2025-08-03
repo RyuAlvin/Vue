@@ -115,6 +115,32 @@ export default {
     imgLoad() {
       // 防抖式地刷新滚动高度
       this.refreshScrollHeightMet();
+      /**
+       * 点击标题滚动到对应内容总结
+       * 【实现要点】
+       * 1、在数据加载完成后记录对应内容块的offsetTop
+       * 2、点击标题时获取对应索引
+       * 3、通过索引获取对应内容块的offsetTop
+       * 
+       * 【实现步骤】
+       * 1、获取标题对应内容块的offsetTop
+       *    a、不能在created中获取对应内容块的offsetTop
+       *       因为在created中只能获取到数据，组件还未渲染，
+       *       无法获取元素，更无法获取到到offsetTop。
+       *    b、可通过this.$nextTick()解决上述问题
+       *       this.$nextTick(() => console.log(this.$refs.tab.$el.offsetTop))
+       *       nextTick主要用于处理DOM更新后的操作
+       *       但是，商品数据还未加载完成的时候，该时间点获取到的并不是最终的offsetTop
+       *    c、可在updated中获取对应内容块的offsetTop
+       *       updated的数据时最新的，页面也是最新的，即页面和数据保持同步
+       *       但是，每一次数据变化，重新渲染的时机，都会取重新获取offsetTop，更新太频繁
+       *    d、mounted中也不行，还未获取到数据（因为获取数据时异步的），更不存在完全渲染
+       *    e、最优解是在图片加载完成后，延迟获取高度（通过抖动函数）
+       * 2、将获取到对应内容块的offsetTop保存到data中（类型为数组）
+       * 3、在导航栏组件中，点击不同标题触发事件，并传递标题的索引
+       * 4、Detail组件中，接收标题点击事件，根据索引去data中获取offsetTop，
+       *    通过scroll中的scrollTo方法滚动至对应内容块（设置滚动延迟时间）
+       */
       // 防抖式地刷新各个标题的offsetTop
       this.refreshOffsetTopMet();
     },
