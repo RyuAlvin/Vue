@@ -107,6 +107,8 @@ export default {
       this.navTitleYs.push(this.$refs.comment.$el.offsetTop);
       // 推荐标题对应的offsetTop
       this.navTitleYs.push(this.$refs.recommend.$el.offsetTop);
+      // 在末尾存储一个最大数值，简化判断条件
+      this.navTitleYs.push(Number.MAX_VALUE);
     }, 200)
   },
   beforeDestroy() {
@@ -168,13 +170,22 @@ export default {
        */
       const length = this.navTitleYs.length;
       const positionY = -position.y;
-      let idx;
-      for(let i in this.navTitleYs) {
-        idx = parseInt(i);
-        if((this.currentIndex !== idx) && (
-          ((idx === length - 1) && (positionY >= this.navTitleYs[idx])) || (
-              (idx < length - 1) && (this.navTitleYs[idx] <= positionY && positionY < this.navTitleYs[idx + 1])))) {
-            this.currentIndex = idx;
+      // let idx;
+      // for(let i in this.navTitleYs) {
+      //   idx = parseInt(i);
+      //   if((this.currentIndex !== idx) && (
+      //     ((idx === length - 1) && (positionY >= this.navTitleYs[idx])) || (
+      //         (idx < length - 1) && (this.navTitleYs[idx] <= positionY && positionY < this.navTitleYs[idx + 1])))) {
+      //       this.currentIndex = idx;
+      //       console.log(this.currentIndex);
+      //       this.$refs.nav.currentIndex = this.currentIndex;
+      //   }
+      // }
+      // 末尾的最大数值不参与循环，只用于简化判断
+      for (let i = 0; i < length - 1; i++) {
+        if((this.currentIndex !== i) 
+          && (this.navTitleYs[i] <= positionY && positionY < this.navTitleYs[i + 1])) {
+            this.currentIndex = i;
             console.log(this.currentIndex);
             this.$refs.nav.currentIndex = this.currentIndex;
         }
