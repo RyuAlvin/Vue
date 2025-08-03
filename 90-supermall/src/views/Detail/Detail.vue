@@ -15,6 +15,7 @@
       <detail-comment-info ref="comment" :comment-info="commentInfo"/>
       <detail-recommend-info ref="recommend" :recommend-list="recommendList"/>
     </scroll>
+    <detail-bottom-bar/>
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import DetailGoodsInfo from './childComps/DetailGoodsInfo.vue';
 import DetailParamInfo from './childComps/DetailParamInfo.vue';
 import DetailCommentInfo from './childComps/DetailCommentInfo.vue';
 import DetailRecommendInfo from './childComps/DetailRecommendInfo.vue';
+import DetailBottomBar from './childComps/DetailBottomBar.vue';
 
 import { getDetailData, getRecommend, Goods, Shop, GoodsParam } from '@/network/detail';
 
@@ -46,7 +48,8 @@ export default {
     DetailGoodsInfo,
     DetailParamInfo,
     DetailCommentInfo,
-    DetailRecommendInfo
+    DetailRecommendInfo,
+    DetailBottomBar
   },
   // 引入混入
   mixins: [ itemImgLoadListenerMixin ],
@@ -214,6 +217,6 @@ export default {
 }
 
 .content {
-  height: calc(100% - 44px);
+  height: calc(100% - 44px - 49px);
 }
 </style>
