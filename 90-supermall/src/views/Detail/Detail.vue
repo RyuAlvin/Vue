@@ -1,11 +1,12 @@
 <template>
   <div id="detail">
-    <detail-nav-bar @nav-click="navClick"/>
+    <detail-nav-bar ref="nav" @nav-click="navClick"/>
     <scroll class="content"
     ref="scroll"
     :probe-type="probeType" 
     :pull-up-load="pullUpLoad"
-    @pullingUp="pullingUp">
+    @pullingUp="pullingUp"
+    @scroll="contentScroll">
       <detail-swiper :images="topImages"/>
       <detail-base-info :goods="goods"/>
       <detail-shop-info :shop="shop"/>
@@ -62,7 +63,8 @@ export default {
       commentInfo: {},
       recommendList: [],
       navTitleYs: [],
-      refreshOffsetTopMet: null
+      refreshOffsetTopMet: null,
+      currentIndex: 0
     }
   },
   created() {
@@ -155,6 +157,28 @@ export default {
     },
     navClick(index) {
       this.$refs.scroll.scrollTo(0, -this.navTitleYs[index], 500); 
+    },
+    contentScroll(position) {
+      /**
+       * 滚动内容显示对应标题
+       * 3 <= i
+       * 2 <= i < 3
+       * 1 <= i < 2
+       * 0 <= i < 1
+       */
+      const length = this.navTitleYs.length;
+      const positionY = -position.y;
+      let idx;
+      for(let i in this.navTitleYs) {
+        idx = parseInt(i);
+        if((this.currentIndex !== idx) && (
+          ((idx === length - 1) && (positionY >= this.navTitleYs[idx])) || (
+              (idx < length - 1) && (this.navTitleYs[idx] <= positionY && positionY < this.navTitleYs[idx + 1])))) {
+            this.currentIndex = idx;
+            console.log(this.currentIndex);
+            this.$refs.nav.currentIndex = this.currentIndex;
+        }
+      }
     }
   },
 }
