@@ -16,7 +16,7 @@ export const itemImgLoadListenerMixin = {
   mounted() {
     console.log('mixin ---> itemImgLoad');
     // $refs 是在组件 挂载（mounted）之后 才会被填充
-    this.refreshScrollHeightMet = () => debounce(this.$refs.scroll.refresh, 50);
+    this.refreshScrollHeightMet = () => debounce(this.$refs.scroll.refresh, 200);
     this.$bus.$on('itemImgLoad', this.refreshScrollHeightMet);
   },
 }

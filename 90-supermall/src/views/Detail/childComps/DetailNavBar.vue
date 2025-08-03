@@ -44,6 +44,8 @@ export default {
   methods: {
     navClick(index) {
       this.currentIndex = index;
+      // 触发标题点击事件，并传递当前被点击的标题索引
+      this.$emit('nav-click', index);
     },
     back() {
       // this.$router.go(-1);
