@@ -61,7 +61,7 @@ export default {
       paramInfo: {},
       commentInfo: {},
       recommendList: [],
-      navTitleYs: [0, 1000, 2000, 3000],
+      navTitleYs: [],
       refreshOffsetTopMet: null
     }
   },
