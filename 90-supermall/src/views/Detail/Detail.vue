@@ -1,6 +1,6 @@
 <template>
   <div id="detail">
-    <detail-nav-bar/>
+    <detail-nav-bar @nav-click="navClick"/>
     <scroll class="content"
     ref="scroll"
     :probe-type="probeType" 
@@ -11,8 +11,8 @@
       <detail-shop-info :shop="shop"/>
       <detail-goods-info :detail-info="detailInfo" @img-load="imgLoad"/>
       <detail-param-info ref="param" :param-info="paramInfo"/>
-      <detail-comment-info :comment-info="commentInfo"/>
-      <detail-recommend-info :recommend-list="recommendList"/>
+      <detail-comment-info ref="comment" :comment-info="commentInfo"/>
+      <detail-recommend-info ref="recommend" :recommend-list="recommendList"/>
     </scroll>
   </div>
 </template>
@@ -32,6 +32,7 @@ import { getDetailData, getRecommend, Goods, Shop, GoodsParam } from '@/network/
 
 // 导入混入
 import { itemImgLoadListenerMixin } from '@/common/mixin';
+import { debounce } from '@/common/utils';
 
 export default {
   name: 'Detail',
@@ -59,7 +60,9 @@ export default {
       detailInfo: {},
       paramInfo: {},
       commentInfo: {},
-      recommendList: []
+      recommendList: [],
+      navTitleYs: [0, 1000, 2000, 3000],
+      refreshOffsetTopMet: null
     }
   },
   created() {
@@ -89,6 +92,20 @@ export default {
     getRecommend().then(res => {
       this.recommendList = res.data.list;
     })
+
+    // 创建刷新offsetTop的防抖函数
+    this.refreshOffsetTopMet = debounce(() => {
+      // 首先清空保存offsetTop的数组变量
+      this.navTitleYs = [];
+      // 商品标题对应的offsetTop
+      this.navTitleYs.push(0);
+      // 参数标题对应的offsetTop
+      this.navTitleYs.push(this.$refs.param.$el.offsetTop);
+      // 评论标题对应的offsetTop
+      this.navTitleYs.push(this.$refs.comment.$el.offsetTop);
+      // 推荐标题对应的offsetTop
+      this.navTitleYs.push(this.$refs.recommend.$el.offsetTop);
+    }, 200)
   },
   beforeDestroy() {
     // 组件销毁前，解除对图片加载完成事件的监听
@@ -96,7 +113,10 @@ export default {
   },
   methods: {
     imgLoad() {
-      this.$refs.scroll.refresh();
+      // 防抖式地刷新滚动高度
+      this.refreshScrollHeightMet();
+      // 防抖式地刷新各个标题的offsetTop
+      this.refreshOffsetTopMet();
     },
     pullingUp() {
       /**
@@ -107,6 +127,9 @@ export default {
        */
       this.$refs.scroll.refresh();
     },
+    navClick(index) {
+      this.$refs.scroll.scrollTo(0, -this.navTitleYs[index], 500); 
+    }
   },
 }
 </script>
