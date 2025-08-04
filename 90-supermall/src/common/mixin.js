@@ -20,3 +20,23 @@ export const itemImgLoadListenerMixin = {
     this.$bus.$on('itemImgLoad', this.refreshScrollHeightMet);
   },
 }
+
+import BackTop from "@/components/content/backTop/BackTop.vue";
+export const backTopMixin = {
+  data() {
+    return {
+      isShowBackTop: false
+    }
+  },
+  components: {
+    BackTop
+  },
+  methods: {
+    showBackTop(options) {
+      this.isShowBackTop = -options.y > 700 ? true : false; 
+    },
+    backTop() {
+      this.$refs.scroll.backTop(0, 0, 500);
+    },
+  },
+}

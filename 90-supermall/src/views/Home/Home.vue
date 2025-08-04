@@ -45,17 +45,16 @@ import NavBar from '@/components/common/navBar/NavBar.vue';
 import TabControl from '@/components/content/tabControl/TabControl.vue';
 import GoodsList from '@/components/content/goods/GoodsList.vue';
 import Scroll from '@/components/common/scroll/Scroll.vue';
-import BackTop from '@/components/content/backTop/BackTop.vue';
 
 import { getHomeMultiData, getHomeGoods } from '@/network/home';
 
 // 导入混入
-import { itemImgLoadListenerMixin } from '@/common/mixin';
+import { itemImgLoadListenerMixin, backTopMixin } from '@/common/mixin';
 
 export default {
   name: 'Home',
   // 引入混入
-  mixins: [ itemImgLoadListenerMixin ],
+  mixins: [ itemImgLoadListenerMixin, backTopMixin ],
   data() {
     return {
       banners: [],
@@ -68,7 +67,6 @@ export default {
       currentType: 'pop',
       probeType: 3,
       pullUpLoad: true,
-      isShowBackTop: false,
       tabOffsetTop: 0,
       isTabFixed: false,
       scrollY: 0,
@@ -87,8 +85,7 @@ export default {
     NavBar,
     TabControl,
     GoodsList,
-    Scroll,
-    BackTop
+    Scroll
   },
   created() {
     /**
@@ -168,9 +165,6 @@ export default {
       this.$refs.tabControl1.currentIndex = index;
       this.$refs.tabControl2.currentIndex = index;
     },
-    backTop() {
-      this.$refs.scroll.backTop(0, 0, 500);
-    },
     contentScroll(options) {
       // console.log('options.y ---> ', options.y);
       /**
@@ -182,7 +176,7 @@ export default {
        *      大于1000的时候，动态显示BackTop组件、
        *      小于的时候，动态隐藏BackTop组件。
        */
-      this.isShowBackTop = -options.y > 700 ? true : false; 
+      this.showBackTop(options);
 
       /**
        * 吸顶效果实现思想
