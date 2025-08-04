@@ -16,6 +16,8 @@
       <detail-recommend-info ref="recommend" :recommend-list="recommendList"/>
     </scroll>
     <detail-bottom-bar/>
+    <!-- 对于自定义组件，click事件无效。需要使用.native修饰符才能调用原生的click事件 -->
+    <back-top @click.native="backTop" v-show="isShowBackTop"/>
   </div>
 </template>
 
@@ -34,7 +36,7 @@ import DetailBottomBar from './childComps/DetailBottomBar.vue';
 import { getDetailData, getRecommend, Goods, Shop, GoodsParam } from '@/network/detail';
 
 // 导入混入
-import { itemImgLoadListenerMixin } from '@/common/mixin';
+import { itemImgLoadListenerMixin, backTopMixin } from '@/common/mixin';
 import { debounce } from '@/common/utils';
 
 export default {
@@ -52,7 +54,7 @@ export default {
     DetailBottomBar
   },
   // 引入混入
-  mixins: [ itemImgLoadListenerMixin ],
+  mixins: [ itemImgLoadListenerMixin, backTopMixin ],
   data() {
     return {
       id: null,
@@ -193,6 +195,9 @@ export default {
             this.$refs.nav.currentIndex = this.currentIndex;
         }
       }
+
+      // 是否显示回到顶部
+      this.showBackTop(position);
     }
   },
 }
