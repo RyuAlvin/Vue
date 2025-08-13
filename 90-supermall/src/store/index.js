@@ -10,6 +10,8 @@
  */
 import Vue from "vue";
 import Vuex from "vuex"
+import actions from "./actions";
+import mutations from "./mutations";
 
 Vue.use(Vuex);
 
@@ -24,32 +26,14 @@ Vue.use(Vuex);
  *       购物车中不存在该商品，则调用mutaions中的添加商品操作
  * 3、各组件中通过dispatch调用actions（不直接调用mutations）
  */
+
+const state = {
+  cartList: []
+}
 const store = new Vuex.Store({
-  state: {
-    cartList: []
-  },
-  mutations: {
-    // 增加数量
-    addCounter(state, payload) {
-      payload.count++;
-    },
-    // 添加商品
-    addProduct(state, payload) {
-      state.cartList.push(payload);
-    }
-  },
-  actions: {
-    // context => { state, getters, commit, dispatch, rootState, rootGetters}
-    addToCart({state, commit}, payload) {
-      const product = state.cartList.find((item) => item.id === payload.id);
-      if(product) {
-        commit('addCounter', product);
-      } else {
-        payload.count = 1;
-        commit('addProduct', payload);
-      }
-    }
-  }
+  state,
+  mutations,
+  actions
 })
 
 export default store;
