@@ -15,7 +15,7 @@
       <detail-comment-info ref="comment" :comment-info="commentInfo"/>
       <detail-recommend-info ref="recommend" :recommend-list="recommendList"/>
     </scroll>
-    <detail-bottom-bar/>
+    <detail-bottom-bar @addToCart="addToCart"/>
     <!-- 对于自定义组件，click事件无效。需要使用.native修饰符才能调用原生的click事件 -->
     <back-top @click.native="backTop" v-show="isShowBackTop"/>
   </div>
@@ -198,6 +198,25 @@ export default {
 
       // 是否显示回到顶部
       this.showBackTop(position);
+    },
+    addToCart() {
+      /**
+       * 添加到购物车事件触发：
+       * 1、点击底部导航栏【加入购物车】按钮
+       * 2、向父组件触发事件
+       * 3、父组件Detail.vue处理事件
+       * 4、创建要在购物车中显示的商品对象
+       * 5、通过调用vuex.mutations改变state中的数据
+       */
+      // 创建对象
+      const productObj = {};
+      productObj.id = this.id;
+      productObj.imgURL = this.topImages[0];
+      productObj.title = this.goods.title;
+      productObj.desc = this.goods.desc;
+      productObj.newPrice = this.goods.nowPrice;
+      // 添加至购物车
+      this.$store.commit('addToCart', productObj);
     }
   },
 }
