@@ -216,7 +216,10 @@ export default {
       productObj.desc = this.goods.desc;
       productObj.newPrice = this.goods.nowPrice;
       // 添加至购物车
-      this.$store.commit('addToCart', productObj);
+      // 直接调用Vuex中的mutation
+      // this.$store.commit('addToCart', productObj);
+      // 调用Vuex中的action
+      this.$store.dispatch('addToCart', productObj);
     }
   },
 }
