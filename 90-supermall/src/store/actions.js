@@ -14,6 +14,6 @@ export default {
       commit(ADD_PRODUCT, payload);
     }
 
-    console.log(state.cartList);
+    // console.log(state.cartList);
   }
 }
