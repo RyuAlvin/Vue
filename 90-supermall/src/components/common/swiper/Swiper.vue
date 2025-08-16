@@ -53,14 +53,14 @@
         this.startTimer();
       }, 3000)
     },
-    deactivated() {
+    beforeDestroy() {
       /**
        * 失活时，清除定时器，否则还在handleDom方法还在一直执行，
        * 即寻找id=swiper的元素，往里添加slider元素
        * 由于这里的swiper是存在于父组件Home中，一旦从Home移动到别的标签页（例：Cart）,那么此时就找不到swiper，控制台会报错
        */
-      console.log('Swiper.vue deactived...');
-      clearTimeout(this.timer);
+      console.log('Swiper.vue beforeDestroy...');
+      window.clearTimeout(this.timer);
     },
     methods: {
 		  /**
