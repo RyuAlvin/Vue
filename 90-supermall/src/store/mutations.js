@@ -10,6 +10,7 @@ export default {
   },
   // 添加商品
   [ADD_PRODUCT](state, payload) {
+    payload.checked = true;
     state.cartList.push(payload);
   }
 }
