@@ -17,14 +17,12 @@ export default {
   computed: {
     ...mapGetters(['cartList']),
     checkLength() {
-      return this.$store.state.cartList.filter(item => item.checked).length;
+      return this.cartList.filter(item => item.checked).length;
     },
     totalPrice() {
-      return '￥' + this.$store.state.cartList.filter(item => {
+      return '￥' + this.cartList.filter(item => {
         return item.checked
       }).reduce((prev, val) => {
-        console.log('prev ==>', prev);
-        console.log('val ==>', val);
         return prev + val.newPrice * val.count
       }, 0).toFixed(2);
     }
