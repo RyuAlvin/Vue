@@ -1,6 +1,6 @@
 <template>
   <div class="bottom-menu">
-    <check-button class="select-all"/>
+    <check-button :isChecked="isSelectAll" class="select-all" @click.native="checkClick"/>
     <span class="select-all-title">全选</span>
     <span class="total-price">合计：{{ totalPrice }}</span>
     <span class="buy-product">去计算({{ checkLength }})</span>
@@ -25,8 +25,40 @@ export default {
       }).reduce((prev, val) => {
         return prev + val.newPrice * val.count
       }, 0).toFixed(2);
+    },
+    isSelectAll() {
+      /**
+       * 全部选中为true，只要有一个没选中为false
+       * 遍历，只要找到没有选中的就返回false
+       * filter、find、for...of
+       */
+      // return this.cartList.length > 0 && !(this.cartList.filter(item => !item.checked).length > 0);
+      // return this.cartList.length > 0 && !this.cartList.find(item => !item.checked);
+
+      if(this.cartList.length === 0) return false;
+
+      for(let item of this.cartList) {
+        if(!item.checked) {
+          return false
+        }
+      }
+
+      return true;
     }
-  }
+  },
+  methods: {
+    checkClick() {
+      /**
+       * 在这里不能用 this.cartList.forEach(item => item.checked = !this.isSelectAll);
+       * 因为this.isSelectAll也是通过判断每个item.checked计算得出，会互相影响
+       */
+      if(this.isSelectAll) {
+        this.cartList.forEach(item => item.checked = false);
+      } else {
+        this.cartList.forEach(item => item.checked = true);
+      }
+    }
+  },
 }
 </script>
 
