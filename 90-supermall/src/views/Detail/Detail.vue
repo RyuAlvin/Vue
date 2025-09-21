@@ -219,7 +219,9 @@ export default {
       // 直接调用Vuex中的mutation
       // this.$store.commit('addToCart', productObj);
       // 调用Vuex中的action
-      this.$store.dispatch('addToCart', productObj);
+      this.$store.dispatch('addToCart', productObj).then(res => {
+        console.log(res);
+      })
     }
   },
 }
