@@ -39,6 +39,8 @@ import { getDetailData, getRecommend, Goods, Shop, GoodsParam } from '@/network/
 import { itemImgLoadListenerMixin, backTopMixin } from '@/common/mixin';
 import { debounce } from '@/common/utils';
 
+import { mapActions } from 'vuex';
+
 export default {
   name: 'Detail',
   components: {
@@ -199,6 +201,7 @@ export default {
       // 是否显示回到顶部
       this.showBackTop(position);
     },
+    ...mapActions({ addCart: 'addToCart' }),
     addToCart() {
       /**
        * 添加到购物车事件触发：
@@ -219,7 +222,10 @@ export default {
       // 直接调用Vuex中的mutation
       // this.$store.commit('addToCart', productObj);
       // 调用Vuex中的action
-      this.$store.dispatch('addToCart', productObj).then(res => {
+      // this.$store.dispatch('addToCart', productObj).then(res => {
+      //   console.log(res);
+      // })
+      this.addCart(productObj).then(res => {
         console.log(res);
       })
     }
