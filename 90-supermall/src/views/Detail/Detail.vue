@@ -18,6 +18,7 @@
     <detail-bottom-bar @addToCart="addToCart"/>
     <!-- 对于自定义组件，click事件无效。需要使用.native修饰符才能调用原生的click事件 -->
     <back-top @click.native="backTop" v-show="isShowBackTop"/>
+    <self-toast :message="message" v-show="selfToastShow"/>
   </div>
 </template>
 
@@ -32,6 +33,7 @@ import DetailParamInfo from './childComps/DetailParamInfo.vue';
 import DetailCommentInfo from './childComps/DetailCommentInfo.vue';
 import DetailRecommendInfo from './childComps/DetailRecommendInfo.vue';
 import DetailBottomBar from './childComps/DetailBottomBar.vue';
+import SelfToast from '@/components/common/selfToast/SelfToast.vue';
 
 import { getDetailData, getRecommend, Goods, Shop, GoodsParam } from '@/network/detail';
 
@@ -53,7 +55,8 @@ export default {
     DetailParamInfo,
     DetailCommentInfo,
     DetailRecommendInfo,
-    DetailBottomBar
+    DetailBottomBar,
+    SelfToast
   },
   // 引入混入
   mixins: [ itemImgLoadListenerMixin, backTopMixin ],
@@ -71,7 +74,9 @@ export default {
       recommendList: [],
       navTitleYs: [],
       refreshOffsetTopMet: null,
-      currentIndex: 0
+      currentIndex: 0,
+      message: '',
+      selfToastShow: false
     }
   },
   created() {
@@ -226,7 +231,13 @@ export default {
       //   console.log(res);
       // })
       this.addCart(productObj).then(res => {
-        console.log(res);
+        this.message = res;
+        this.selfToastShow = true;
+
+        setTimeout(() => {
+          this.message = '';
+          this.selfToastShow = false;
+        }, 1500);
       })
     }
   },
