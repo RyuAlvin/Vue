@@ -14,6 +14,26 @@ Vue.config.productionTip = false
 // 创建事件总线并添加到 Vue 原型
 Vue.prototype.$bus = new Vue();
 
+/**
+ * main.js使用插件
+ * => 该插件是一个对象。必须包含实例、虚拟DOM、挂载对象，即：
+ *  1、创建Vue实例
+ *  2、使用渲染函数（createElement）告诉Vue要渲染的DOM元素
+ *  3、将渲染结果挂载到页面上的指定元素
+ * => 该插件制作：
+ *  1、创建vue文件、index.js文件
+ *  2、index.js需要返回一个Vue对象，所以该对象需要提供一个install方法
+ *  3、install方法：
+ *     a、通过Vue.extend创建自定义的Vue的子类，即构造函数
+ *     b、构造函数中定义Vue的数据，方法、计算属性等内容（或直接传入导入的Vue模块）
+ *     c、通过构造函数创建Vue组件实例
+ *     d、将Vue组件实例手动挂载到指定元素上
+ *     e、将该实例的$el添加到document.body上
+ *     f、在Vue的原型上注册组件实例
+ */
+import SelfToast from './components/common/selfToast'
+Vue.use(SelfToast);
+
 new Vue({
   render: h => h(App),
   store,

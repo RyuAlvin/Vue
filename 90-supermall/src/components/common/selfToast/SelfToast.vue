@@ -7,7 +7,7 @@
    4.2、开启定时器，回调中重置message和show 
 -->
 <template>
-  <div class="self-toast">
+  <div class="self-toast" v-show="isShow">
     {{ message }}
   </div>
 </template>
@@ -15,12 +15,30 @@
 <script>
 export default {
   name: 'SelfToast',
-  props: {
-    message: {
-      type: String,
-      default: '哈哈哈'
+  // props: {
+  //   message: {
+  //     type: String,
+  //     default: '哈哈哈'
+  //   }
+  // }
+  data() {
+    return {
+      message: '显示默认内容',
+      isShow: false
     }
-  }
+  },
+  methods: {
+    show(message, duration = 5000) {
+      // console.log('SelfToast.message => ', message);
+      // console.log('SelfToast.duration => ', duration);
+      this.message = message;
+      this.isShow = true;
+      setTimeout(() => {
+        this.message = '';
+        this.isShow = false;
+      }, duration);
+    }
+  },
 }
 </script>
 
@@ -35,5 +53,7 @@ export default {
   color: white;
   /* red green blue alpha(透明度) */
   background-color: rgba(0, 0, 0, 0.75);
+
+  z-index: 999;
 }
 </style>
