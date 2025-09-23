@@ -34,6 +34,20 @@ Vue.prototype.$bus = new Vue();
 import SelfToast from './components/common/selfToast'
 Vue.use(SelfToast);
 
+/**
+ * npm install fastclick@1.0.6 --save
+ * FastClick是一个专门用于解决移动端浏览器点击事件延迟问题的JavaScript库
+ * 问题背景：300ms点击延迟
+ *    为什么存在延迟？
+ *      - 早期移动浏览器为了区分单击和双击缩放操作
+ *      - 浏览器需要等待约300ms来判断用户是单击还是双击
+ *      - 这导致点击操作有明显的延迟感
+ *    受影响的操作：
+ *      element.addEventListener('click', function() { // 不会立即触发 });
+ */
+import FastClick from 'fastclick'
+FastClick.attach(document.body);
+
 new Vue({
   render: h => h(App),
   store,
