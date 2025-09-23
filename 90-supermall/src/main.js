@@ -48,6 +48,15 @@ Vue.use(SelfToast);
 import FastClick from 'fastclick'
 FastClick.attach(document.body);
 
+// npm install vue-lazyload@1.2.6 --save
+import VueLazyload from 'vue-lazyload'
+// 基本配置
+// Vue.use(VueLazyload);
+// 或使用自定义配置
+Vue.use(VueLazyload, {
+  loading: require('assets/img/common/placeholder.svg')
+})
+
 new Vue({
   render: h => h(App),
   store,
