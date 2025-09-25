@@ -62,3 +62,12 @@ new Vue({
   store,
   router
 }).$mount('#app')
+
+/**
+ * 编译打包 npm run build => dist文件夹
+ * cmd 命令进入nginx根文件夹
+ *  启动：start ngi 
+ *  停止：nginx -s stop
+ * nginx.config 默认访问路径为html文件夹下的资源
+ *  可更改访问路径文件夹，或者直接将html下的资源替换
+ */
